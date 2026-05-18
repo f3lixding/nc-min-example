@@ -1,0 +1,7548 @@
+const __root = @This();
+pub const __builtin = @import("std").zig.c_translation.builtins;
+pub const __helpers = @import("std").zig.c_translation.helpers;
+pub const ptrdiff_t = c_long;
+pub const wchar_t = c_int;
+pub const max_align_t = extern struct {
+    __aro_max_align_ll: c_longlong = 0,
+    __aro_max_align_ld: c_longdouble = 0,
+};
+pub const __u_char = u8;
+pub const __u_short = c_ushort;
+pub const __u_int = c_uint;
+pub const __u_long = c_ulong;
+pub const __int8_t = i8;
+pub const __uint8_t = u8;
+pub const __int16_t = c_short;
+pub const __uint16_t = c_ushort;
+pub const __int32_t = c_int;
+pub const __uint32_t = c_uint;
+pub const __int64_t = c_long;
+pub const __uint64_t = c_ulong;
+pub const __int_least8_t = __int8_t;
+pub const __uint_least8_t = __uint8_t;
+pub const __int_least16_t = __int16_t;
+pub const __uint_least16_t = __uint16_t;
+pub const __int_least32_t = __int32_t;
+pub const __uint_least32_t = __uint32_t;
+pub const __int_least64_t = __int64_t;
+pub const __uint_least64_t = __uint64_t;
+pub const __quad_t = c_long;
+pub const __u_quad_t = c_ulong;
+pub const __intmax_t = c_long;
+pub const __uintmax_t = c_ulong;
+pub const __dev_t = c_ulong;
+pub const __uid_t = c_uint;
+pub const __gid_t = c_uint;
+pub const __ino_t = c_ulong;
+pub const __ino64_t = c_ulong;
+pub const __mode_t = c_uint;
+pub const __nlink_t = c_ulong;
+pub const __off_t = c_long;
+pub const __off64_t = c_long;
+pub const __pid_t = c_int;
+pub const __fsid_t = extern struct {
+    __val: [2]c_int = @import("std").mem.zeroes([2]c_int),
+};
+pub const __clock_t = c_long;
+pub const __rlim_t = c_ulong;
+pub const __rlim64_t = c_ulong;
+pub const __id_t = c_uint;
+pub const __time_t = c_long;
+pub const __useconds_t = c_uint;
+pub const __suseconds_t = c_long;
+pub const __suseconds64_t = c_long;
+pub const __daddr_t = c_int;
+pub const __key_t = c_int;
+pub const __clockid_t = c_int;
+pub const __timer_t = ?*anyopaque;
+pub const __blksize_t = c_long;
+pub const __blkcnt_t = c_long;
+pub const __blkcnt64_t = c_long;
+pub const __fsblkcnt_t = c_ulong;
+pub const __fsblkcnt64_t = c_ulong;
+pub const __fsfilcnt_t = c_ulong;
+pub const __fsfilcnt64_t = c_ulong;
+pub const __fsword_t = c_long;
+pub const __ssize_t = c_long;
+pub const __syscall_slong_t = c_long;
+pub const __syscall_ulong_t = c_ulong;
+pub const __loff_t = __off64_t;
+pub const __caddr_t = [*c]u8;
+pub const __intptr_t = c_long;
+pub const __socklen_t = c_uint;
+pub const __sig_atomic_t = c_int;
+pub const clock_t = __clock_t;
+pub const time_t = __time_t;
+pub const struct_tm = extern struct {
+    tm_sec: c_int = 0,
+    tm_min: c_int = 0,
+    tm_hour: c_int = 0,
+    tm_mday: c_int = 0,
+    tm_mon: c_int = 0,
+    tm_year: c_int = 0,
+    tm_wday: c_int = 0,
+    tm_yday: c_int = 0,
+    tm_isdst: c_int = 0,
+    __tm_gmtoff: c_long = 0,
+    __tm_zone: [*c]const u8 = null,
+    pub const mktime = __root.mktime;
+    pub const asctime = __root.asctime;
+    pub const asctime_r = __root.asctime_r;
+    pub const r = __root.asctime_r;
+};
+pub const struct_timespec = extern struct {
+    tv_sec: __time_t = 0,
+    tv_nsec: __syscall_slong_t = 0,
+    pub const nanosleep = __root.nanosleep;
+    pub const timespec_get = __root.timespec_get;
+    pub const get = __root.timespec_get;
+};
+pub const clockid_t = __clockid_t;
+pub const timer_t = __timer_t;
+pub const struct_itimerspec = extern struct {
+    it_interval: struct_timespec = @import("std").mem.zeroes(struct_timespec),
+    it_value: struct_timespec = @import("std").mem.zeroes(struct_timespec),
+};
+pub const union_sigval = extern union {
+    sival_int: c_int,
+    sival_ptr: ?*anyopaque,
+};
+pub const __sigval_t = union_sigval;
+pub const union_pthread_attr_t = extern union {
+    __size: [56]u8,
+    __align: c_long,
+};
+pub const pthread_attr_t = union_pthread_attr_t;
+const struct_unnamed_2 = extern struct {
+    _function: ?*const fn (__sigval_t) callconv(.c) void = null,
+    _attribute: [*c]pthread_attr_t = null,
+};
+const union_unnamed_1 = extern union {
+    _pad: [12]c_int,
+    _tid: __pid_t,
+    _sigev_thread: struct_unnamed_2,
+};
+pub const struct_sigevent = extern struct {
+    sigev_value: __sigval_t = @import("std").mem.zeroes(__sigval_t),
+    sigev_signo: c_int = 0,
+    sigev_notify: c_int = 0,
+    _sigev_un: union_unnamed_1 = @import("std").mem.zeroes(union_unnamed_1),
+};
+pub const pid_t = __pid_t;
+pub const struct___locale_data_3 = opaque {};
+pub const struct___locale_struct = extern struct {
+    __locales: [13]?*struct___locale_data_3 = @import("std").mem.zeroes([13]?*struct___locale_data_3),
+    __ctype_b: [*c]const c_ushort = null,
+    __ctype_tolower: [*c]const c_int = null,
+    __ctype_toupper: [*c]const c_int = null,
+    __names: [13][*c]const u8 = @import("std").mem.zeroes([13][*c]const u8),
+};
+pub const __locale_t = [*c]struct___locale_struct;
+pub const locale_t = __locale_t;
+pub extern fn clock() clock_t;
+pub extern fn time(__timer: [*c]time_t) time_t;
+pub extern fn difftime(__time1: time_t, __time0: time_t) f64;
+pub extern fn mktime(__tp: [*c]struct_tm) time_t;
+pub extern fn strftime(noalias __s: [*c]u8, __maxsize: usize, noalias __format: [*c]const u8, noalias __tp: [*c]const struct_tm) usize;
+pub extern fn strptime(noalias __s: [*c]const u8, noalias __fmt: [*c]const u8, __tp: [*c]struct_tm) [*c]u8;
+pub extern fn strftime_l(noalias __s: [*c]u8, __maxsize: usize, noalias __format: [*c]const u8, noalias __tp: [*c]const struct_tm, __loc: locale_t) usize;
+pub extern fn gmtime(__timer: [*c]const time_t) [*c]struct_tm;
+pub extern fn localtime(__timer: [*c]const time_t) [*c]struct_tm;
+pub extern fn gmtime_r(noalias __timer: [*c]const time_t, noalias __tp: [*c]struct_tm) [*c]struct_tm;
+pub extern fn localtime_r(noalias __timer: [*c]const time_t, noalias __tp: [*c]struct_tm) [*c]struct_tm;
+pub extern fn asctime(__tp: [*c]const struct_tm) [*c]u8;
+pub extern fn ctime(__timer: [*c]const time_t) [*c]u8;
+pub extern fn asctime_r(noalias __tp: [*c]const struct_tm, noalias __buf: [*c]u8) [*c]u8;
+pub extern fn ctime_r(noalias __timer: [*c]const time_t, noalias __buf: [*c]u8) [*c]u8;
+pub extern var __tzname: [2][*c]u8;
+pub extern var __daylight: c_int;
+pub extern var __timezone: c_long;
+pub extern var tzname: [2][*c]u8;
+pub extern fn tzset() void;
+pub extern var daylight: c_int;
+pub extern var timezone: c_long;
+pub extern fn nanosleep(__requested_time: [*c]const struct_timespec, __remaining: [*c]struct_timespec) c_int;
+pub extern fn clock_getres(__clock_id: clockid_t, __res: [*c]struct_timespec) c_int;
+pub extern fn clock_gettime(__clock_id: clockid_t, __tp: [*c]struct_timespec) c_int;
+pub extern fn clock_settime(__clock_id: clockid_t, __tp: [*c]const struct_timespec) c_int;
+pub extern fn clock_nanosleep(__clock_id: clockid_t, __flags: c_int, __req: [*c]const struct_timespec, __rem: [*c]struct_timespec) c_int;
+pub extern fn clock_getcpuclockid(__pid: pid_t, __clock_id: [*c]clockid_t) c_int;
+pub extern fn timer_create(__clock_id: clockid_t, noalias __evp: [*c]struct_sigevent, noalias __timerid: [*c]timer_t) c_int;
+pub extern fn timer_delete(__timerid: timer_t) c_int;
+pub extern fn timer_settime(__timerid: timer_t, __flags: c_int, noalias __value: [*c]const struct_itimerspec, noalias __ovalue: [*c]struct_itimerspec) c_int;
+pub extern fn timer_gettime(__timerid: timer_t, __value: [*c]struct_itimerspec) c_int;
+pub extern fn timer_getoverrun(__timerid: timer_t) c_int;
+pub extern fn timespec_get(__ts: [*c]struct_timespec, __base: c_int) c_int;
+pub extern var getdate_err: c_int;
+pub extern fn getdate(__string: [*c]const u8) [*c]struct_tm;
+pub const _ISupper: c_int = 256;
+pub const _ISlower: c_int = 512;
+pub const _ISalpha: c_int = 1024;
+pub const _ISdigit: c_int = 2048;
+pub const _ISxdigit: c_int = 4096;
+pub const _ISspace: c_int = 8192;
+pub const _ISprint: c_int = 16384;
+pub const _ISgraph: c_int = 32768;
+pub const _ISblank: c_int = 1;
+pub const _IScntrl: c_int = 2;
+pub const _ISpunct: c_int = 4;
+pub const _ISalnum: c_int = 8;
+const enum_unnamed_4 = c_uint;
+pub extern fn __ctype_b_loc() [*c][*c]const c_ushort;
+pub extern fn __ctype_tolower_loc() [*c][*c]const __int32_t;
+pub extern fn __ctype_toupper_loc() [*c][*c]const __int32_t;
+pub extern fn isalnum(c_int) c_int;
+pub extern fn isalpha(c_int) c_int;
+pub extern fn iscntrl(c_int) c_int;
+pub extern fn isdigit(c_int) c_int;
+pub extern fn islower(c_int) c_int;
+pub extern fn isgraph(c_int) c_int;
+pub extern fn isprint(c_int) c_int;
+pub extern fn ispunct(c_int) c_int;
+pub extern fn isspace(c_int) c_int;
+pub extern fn isupper(c_int) c_int;
+pub extern fn isxdigit(c_int) c_int;
+pub extern fn tolower(__c: c_int) c_int;
+pub extern fn toupper(__c: c_int) c_int;
+pub extern fn isblank(c_int) c_int;
+pub extern fn isascii(__c: c_int) c_int;
+pub extern fn toascii(__c: c_int) c_int;
+pub extern fn _toupper(c_int) c_int;
+pub extern fn _tolower(c_int) c_int;
+pub extern fn isalnum_l(c_int, locale_t) c_int;
+pub extern fn isalpha_l(c_int, locale_t) c_int;
+pub extern fn iscntrl_l(c_int, locale_t) c_int;
+pub extern fn isdigit_l(c_int, locale_t) c_int;
+pub extern fn islower_l(c_int, locale_t) c_int;
+pub extern fn isgraph_l(c_int, locale_t) c_int;
+pub extern fn isprint_l(c_int, locale_t) c_int;
+pub extern fn ispunct_l(c_int, locale_t) c_int;
+pub extern fn isspace_l(c_int, locale_t) c_int;
+pub extern fn isupper_l(c_int, locale_t) c_int;
+pub extern fn isxdigit_l(c_int, locale_t) c_int;
+pub extern fn isblank_l(c_int, locale_t) c_int;
+pub extern fn __tolower_l(__c: c_int, __l: locale_t) c_int;
+pub extern fn tolower_l(__c: c_int, __l: locale_t) c_int;
+pub extern fn __toupper_l(__c: c_int, __l: locale_t) c_int;
+pub extern fn toupper_l(__c: c_int, __l: locale_t) c_int;
+pub const struct___va_list_tag_5 = extern struct {
+    unnamed_0: c_uint = 0,
+    unnamed_1: c_uint = 0,
+    unnamed_2: ?*anyopaque = null,
+    unnamed_3: ?*anyopaque = null,
+};
+pub const __builtin_va_list = [1]struct___va_list_tag_5;
+pub const va_list = __builtin_va_list;
+pub const __gnuc_va_list = __builtin_va_list;
+pub const wint_t = c_uint;
+const union_unnamed_6 = extern union {
+    __wch: c_uint,
+    __wchb: [4]u8,
+};
+pub const __mbstate_t = extern struct {
+    __count: c_int = 0,
+    __value: union_unnamed_6 = @import("std").mem.zeroes(union_unnamed_6),
+    pub const mbsinit = __root.mbsinit;
+};
+pub const mbstate_t = __mbstate_t;
+pub const struct__IO_marker = opaque {}; // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/struct_FILE.h:75:7: warning: struct demoted to opaque type - has bitfield
+pub const struct__IO_FILE = opaque {
+    pub const fwide = __root.fwide;
+    pub const fwprintf = __root.fwprintf;
+    pub const vfwprintf = __root.vfwprintf;
+    pub const fwscanf = __root.fwscanf;
+    pub const vfwscanf = __root.vfwscanf;
+    pub const fgetwc = __root.fgetwc;
+    pub const getwc = __root.getwc;
+    pub const fclose = __root.fclose;
+    pub const fflush = __root.fflush;
+    pub const setbuf = __root.setbuf;
+    pub const setvbuf = __root.setvbuf;
+    pub const fprintf = __root.fprintf;
+    pub const vfprintf = __root.vfprintf;
+    pub const fscanf = __root.fscanf;
+    pub const vfscanf = __root.vfscanf;
+    pub const fgetc = __root.fgetc;
+    pub const getc = __root.getc;
+    pub const getc_unlocked = __root.getc_unlocked;
+    pub const fseek = __root.fseek;
+    pub const ftell = __root.ftell;
+    pub const rewind = __root.rewind;
+    pub const fseeko = __root.fseeko;
+    pub const ftello = __root.ftello;
+    pub const fgetpos = __root.fgetpos;
+    pub const fsetpos = __root.fsetpos;
+    pub const clearerr = __root.clearerr;
+    pub const feof = __root.feof;
+    pub const ferror = __root.ferror;
+    pub const fileno = __root.fileno;
+    pub const pclose = __root.pclose;
+    pub const flockfile = __root.flockfile;
+    pub const ftrylockfile = __root.ftrylockfile;
+    pub const funlockfile = __root.funlockfile;
+    pub const __uflow = __root.__uflow;
+    pub const __overflow = __root.__overflow;
+    pub const unlocked = __root.getc_unlocked;
+    pub const uflow = __root.__uflow;
+    pub const overflow = __root.__overflow;
+};
+pub const __FILE = struct__IO_FILE;
+pub const FILE = struct__IO_FILE;
+pub const wctype_t = c_ulong;
+pub const __ISwupper: c_int = 0;
+pub const __ISwlower: c_int = 1;
+pub const __ISwalpha: c_int = 2;
+pub const __ISwdigit: c_int = 3;
+pub const __ISwxdigit: c_int = 4;
+pub const __ISwspace: c_int = 5;
+pub const __ISwprint: c_int = 6;
+pub const __ISwgraph: c_int = 7;
+pub const __ISwblank: c_int = 8;
+pub const __ISwcntrl: c_int = 9;
+pub const __ISwpunct: c_int = 10;
+pub const __ISwalnum: c_int = 11;
+pub const _ISwupper: c_int = 16777216;
+pub const _ISwlower: c_int = 33554432;
+pub const _ISwalpha: c_int = 67108864;
+pub const _ISwdigit: c_int = 134217728;
+pub const _ISwxdigit: c_int = 268435456;
+pub const _ISwspace: c_int = 536870912;
+pub const _ISwprint: c_int = 1073741824;
+pub const _ISwgraph: c_int = -2147483648;
+pub const _ISwblank: c_int = 65536;
+pub const _ISwcntrl: c_int = 131072;
+pub const _ISwpunct: c_int = 262144;
+pub const _ISwalnum: c_int = 524288;
+const enum_unnamed_7 = c_int;
+pub extern fn iswalnum(__wc: wint_t) c_int;
+pub extern fn iswalpha(__wc: wint_t) c_int;
+pub extern fn iswcntrl(__wc: wint_t) c_int;
+pub extern fn iswdigit(__wc: wint_t) c_int;
+pub extern fn iswgraph(__wc: wint_t) c_int;
+pub extern fn iswlower(__wc: wint_t) c_int;
+pub extern fn iswprint(__wc: wint_t) c_int;
+pub extern fn iswpunct(__wc: wint_t) c_int;
+pub extern fn iswspace(__wc: wint_t) c_int;
+pub extern fn iswupper(__wc: wint_t) c_int;
+pub extern fn iswxdigit(__wc: wint_t) c_int;
+pub extern fn iswblank(__wc: wint_t) c_int;
+pub extern fn wctype(__property: [*c]const u8) wctype_t;
+pub extern fn iswctype(__wc: wint_t, __desc: wctype_t) c_int;
+pub extern fn towlower(__wc: wint_t) wint_t;
+pub extern fn towupper(__wc: wint_t) wint_t;
+pub extern fn wcscpy(noalias __dest: [*c]wchar_t, noalias __src: [*c]const wchar_t) [*c]wchar_t;
+pub extern fn wcsncpy(noalias __dest: [*c]wchar_t, noalias __src: [*c]const wchar_t, __n: usize) [*c]wchar_t;
+pub extern fn wcscat(noalias __dest: [*c]wchar_t, noalias __src: [*c]const wchar_t) [*c]wchar_t;
+pub extern fn wcsncat(noalias __dest: [*c]wchar_t, noalias __src: [*c]const wchar_t, __n: usize) [*c]wchar_t;
+pub extern fn wcscmp(__s1: [*c]const wchar_t, __s2: [*c]const wchar_t) c_int;
+pub extern fn wcsncmp(__s1: [*c]const wchar_t, __s2: [*c]const wchar_t, __n: usize) c_int;
+pub extern fn wcscasecmp(__s1: [*c]const wchar_t, __s2: [*c]const wchar_t) c_int;
+pub extern fn wcsncasecmp(__s1: [*c]const wchar_t, __s2: [*c]const wchar_t, __n: usize) c_int;
+pub extern fn wcscasecmp_l(__s1: [*c]const wchar_t, __s2: [*c]const wchar_t, __loc: locale_t) c_int;
+pub extern fn wcsncasecmp_l(__s1: [*c]const wchar_t, __s2: [*c]const wchar_t, __n: usize, __loc: locale_t) c_int;
+pub extern fn wcscoll(__s1: [*c]const wchar_t, __s2: [*c]const wchar_t) c_int;
+pub extern fn wcsxfrm(noalias __s1: [*c]wchar_t, noalias __s2: [*c]const wchar_t, __n: usize) usize;
+pub extern fn wcscoll_l(__s1: [*c]const wchar_t, __s2: [*c]const wchar_t, __loc: locale_t) c_int;
+pub extern fn wcsxfrm_l(__s1: [*c]wchar_t, __s2: [*c]const wchar_t, __n: usize, __loc: locale_t) usize;
+pub extern fn wcsdup(__s: [*c]const wchar_t) [*c]wchar_t;
+pub extern fn wcschr(__wcs: [*c]const wchar_t, __wc: wchar_t) [*c]wchar_t;
+pub extern fn wcsrchr(__wcs: [*c]const wchar_t, __wc: wchar_t) [*c]wchar_t;
+pub extern fn wcscspn(__wcs: [*c]const wchar_t, __reject: [*c]const wchar_t) usize;
+pub extern fn wcsspn(__wcs: [*c]const wchar_t, __accept: [*c]const wchar_t) usize;
+pub extern fn wcspbrk(__wcs: [*c]const wchar_t, __accept: [*c]const wchar_t) [*c]wchar_t;
+pub extern fn wcsstr(__haystack: [*c]const wchar_t, __needle: [*c]const wchar_t) [*c]wchar_t;
+pub extern fn wcstok(noalias __s: [*c]wchar_t, noalias __delim: [*c]const wchar_t, noalias __ptr: [*c][*c]wchar_t) [*c]wchar_t;
+pub extern fn wcslen(__s: [*c]const wchar_t) usize;
+pub extern fn wcswcs(__haystack: [*c]const wchar_t, __needle: [*c]const wchar_t) [*c]wchar_t;
+pub extern fn wcsnlen(__s: [*c]const wchar_t, __maxlen: usize) usize;
+pub extern fn wmemchr(__s: [*c]const wchar_t, __c: wchar_t, __n: usize) [*c]wchar_t;
+pub extern fn wmemcmp(__s1: [*c]const wchar_t, __s2: [*c]const wchar_t, __n: usize) c_int;
+pub extern fn wmemcpy(noalias __s1: [*c]wchar_t, noalias __s2: [*c]const wchar_t, __n: usize) [*c]wchar_t;
+pub extern fn wmemmove(__s1: [*c]wchar_t, __s2: [*c]const wchar_t, __n: usize) [*c]wchar_t;
+pub extern fn wmemset(__s: [*c]wchar_t, __c: wchar_t, __n: usize) [*c]wchar_t;
+pub extern fn btowc(__c: c_int) wint_t;
+pub extern fn wctob(__c: wint_t) c_int;
+pub extern fn mbsinit(__ps: [*c]const mbstate_t) c_int;
+pub extern fn mbrtowc(noalias __pwc: [*c]wchar_t, noalias __s: [*c]const u8, __n: usize, noalias __p: [*c]mbstate_t) usize;
+pub extern fn wcrtomb(noalias __s: [*c]u8, __wc: wchar_t, noalias __ps: [*c]mbstate_t) usize;
+pub extern fn __mbrlen(noalias __s: [*c]const u8, __n: usize, noalias __ps: [*c]mbstate_t) usize;
+pub extern fn mbrlen(noalias __s: [*c]const u8, __n: usize, noalias __ps: [*c]mbstate_t) usize;
+pub extern fn mbsrtowcs(noalias __dst: [*c]wchar_t, noalias __src: [*c][*c]const u8, __len: usize, noalias __ps: [*c]mbstate_t) usize;
+pub extern fn wcsrtombs(noalias __dst: [*c]u8, noalias __src: [*c][*c]const wchar_t, __len: usize, noalias __ps: [*c]mbstate_t) usize;
+pub extern fn mbsnrtowcs(noalias __dst: [*c]wchar_t, noalias __src: [*c][*c]const u8, __nmc: usize, __len: usize, noalias __ps: [*c]mbstate_t) usize;
+pub extern fn wcsnrtombs(noalias __dst: [*c]u8, noalias __src: [*c][*c]const wchar_t, __nwc: usize, __len: usize, noalias __ps: [*c]mbstate_t) usize;
+pub extern fn wcwidth(__c: wchar_t) c_int;
+pub extern fn wcswidth(__s: [*c]const wchar_t, __n: usize) c_int;
+pub extern fn wcstod(noalias __nptr: [*c]const wchar_t, noalias __endptr: [*c][*c]wchar_t) f64;
+pub extern fn wcstof(noalias __nptr: [*c]const wchar_t, noalias __endptr: [*c][*c]wchar_t) f32;
+pub extern fn wcstold(noalias __nptr: [*c]const wchar_t, noalias __endptr: [*c][*c]wchar_t) c_longdouble;
+pub extern fn wcstol(noalias __nptr: [*c]const wchar_t, noalias __endptr: [*c][*c]wchar_t, __base: c_int) c_long;
+pub extern fn wcstoul(noalias __nptr: [*c]const wchar_t, noalias __endptr: [*c][*c]wchar_t, __base: c_int) c_ulong;
+pub extern fn wcstoll(noalias __nptr: [*c]const wchar_t, noalias __endptr: [*c][*c]wchar_t, __base: c_int) c_longlong;
+pub extern fn wcstoull(noalias __nptr: [*c]const wchar_t, noalias __endptr: [*c][*c]wchar_t, __base: c_int) c_ulonglong;
+pub extern fn wcpcpy(noalias __dest: [*c]wchar_t, noalias __src: [*c]const wchar_t) [*c]wchar_t;
+pub extern fn wcpncpy(noalias __dest: [*c]wchar_t, noalias __src: [*c]const wchar_t, __n: usize) [*c]wchar_t;
+pub extern fn open_wmemstream(__bufloc: [*c][*c]wchar_t, __sizeloc: [*c]usize) ?*__FILE;
+pub extern fn fwide(__fp: ?*__FILE, __mode: c_int) c_int;
+pub extern fn fwprintf(noalias __stream: ?*__FILE, noalias __format: [*c]const wchar_t, ...) c_int;
+pub extern fn wprintf(noalias __format: [*c]const wchar_t, ...) c_int;
+pub extern fn swprintf(noalias __s: [*c]wchar_t, __n: usize, noalias __format: [*c]const wchar_t, ...) c_int;
+pub extern fn vfwprintf(noalias __s: ?*__FILE, noalias __format: [*c]const wchar_t, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn vwprintf(noalias __format: [*c]const wchar_t, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn vswprintf(noalias __s: [*c]wchar_t, __n: usize, noalias __format: [*c]const wchar_t, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn fwscanf(noalias __stream: ?*__FILE, noalias __format: [*c]const wchar_t, ...) c_int;
+pub extern fn wscanf(noalias __format: [*c]const wchar_t, ...) c_int;
+pub extern fn swscanf(noalias __s: [*c]const wchar_t, noalias __format: [*c]const wchar_t, ...) c_int;
+pub extern fn vfwscanf(noalias __s: ?*__FILE, noalias __format: [*c]const wchar_t, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn vwscanf(noalias __format: [*c]const wchar_t, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn vswscanf(noalias __s: [*c]const wchar_t, noalias __format: [*c]const wchar_t, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn fgetwc(__stream: ?*__FILE) wint_t;
+pub extern fn getwc(__stream: ?*__FILE) wint_t;
+pub extern fn getwchar() wint_t;
+pub extern fn fputwc(__wc: wchar_t, __stream: ?*__FILE) wint_t;
+pub extern fn putwc(__wc: wchar_t, __stream: ?*__FILE) wint_t;
+pub extern fn putwchar(__wc: wchar_t) wint_t;
+pub extern fn fgetws(noalias __ws: [*c]wchar_t, __n: c_int, noalias __stream: ?*__FILE) [*c]wchar_t;
+pub extern fn fputws(noalias __ws: [*c]const wchar_t, noalias __stream: ?*__FILE) c_int;
+pub extern fn ungetwc(__wc: wint_t, __stream: ?*__FILE) wint_t;
+pub extern fn wcsftime(noalias __s: [*c]wchar_t, __maxsize: usize, noalias __format: [*c]const wchar_t, noalias __tp: [*c]const struct_tm) usize;
+pub const struct__G_fpos_t = extern struct {
+    __pos: __off_t = 0,
+    __state: __mbstate_t = @import("std").mem.zeroes(__mbstate_t),
+};
+pub const __fpos_t = struct__G_fpos_t;
+pub const struct__G_fpos64_t = extern struct {
+    __pos: __off64_t = 0,
+    __state: __mbstate_t = @import("std").mem.zeroes(__mbstate_t),
+};
+pub const __fpos64_t = struct__G_fpos64_t;
+pub const struct__IO_codecvt = opaque {};
+pub const struct__IO_wide_data = opaque {};
+pub const _IO_lock_t = anyopaque;
+pub const off_t = __off_t;
+pub const fpos_t = __fpos_t;
+pub extern var stdin: ?*FILE;
+pub extern var stdout: ?*FILE;
+pub extern var stderr: ?*FILE;
+pub extern fn remove(__filename: [*c]const u8) c_int;
+pub extern fn rename(__old: [*c]const u8, __new: [*c]const u8) c_int;
+pub extern fn renameat(__oldfd: c_int, __old: [*c]const u8, __newfd: c_int, __new: [*c]const u8) c_int;
+pub extern fn fclose(__stream: ?*FILE) c_int;
+pub extern fn tmpfile() ?*FILE;
+pub extern fn tmpnam([*c]u8) [*c]u8;
+pub extern fn tempnam(__dir: [*c]const u8, __pfx: [*c]const u8) [*c]u8;
+pub extern fn fflush(__stream: ?*FILE) c_int;
+pub extern fn fopen(noalias __filename: [*c]const u8, noalias __modes: [*c]const u8) ?*FILE;
+pub extern fn freopen(noalias __filename: [*c]const u8, noalias __modes: [*c]const u8, noalias __stream: ?*FILE) ?*FILE;
+pub extern fn fdopen(__fd: c_int, __modes: [*c]const u8) ?*FILE;
+pub extern fn fmemopen(__s: ?*anyopaque, __len: usize, __modes: [*c]const u8) ?*FILE;
+pub extern fn open_memstream(__bufloc: [*c][*c]u8, __sizeloc: [*c]usize) ?*FILE;
+pub extern fn setbuf(noalias __stream: ?*FILE, noalias __buf: [*c]u8) void;
+pub extern fn setvbuf(noalias __stream: ?*FILE, noalias __buf: [*c]u8, __modes: c_int, __n: usize) c_int;
+pub extern fn fprintf(noalias __stream: ?*FILE, noalias __format: [*c]const u8, ...) c_int;
+pub extern fn printf(noalias __format: [*c]const u8, ...) c_int;
+pub extern fn sprintf(noalias __s: [*c]u8, noalias __format: [*c]const u8, ...) c_int;
+pub extern fn vfprintf(noalias __s: ?*FILE, noalias __format: [*c]const u8, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn vprintf(noalias __format: [*c]const u8, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn vsprintf(noalias __s: [*c]u8, noalias __format: [*c]const u8, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn snprintf(noalias __s: [*c]u8, __maxlen: usize, noalias __format: [*c]const u8, ...) c_int;
+pub extern fn vsnprintf(noalias __s: [*c]u8, __maxlen: usize, noalias __format: [*c]const u8, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn vdprintf(__fd: c_int, noalias __fmt: [*c]const u8, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn dprintf(__fd: c_int, noalias __fmt: [*c]const u8, ...) c_int;
+pub extern fn fscanf(noalias __stream: ?*FILE, noalias __format: [*c]const u8, ...) c_int;
+pub extern fn scanf(noalias __format: [*c]const u8, ...) c_int;
+pub extern fn sscanf(noalias __s: [*c]const u8, noalias __format: [*c]const u8, ...) c_int;
+pub extern fn vfscanf(noalias __s: ?*FILE, noalias __format: [*c]const u8, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn vscanf(noalias __format: [*c]const u8, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn vsscanf(noalias __s: [*c]const u8, noalias __format: [*c]const u8, __arg: [*c]struct___va_list_tag_5) c_int;
+pub extern fn fgetc(__stream: ?*FILE) c_int;
+pub extern fn getc(__stream: ?*FILE) c_int;
+pub extern fn getchar() c_int;
+pub extern fn getc_unlocked(__stream: ?*FILE) c_int;
+pub extern fn getchar_unlocked() c_int;
+pub extern fn fputc(__c: c_int, __stream: ?*FILE) c_int;
+pub extern fn putc(__c: c_int, __stream: ?*FILE) c_int;
+pub extern fn putchar(__c: c_int) c_int;
+pub extern fn putc_unlocked(__c: c_int, __stream: ?*FILE) c_int;
+pub extern fn putchar_unlocked(__c: c_int) c_int;
+pub extern fn fgets(noalias __s: [*c]u8, __n: c_int, noalias __stream: ?*FILE) [*c]u8;
+pub extern fn __getdelim(noalias __lineptr: [*c][*c]u8, noalias __n: [*c]usize, __delimiter: c_int, noalias __stream: ?*FILE) __ssize_t;
+pub extern fn getdelim(noalias __lineptr: [*c][*c]u8, noalias __n: [*c]usize, __delimiter: c_int, noalias __stream: ?*FILE) __ssize_t;
+pub extern fn getline(noalias __lineptr: [*c][*c]u8, noalias __n: [*c]usize, noalias __stream: ?*FILE) __ssize_t;
+pub extern fn fputs(noalias __s: [*c]const u8, noalias __stream: ?*FILE) c_int;
+pub extern fn puts(__s: [*c]const u8) c_int;
+pub extern fn ungetc(__c: c_int, __stream: ?*FILE) c_int;
+pub extern fn fread(noalias __ptr: ?*anyopaque, __size: usize, __n: usize, noalias __stream: ?*FILE) usize;
+pub extern fn fwrite(noalias __ptr: ?*const anyopaque, __size: usize, __n: usize, noalias __s: ?*FILE) usize;
+pub extern fn fseek(__stream: ?*FILE, __off: c_long, __whence: c_int) c_int;
+pub extern fn ftell(__stream: ?*FILE) c_long;
+pub extern fn rewind(__stream: ?*FILE) void;
+pub extern fn fseeko(__stream: ?*FILE, __off: __off_t, __whence: c_int) c_int;
+pub extern fn ftello(__stream: ?*FILE) __off_t;
+pub extern fn fgetpos(noalias __stream: ?*FILE, noalias __pos: [*c]fpos_t) c_int;
+pub extern fn fsetpos(__stream: ?*FILE, __pos: [*c]const fpos_t) c_int;
+pub extern fn clearerr(__stream: ?*FILE) void;
+pub extern fn feof(__stream: ?*FILE) c_int;
+pub extern fn ferror(__stream: ?*FILE) c_int;
+pub extern fn perror(__s: [*c]const u8) void;
+pub extern fn fileno(__stream: ?*FILE) c_int;
+pub extern fn pclose(__stream: ?*FILE) c_int;
+pub extern fn popen(__command: [*c]const u8, __modes: [*c]const u8) ?*FILE;
+pub extern fn ctermid(__s: [*c]u8) [*c]u8;
+pub extern fn flockfile(__stream: ?*FILE) void;
+pub extern fn ftrylockfile(__stream: ?*FILE) c_int;
+pub extern fn funlockfile(__stream: ?*FILE) void;
+pub extern fn __uflow(?*FILE) c_int;
+pub extern fn __overflow(?*FILE, c_int) c_int;
+pub const int_least8_t = __int_least8_t;
+pub const int_least16_t = __int_least16_t;
+pub const int_least32_t = __int_least32_t;
+pub const int_least64_t = __int_least64_t;
+pub const uint_least8_t = __uint_least8_t;
+pub const uint_least16_t = __uint_least16_t;
+pub const uint_least32_t = __uint_least32_t;
+pub const uint_least64_t = __uint_least64_t;
+pub const int_fast8_t = i8;
+pub const int_fast16_t = c_long;
+pub const int_fast32_t = c_long;
+pub const int_fast64_t = c_long;
+pub const uint_fast8_t = u8;
+pub const uint_fast16_t = c_ulong;
+pub const uint_fast32_t = c_ulong;
+pub const uint_fast64_t = c_ulong;
+pub const intmax_t = __intmax_t;
+pub const uintmax_t = __uintmax_t;
+pub const div_t = extern struct {
+    quot: c_int = 0,
+    rem: c_int = 0,
+};
+pub const ldiv_t = extern struct {
+    quot: c_long = 0,
+    rem: c_long = 0,
+};
+pub const lldiv_t = extern struct {
+    quot: c_longlong = 0,
+    rem: c_longlong = 0,
+};
+pub extern fn __ctype_get_mb_cur_max() usize;
+pub extern fn atof(__nptr: [*c]const u8) f64;
+pub extern fn atoi(__nptr: [*c]const u8) c_int;
+pub extern fn atol(__nptr: [*c]const u8) c_long;
+pub extern fn atoll(__nptr: [*c]const u8) c_longlong;
+pub extern fn strtod(noalias __nptr: [*c]const u8, noalias __endptr: [*c][*c]u8) f64;
+pub extern fn strtof(noalias __nptr: [*c]const u8, noalias __endptr: [*c][*c]u8) f32;
+pub extern fn strtold(noalias __nptr: [*c]const u8, noalias __endptr: [*c][*c]u8) c_longdouble;
+pub extern fn strtol(noalias __nptr: [*c]const u8, noalias __endptr: [*c][*c]u8, __base: c_int) c_long;
+pub extern fn strtoul(noalias __nptr: [*c]const u8, noalias __endptr: [*c][*c]u8, __base: c_int) c_ulong;
+pub extern fn strtoll(noalias __nptr: [*c]const u8, noalias __endptr: [*c][*c]u8, __base: c_int) c_longlong;
+pub extern fn strtoull(noalias __nptr: [*c]const u8, noalias __endptr: [*c][*c]u8, __base: c_int) c_ulonglong;
+pub extern fn l64a(__n: c_long) [*c]u8;
+pub extern fn a64l(__s: [*c]const u8) c_long;
+pub const ino_t = __ino_t;
+pub const dev_t = __dev_t;
+pub const gid_t = __gid_t;
+pub const mode_t = __mode_t;
+pub const nlink_t = __nlink_t;
+pub const uid_t = __uid_t;
+pub const id_t = __id_t;
+pub const key_t = __key_t;
+pub const useconds_t = __useconds_t;
+pub const suseconds_t = __suseconds_t;
+pub const u_int8_t = __uint8_t;
+pub const u_int16_t = __uint16_t;
+pub const u_int32_t = __uint32_t;
+pub const u_int64_t = __uint64_t;
+pub const register_t = c_int;
+pub const blksize_t = __blksize_t;
+pub const blkcnt_t = __blkcnt_t;
+pub const fsblkcnt_t = __fsblkcnt_t;
+pub const fsfilcnt_t = __fsfilcnt_t;
+const struct_unnamed_8 = extern struct {
+    __low: c_uint = 0,
+    __high: c_uint = 0,
+};
+pub const __atomic_wide_counter = extern union {
+    __value64: c_ulonglong,
+    __value32: struct_unnamed_8,
+};
+pub const struct___pthread_internal_list = extern struct {
+    __prev: [*c]struct___pthread_internal_list = null,
+    __next: [*c]struct___pthread_internal_list = null,
+};
+pub const __pthread_list_t = struct___pthread_internal_list;
+pub const struct___pthread_internal_slist = extern struct {
+    __next: [*c]struct___pthread_internal_slist = null,
+};
+pub const __pthread_slist_t = struct___pthread_internal_slist;
+pub const struct___pthread_mutex_s = extern struct {
+    __lock: c_int = 0,
+    __count: c_uint = 0,
+    __owner: c_int = 0,
+    __nusers: c_uint = 0,
+    __kind: c_int = 0,
+    __spins: c_short = 0,
+    __elision: c_short = 0,
+    __list: __pthread_list_t = @import("std").mem.zeroes(__pthread_list_t),
+};
+pub const struct___pthread_rwlock_arch_t = extern struct {
+    __readers: c_uint = 0,
+    __writers: c_uint = 0,
+    __wrphase_futex: c_uint = 0,
+    __writers_futex: c_uint = 0,
+    __pad3: c_uint = 0,
+    __pad4: c_uint = 0,
+    __cur_writer: c_int = 0,
+    __shared: c_int = 0,
+    __rwelision: i8 = 0,
+    __pad1: [7]u8 = @import("std").mem.zeroes([7]u8),
+    __pad2: c_ulong = 0,
+    __flags: c_uint = 0,
+};
+pub const struct___pthread_cond_s = extern struct {
+    __wseq: __atomic_wide_counter = @import("std").mem.zeroes(__atomic_wide_counter),
+    __g1_start: __atomic_wide_counter = @import("std").mem.zeroes(__atomic_wide_counter),
+    __g_size: [2]c_uint = @import("std").mem.zeroes([2]c_uint),
+    __g1_orig_size: c_uint = 0,
+    __wrefs: c_uint = 0,
+    __g_signals: [2]c_uint = @import("std").mem.zeroes([2]c_uint),
+    __unused_initialized_1: c_uint = 0,
+    __unused_initialized_2: c_uint = 0,
+};
+pub const __tss_t = c_uint;
+pub const __thrd_t = c_ulong;
+pub const __once_flag = extern struct {
+    __data: c_int = 0,
+};
+pub const pthread_t = c_ulong;
+pub const pthread_mutexattr_t = extern union {
+    __size: [4]u8,
+    __align: c_int,
+};
+pub const pthread_condattr_t = extern union {
+    __size: [4]u8,
+    __align: c_int,
+};
+pub const pthread_key_t = c_uint;
+pub const pthread_once_t = c_int;
+pub const pthread_mutex_t = extern union {
+    __data: struct___pthread_mutex_s,
+    __size: [40]u8,
+    __align: c_long,
+};
+pub const pthread_cond_t = extern union {
+    __data: struct___pthread_cond_s,
+    __size: [48]u8,
+    __align: c_longlong,
+};
+pub const pthread_rwlock_t = extern union {
+    __data: struct___pthread_rwlock_arch_t,
+    __size: [56]u8,
+    __align: c_long,
+};
+pub const pthread_rwlockattr_t = extern union {
+    __size: [8]u8,
+    __align: c_long,
+};
+pub const pthread_spinlock_t = c_int;
+pub const pthread_barrier_t = extern union {
+    __size: [32]u8,
+    __align: c_long,
+};
+pub const pthread_barrierattr_t = extern union {
+    __size: [4]u8,
+    __align: c_int,
+};
+pub extern fn random() c_long;
+pub extern fn srandom(__seed: c_uint) void;
+pub extern fn initstate(__seed: c_uint, __statebuf: [*c]u8, __statelen: usize) [*c]u8;
+pub extern fn setstate(__statebuf: [*c]u8) [*c]u8;
+pub extern fn rand() c_int;
+pub extern fn srand(__seed: c_uint) void;
+pub extern fn rand_r(__seed: [*c]c_uint) c_int;
+pub extern fn drand48() f64;
+pub extern fn erand48(__xsubi: [*c]c_ushort) f64;
+pub extern fn lrand48() c_long;
+pub extern fn nrand48(__xsubi: [*c]c_ushort) c_long;
+pub extern fn mrand48() c_long;
+pub extern fn jrand48(__xsubi: [*c]c_ushort) c_long;
+pub extern fn srand48(__seedval: c_long) void;
+pub extern fn seed48(__seed16v: [*c]c_ushort) [*c]c_ushort;
+pub extern fn lcong48(__param: [*c]c_ushort) void;
+pub extern fn malloc(__size: usize) ?*anyopaque;
+pub extern fn calloc(__nmemb: usize, __size: usize) ?*anyopaque;
+pub extern fn realloc(__ptr: ?*anyopaque, __size: usize) ?*anyopaque;
+pub extern fn free(__ptr: ?*anyopaque) void;
+pub extern fn posix_memalign(__memptr: [*c]?*anyopaque, __alignment: usize, __size: usize) c_int;
+pub extern fn aligned_alloc(__alignment: usize, __size: usize) ?*anyopaque;
+pub extern fn abort() noreturn;
+pub extern fn atexit(__func: ?*const fn () callconv(.c) void) c_int;
+pub extern fn at_quick_exit(__func: ?*const fn () callconv(.c) void) c_int;
+pub extern fn exit(__status: c_int) noreturn;
+pub extern fn quick_exit(__status: c_int) noreturn;
+pub extern fn _Exit(__status: c_int) noreturn;
+pub extern fn getenv(__name: [*c]const u8) [*c]u8;
+pub extern fn putenv(__string: [*c]u8) c_int;
+pub extern fn setenv(__name: [*c]const u8, __value: [*c]const u8, __replace: c_int) c_int;
+pub extern fn unsetenv(__name: [*c]const u8) c_int;
+pub extern fn mkstemp(__template: [*c]u8) c_int;
+pub extern fn mkdtemp(__template: [*c]u8) [*c]u8;
+pub extern fn system(__command: [*c]const u8) c_int;
+pub extern fn realpath(noalias __name: [*c]const u8, noalias __resolved: [*c]u8) [*c]u8;
+pub const __compar_fn_t = ?*const fn (?*const anyopaque, ?*const anyopaque) callconv(.c) c_int;
+pub extern fn bsearch(__key: ?*const anyopaque, __base: ?*const anyopaque, __nmemb: usize, __size: usize, __compar: __compar_fn_t) ?*anyopaque;
+pub extern fn qsort(__base: ?*anyopaque, __nmemb: usize, __size: usize, __compar: __compar_fn_t) void;
+pub extern fn abs(__x: c_int) c_int;
+pub extern fn labs(__x: c_long) c_long;
+pub extern fn llabs(__x: c_longlong) c_longlong;
+pub extern fn div(__numer: c_int, __denom: c_int) div_t;
+pub extern fn ldiv(__numer: c_long, __denom: c_long) ldiv_t;
+pub extern fn lldiv(__numer: c_longlong, __denom: c_longlong) lldiv_t;
+pub extern fn mblen(__s: [*c]const u8, __n: usize) c_int;
+pub extern fn mbtowc(noalias __pwc: [*c]wchar_t, noalias __s: [*c]const u8, __n: usize) c_int;
+pub extern fn wctomb(__s: [*c]u8, __wchar: wchar_t) c_int;
+pub extern fn mbstowcs(noalias __pwcs: [*c]wchar_t, noalias __s: [*c]const u8, __n: usize) usize;
+pub extern fn wcstombs(noalias __s: [*c]u8, noalias __pwcs: [*c]const wchar_t, __n: usize) usize;
+pub extern fn getsubopt(noalias __optionp: [*c][*c]u8, noalias __tokens: [*c]const [*c]u8, noalias __valuep: [*c][*c]u8) c_int;
+pub extern fn posix_openpt(__oflag: c_int) c_int;
+pub extern fn grantpt(__fd: c_int) c_int;
+pub extern fn unlockpt(__fd: c_int) c_int;
+pub extern fn ptsname(__fd: c_int) [*c]u8;
+pub extern fn memcpy(noalias __dest: ?*anyopaque, noalias __src: ?*const anyopaque, __n: usize) ?*anyopaque;
+pub extern fn memmove(__dest: ?*anyopaque, __src: ?*const anyopaque, __n: usize) ?*anyopaque;
+pub extern fn memccpy(noalias __dest: ?*anyopaque, noalias __src: ?*const anyopaque, __c: c_int, __n: usize) ?*anyopaque;
+pub extern fn memset(__s: ?*anyopaque, __c: c_int, __n: usize) ?*anyopaque;
+pub extern fn memcmp(__s1: ?*const anyopaque, __s2: ?*const anyopaque, __n: usize) c_int;
+pub extern fn __memcmpeq(__s1: ?*const anyopaque, __s2: ?*const anyopaque, __n: usize) c_int;
+pub extern fn memchr(__s: ?*const anyopaque, __c: c_int, __n: usize) ?*anyopaque;
+pub extern fn strcpy(noalias __dest: [*c]u8, noalias __src: [*c]const u8) [*c]u8;
+pub extern fn strncpy(noalias __dest: [*c]u8, noalias __src: [*c]const u8, __n: usize) [*c]u8;
+pub extern fn strcat(noalias __dest: [*c]u8, noalias __src: [*c]const u8) [*c]u8;
+pub extern fn strncat(noalias __dest: [*c]u8, noalias __src: [*c]const u8, __n: usize) [*c]u8;
+pub extern fn strcmp(__s1: [*c]const u8, __s2: [*c]const u8) c_int;
+pub extern fn strncmp(__s1: [*c]const u8, __s2: [*c]const u8, __n: usize) c_int;
+pub extern fn strcoll(__s1: [*c]const u8, __s2: [*c]const u8) c_int;
+pub extern fn strxfrm(noalias __dest: [*c]u8, noalias __src: [*c]const u8, __n: usize) usize;
+pub extern fn strcoll_l(__s1: [*c]const u8, __s2: [*c]const u8, __l: locale_t) c_int;
+pub extern fn strxfrm_l(__dest: [*c]u8, __src: [*c]const u8, __n: usize, __l: locale_t) usize;
+pub extern fn strdup(__s: [*c]const u8) [*c]u8;
+pub extern fn strndup(__string: [*c]const u8, __n: usize) [*c]u8;
+pub extern fn strchr(__s: [*c]const u8, __c: c_int) [*c]u8;
+pub extern fn strrchr(__s: [*c]const u8, __c: c_int) [*c]u8;
+pub extern fn strcspn(__s: [*c]const u8, __reject: [*c]const u8) usize;
+pub extern fn strspn(__s: [*c]const u8, __accept: [*c]const u8) usize;
+pub extern fn strpbrk(__s: [*c]const u8, __accept: [*c]const u8) [*c]u8;
+pub extern fn strstr(__haystack: [*c]const u8, __needle: [*c]const u8) [*c]u8;
+pub extern fn strtok(noalias __s: [*c]u8, noalias __delim: [*c]const u8) [*c]u8;
+pub extern fn __strtok_r(noalias __s: [*c]u8, noalias __delim: [*c]const u8, noalias __save_ptr: [*c][*c]u8) [*c]u8;
+pub extern fn strtok_r(noalias __s: [*c]u8, noalias __delim: [*c]const u8, noalias __save_ptr: [*c][*c]u8) [*c]u8;
+pub extern fn strlen(__s: [*c]const u8) usize;
+pub extern fn strnlen(__string: [*c]const u8, __maxlen: usize) usize;
+pub extern fn strerror(__errnum: c_int) [*c]u8;
+pub extern fn strerror_r(__errnum: c_int, __buf: [*c]u8, __buflen: usize) c_int;
+pub extern fn strerror_l(__errnum: c_int, __l: locale_t) [*c]u8;
+pub extern fn strsignal(__sig: c_int) [*c]u8;
+pub extern fn __stpcpy(noalias __dest: [*c]u8, noalias __src: [*c]const u8) [*c]u8;
+pub extern fn stpcpy(noalias __dest: [*c]u8, noalias __src: [*c]const u8) [*c]u8;
+pub extern fn __stpncpy(noalias __dest: [*c]u8, noalias __src: [*c]const u8, __n: usize) [*c]u8;
+pub extern fn stpncpy(noalias __dest: [*c]u8, noalias __src: [*c]const u8, __n: usize) [*c]u8;
+pub const sig_atomic_t = __sig_atomic_t;
+pub const __sigset_t = extern struct {
+    __val: [16]c_ulong = @import("std").mem.zeroes([16]c_ulong),
+    pub const sigemptyset = __root.sigemptyset;
+    pub const sigfillset = __root.sigfillset;
+    pub const sigaddset = __root.sigaddset;
+    pub const sigdelset = __root.sigdelset;
+    pub const sigismember = __root.sigismember;
+    pub const sigsuspend = __root.sigsuspend;
+    pub const sigpending = __root.sigpending;
+    pub const sigwait = __root.sigwait;
+    pub const sigwaitinfo = __root.sigwaitinfo;
+    pub const sigtimedwait = __root.sigtimedwait;
+};
+pub const sigset_t = __sigset_t;
+const struct_unnamed_10 = extern struct {
+    si_pid: __pid_t = 0,
+    si_uid: __uid_t = 0,
+};
+const struct_unnamed_11 = extern struct {
+    si_tid: c_int = 0,
+    si_overrun: c_int = 0,
+    si_sigval: __sigval_t = @import("std").mem.zeroes(__sigval_t),
+};
+const struct_unnamed_12 = extern struct {
+    si_pid: __pid_t = 0,
+    si_uid: __uid_t = 0,
+    si_sigval: __sigval_t = @import("std").mem.zeroes(__sigval_t),
+};
+const struct_unnamed_13 = extern struct {
+    si_pid: __pid_t = 0,
+    si_uid: __uid_t = 0,
+    si_status: c_int = 0,
+    si_utime: __clock_t = 0,
+    si_stime: __clock_t = 0,
+};
+const struct_unnamed_16 = extern struct {
+    _lower: ?*anyopaque = null,
+    _upper: ?*anyopaque = null,
+};
+const union_unnamed_15 = extern union {
+    _addr_bnd: struct_unnamed_16,
+    _pkey: __uint32_t,
+};
+const struct_unnamed_14 = extern struct {
+    si_addr: ?*anyopaque = null,
+    si_addr_lsb: c_short = 0,
+    _bounds: union_unnamed_15 = @import("std").mem.zeroes(union_unnamed_15),
+};
+const struct_unnamed_17 = extern struct {
+    si_band: c_long = 0,
+    si_fd: c_int = 0,
+};
+const struct_unnamed_18 = extern struct {
+    _call_addr: ?*anyopaque = null,
+    _syscall: c_int = 0,
+    _arch: c_uint = 0,
+};
+const union_unnamed_9 = extern union {
+    _pad: [28]c_int,
+    _kill: struct_unnamed_10,
+    _timer: struct_unnamed_11,
+    _rt: struct_unnamed_12,
+    _sigchld: struct_unnamed_13,
+    _sigfault: struct_unnamed_14,
+    _sigpoll: struct_unnamed_17,
+    _sigsys: struct_unnamed_18,
+};
+pub const siginfo_t = extern struct {
+    si_signo: c_int = 0,
+    si_errno: c_int = 0,
+    si_code: c_int = 0,
+    __pad0: c_int = 0,
+    _sifields: union_unnamed_9 = @import("std").mem.zeroes(union_unnamed_9),
+    pub const psiginfo = __root.psiginfo;
+};
+pub const SI_ASYNCNL: c_int = -60;
+pub const SI_DETHREAD: c_int = -7;
+pub const SI_TKILL: c_int = -6;
+pub const SI_SIGIO: c_int = -5;
+pub const SI_ASYNCIO: c_int = -4;
+pub const SI_MESGQ: c_int = -3;
+pub const SI_TIMER: c_int = -2;
+pub const SI_QUEUE: c_int = -1;
+pub const SI_USER: c_int = 0;
+pub const SI_KERNEL: c_int = 128;
+const enum_unnamed_19 = c_int;
+pub const ILL_ILLOPC: c_int = 1;
+pub const ILL_ILLOPN: c_int = 2;
+pub const ILL_ILLADR: c_int = 3;
+pub const ILL_ILLTRP: c_int = 4;
+pub const ILL_PRVOPC: c_int = 5;
+pub const ILL_PRVREG: c_int = 6;
+pub const ILL_COPROC: c_int = 7;
+pub const ILL_BADSTK: c_int = 8;
+pub const ILL_BADIADDR: c_int = 9;
+const enum_unnamed_20 = c_uint;
+pub const FPE_INTDIV: c_int = 1;
+pub const FPE_INTOVF: c_int = 2;
+pub const FPE_FLTDIV: c_int = 3;
+pub const FPE_FLTOVF: c_int = 4;
+pub const FPE_FLTUND: c_int = 5;
+pub const FPE_FLTRES: c_int = 6;
+pub const FPE_FLTINV: c_int = 7;
+pub const FPE_FLTSUB: c_int = 8;
+pub const FPE_FLTUNK: c_int = 14;
+pub const FPE_CONDTRAP: c_int = 15;
+const enum_unnamed_21 = c_uint;
+pub const SEGV_MAPERR: c_int = 1;
+pub const SEGV_ACCERR: c_int = 2;
+pub const SEGV_BNDERR: c_int = 3;
+pub const SEGV_PKUERR: c_int = 4;
+pub const SEGV_ACCADI: c_int = 5;
+pub const SEGV_ADIDERR: c_int = 6;
+pub const SEGV_ADIPERR: c_int = 7;
+pub const SEGV_MTEAERR: c_int = 8;
+pub const SEGV_MTESERR: c_int = 9;
+pub const SEGV_CPERR: c_int = 10;
+const enum_unnamed_22 = c_uint;
+pub const BUS_ADRALN: c_int = 1;
+pub const BUS_ADRERR: c_int = 2;
+pub const BUS_OBJERR: c_int = 3;
+pub const BUS_MCEERR_AR: c_int = 4;
+pub const BUS_MCEERR_AO: c_int = 5;
+const enum_unnamed_23 = c_uint;
+pub const TRAP_BRKPT: c_int = 1;
+pub const TRAP_TRACE: c_int = 2;
+pub const TRAP_BRANCH: c_int = 3;
+pub const TRAP_HWBKPT: c_int = 4;
+pub const TRAP_UNK: c_int = 5;
+const enum_unnamed_24 = c_uint;
+pub const CLD_EXITED: c_int = 1;
+pub const CLD_KILLED: c_int = 2;
+pub const CLD_DUMPED: c_int = 3;
+pub const CLD_TRAPPED: c_int = 4;
+pub const CLD_STOPPED: c_int = 5;
+pub const CLD_CONTINUED: c_int = 6;
+const enum_unnamed_25 = c_uint;
+pub const POLL_IN: c_int = 1;
+pub const POLL_OUT: c_int = 2;
+pub const POLL_MSG: c_int = 3;
+pub const POLL_ERR: c_int = 4;
+pub const POLL_PRI: c_int = 5;
+pub const POLL_HUP: c_int = 6;
+const enum_unnamed_26 = c_uint;
+pub const sigevent_t = struct_sigevent;
+pub const SIGEV_SIGNAL: c_int = 0;
+pub const SIGEV_NONE: c_int = 1;
+pub const SIGEV_THREAD: c_int = 2;
+pub const SIGEV_THREAD_ID: c_int = 4;
+const enum_unnamed_27 = c_uint;
+pub const __sighandler_t = ?*const fn (c_int) callconv(.c) void;
+pub extern fn __sysv_signal(__sig: c_int, __handler: __sighandler_t) __sighandler_t;
+pub extern fn signal(__sig: c_int, __handler: __sighandler_t) __sighandler_t;
+pub extern fn kill(__pid: __pid_t, __sig: c_int) c_int;
+pub extern fn killpg(__pgrp: __pid_t, __sig: c_int) c_int;
+pub extern fn raise(__sig: c_int) c_int;
+pub extern fn psignal(__sig: c_int, __s: [*c]const u8) void;
+pub extern fn psiginfo(__pinfo: [*c]const siginfo_t, __s: [*c]const u8) void;
+pub extern fn sigpause(__sig: c_int) c_int;
+pub extern fn sigemptyset(__set: [*c]sigset_t) c_int;
+pub extern fn sigfillset(__set: [*c]sigset_t) c_int;
+pub extern fn sigaddset(__set: [*c]sigset_t, __signo: c_int) c_int;
+pub extern fn sigdelset(__set: [*c]sigset_t, __signo: c_int) c_int;
+pub extern fn sigismember(__set: [*c]const sigset_t, __signo: c_int) c_int;
+const union_unnamed_28 = extern union {
+    sa_handler: __sighandler_t,
+    sa_sigaction: ?*const fn (c_int, [*c]siginfo_t, ?*anyopaque) callconv(.c) void,
+};
+pub const struct_sigaction = extern struct {
+    __sigaction_handler: union_unnamed_28 = @import("std").mem.zeroes(union_unnamed_28),
+    sa_mask: __sigset_t = @import("std").mem.zeroes(__sigset_t),
+    sa_flags: c_int = 0,
+    sa_restorer: ?*const fn () callconv(.c) void = null,
+};
+pub extern fn sigprocmask(__how: c_int, noalias __set: [*c]const sigset_t, noalias __oset: [*c]sigset_t) c_int;
+pub extern fn sigsuspend(__set: [*c]const sigset_t) c_int;
+pub extern fn sigaction(__sig: c_int, noalias __act: [*c]const struct_sigaction, noalias __oact: [*c]struct_sigaction) c_int;
+pub extern fn sigpending(__set: [*c]sigset_t) c_int;
+pub extern fn sigwait(noalias __set: [*c]const sigset_t, noalias __sig: [*c]c_int) c_int;
+pub extern fn sigwaitinfo(noalias __set: [*c]const sigset_t, noalias __info: [*c]siginfo_t) c_int;
+pub extern fn sigtimedwait(noalias __set: [*c]const sigset_t, noalias __info: [*c]siginfo_t, noalias __timeout: [*c]const struct_timespec) c_int;
+pub extern fn sigqueue(__pid: __pid_t, __sig: c_int, __val: union_sigval) c_int;
+pub const stack_t = extern struct {
+    ss_sp: ?*anyopaque = null,
+    ss_flags: c_int = 0,
+    ss_size: usize = 0,
+    pub const sigaltstack = __root.sigaltstack;
+};
+pub const greg_t = c_longlong;
+pub const gregset_t = [23]greg_t;
+pub const struct__libc_fpxreg = extern struct {
+    __significand: [4]c_ushort = @import("std").mem.zeroes([4]c_ushort),
+    __exponent: c_ushort = 0,
+    __glibc_reserved1: [3]c_ushort = @import("std").mem.zeroes([3]c_ushort),
+};
+pub const struct__libc_xmmreg = extern struct {
+    __element: [4]__uint32_t = @import("std").mem.zeroes([4]__uint32_t),
+};
+pub const struct__libc_fpstate = extern struct {
+    __cwd: __uint16_t = 0,
+    __swd: __uint16_t = 0,
+    __ftw: __uint16_t = 0,
+    __fop: __uint16_t = 0,
+    __rip: __uint64_t = 0,
+    __rdp: __uint64_t = 0,
+    __mxcsr: __uint32_t = 0,
+    __mxcr_mask: __uint32_t = 0,
+    _st: [8]struct__libc_fpxreg = @import("std").mem.zeroes([8]struct__libc_fpxreg),
+    _xmm: [16]struct__libc_xmmreg = @import("std").mem.zeroes([16]struct__libc_xmmreg),
+    __glibc_reserved1: [24]__uint32_t = @import("std").mem.zeroes([24]__uint32_t),
+};
+pub const fpregset_t = [*c]struct__libc_fpstate;
+pub const mcontext_t = extern struct {
+    __gregs: gregset_t = @import("std").mem.zeroes(gregset_t),
+    __fpregs: fpregset_t = null,
+    __reserved1: [8]c_ulonglong = @import("std").mem.zeroes([8]c_ulonglong),
+};
+pub const struct_ucontext_t = extern struct {
+    __uc_flags: c_ulong = 0,
+    uc_link: [*c]struct_ucontext_t = null,
+    uc_stack: stack_t = @import("std").mem.zeroes(stack_t),
+    uc_mcontext: mcontext_t = @import("std").mem.zeroes(mcontext_t),
+    uc_sigmask: sigset_t = @import("std").mem.zeroes(sigset_t),
+    __fpregs_mem: struct__libc_fpstate = @import("std").mem.zeroes(struct__libc_fpstate),
+    __ssp: [4]c_ulonglong = @import("std").mem.zeroes([4]c_ulonglong),
+};
+pub const ucontext_t = struct_ucontext_t;
+pub extern fn siginterrupt(__sig: c_int, __interrupt: c_int) c_int;
+pub const SS_ONSTACK: c_int = 1;
+pub const SS_DISABLE: c_int = 2;
+const enum_unnamed_29 = c_uint;
+pub extern fn sigaltstack(noalias __ss: [*c]const stack_t, noalias __oss: [*c]stack_t) c_int;
+pub extern fn sighold(__sig: c_int) c_int;
+pub extern fn sigrelse(__sig: c_int) c_int;
+pub extern fn sigignore(__sig: c_int) c_int;
+pub extern fn sigset(__sig: c_int, __disp: __sighandler_t) __sighandler_t;
+pub extern fn pthread_sigmask(__how: c_int, noalias __newmask: [*c]const __sigset_t, noalias __oldmask: [*c]__sigset_t) c_int;
+pub extern fn pthread_kill(__threadid: pthread_t, __signo: c_int) c_int;
+pub extern fn __libc_current_sigrtmin() c_int;
+pub extern fn __libc_current_sigrtmax() c_int;
+pub const struct_iovec = extern struct {
+    iov_base: ?*anyopaque = null,
+    iov_len: usize = 0,
+};
+pub const socklen_t = __socklen_t;
+pub const SOCK_STREAM: c_int = 1;
+pub const SOCK_DGRAM: c_int = 2;
+pub const SOCK_RAW: c_int = 3;
+pub const SOCK_RDM: c_int = 4;
+pub const SOCK_SEQPACKET: c_int = 5;
+pub const SOCK_DCCP: c_int = 6;
+pub const SOCK_PACKET: c_int = 10;
+pub const SOCK_CLOEXEC: c_int = 524288;
+pub const SOCK_NONBLOCK: c_int = 2048;
+pub const enum___socket_type = c_uint;
+pub const sa_family_t = c_ushort;
+pub const struct_sockaddr = extern struct {
+    sa_family: sa_family_t = 0,
+    sa_data: [14]u8 = @import("std").mem.zeroes([14]u8),
+};
+pub const struct_sockaddr_storage = extern struct {
+    ss_family: sa_family_t = 0,
+    __ss_padding: [118]u8 = @import("std").mem.zeroes([118]u8),
+    __ss_align: c_ulong = 0,
+};
+pub const MSG_OOB: c_int = 1;
+pub const MSG_PEEK: c_int = 2;
+pub const MSG_DONTROUTE: c_int = 4;
+pub const MSG_CTRUNC: c_int = 8;
+pub const MSG_PROXY: c_int = 16;
+pub const MSG_TRUNC: c_int = 32;
+pub const MSG_DONTWAIT: c_int = 64;
+pub const MSG_EOR: c_int = 128;
+pub const MSG_WAITALL: c_int = 256;
+pub const MSG_FIN: c_int = 512;
+pub const MSG_SYN: c_int = 1024;
+pub const MSG_CONFIRM: c_int = 2048;
+pub const MSG_RST: c_int = 4096;
+pub const MSG_ERRQUEUE: c_int = 8192;
+pub const MSG_NOSIGNAL: c_int = 16384;
+pub const MSG_MORE: c_int = 32768;
+pub const MSG_WAITFORONE: c_int = 65536;
+pub const MSG_BATCH: c_int = 262144;
+pub const MSG_SOCK_DEVMEM: c_int = 33554432;
+pub const MSG_ZEROCOPY: c_int = 67108864;
+pub const MSG_FASTOPEN: c_int = 536870912;
+pub const MSG_CMSG_CLOEXEC: c_int = 1073741824;
+const enum_unnamed_30 = c_uint;
+pub const struct_msghdr = extern struct {
+    msg_name: ?*anyopaque = null,
+    msg_namelen: socklen_t = 0,
+    msg_iov: [*c]struct_iovec = null,
+    msg_iovlen: usize = 0,
+    msg_control: ?*anyopaque = null,
+    msg_controllen: usize = 0,
+    msg_flags: c_int = 0,
+    pub const __cmsg_nxthdr = __root.__cmsg_nxthdr;
+    pub const nxthdr = __root.__cmsg_nxthdr;
+};
+pub const struct_cmsghdr = extern struct {
+    cmsg_len: usize = 0,
+    cmsg_level: c_int = 0,
+    cmsg_type: c_int = 0,
+    ___cmsg_data: [0]u8 = @import("std").mem.zeroes([0]u8),
+    pub fn __cmsg_data(_self: anytype) __helpers.FlexibleArrayType(@TypeOf(_self), @typeInfo(@TypeOf(_self.*.___cmsg_data)).array.child) {
+        return @ptrCast(@alignCast(&_self.*.___cmsg_data));
+    }
+};
+pub extern fn __cmsg_nxthdr(__mhdr: [*c]struct_msghdr, __cmsg: [*c]struct_cmsghdr) [*c]struct_cmsghdr;
+pub const SCM_RIGHTS: c_int = 1;
+const enum_unnamed_31 = c_uint;
+pub const struct_linger = extern struct {
+    l_onoff: c_int = 0,
+    l_linger: c_int = 0,
+};
+pub const SHUT_RD: c_int = 0;
+pub const SHUT_WR: c_int = 1;
+pub const SHUT_RDWR: c_int = 2;
+const enum_unnamed_32 = c_uint;
+pub extern fn socket(__domain: c_int, __type: c_int, __protocol: c_int) c_int;
+pub extern fn socketpair(__domain: c_int, __type: c_int, __protocol: c_int, __fds: [*c]c_int) c_int;
+pub extern fn bind(__fd: c_int, __addr: [*c]const struct_sockaddr, __len: socklen_t) c_int;
+pub extern fn getsockname(__fd: c_int, noalias __addr: [*c]struct_sockaddr, noalias __len: [*c]socklen_t) c_int;
+pub extern fn connect(__fd: c_int, __addr: [*c]const struct_sockaddr, __len: socklen_t) c_int;
+pub extern fn getpeername(__fd: c_int, noalias __addr: [*c]struct_sockaddr, noalias __len: [*c]socklen_t) c_int;
+pub extern fn send(__fd: c_int, __buf: ?*const anyopaque, __n: usize, __flags: c_int) isize;
+pub extern fn recv(__fd: c_int, __buf: ?*anyopaque, __n: usize, __flags: c_int) isize;
+pub extern fn sendto(__fd: c_int, __buf: ?*const anyopaque, __n: usize, __flags: c_int, __addr: [*c]const struct_sockaddr, __addr_len: socklen_t) isize;
+pub extern fn recvfrom(__fd: c_int, noalias __buf: ?*anyopaque, __n: usize, __flags: c_int, noalias __addr: [*c]struct_sockaddr, noalias __addr_len: [*c]socklen_t) isize;
+pub extern fn sendmsg(__fd: c_int, __message: [*c]const struct_msghdr, __flags: c_int) isize;
+pub extern fn recvmsg(__fd: c_int, __message: [*c]struct_msghdr, __flags: c_int) isize;
+pub extern fn getsockopt(__fd: c_int, __level: c_int, __optname: c_int, noalias __optval: ?*anyopaque, noalias __optlen: [*c]socklen_t) c_int;
+pub extern fn setsockopt(__fd: c_int, __level: c_int, __optname: c_int, __optval: ?*const anyopaque, __optlen: socklen_t) c_int;
+pub extern fn listen(__fd: c_int, __n: c_int) c_int;
+pub extern fn accept(__fd: c_int, noalias __addr: [*c]struct_sockaddr, noalias __addr_len: [*c]socklen_t) c_int;
+pub extern fn shutdown(__fd: c_int, __how: c_int) c_int;
+pub extern fn sockatmark(__fd: c_int) c_int;
+pub const in_addr_t = u32;
+pub const struct_in_addr = extern struct {
+    s_addr: in_addr_t = 0,
+};
+pub const IPPROTO_IP: c_int = 0;
+pub const IPPROTO_ICMP: c_int = 1;
+pub const IPPROTO_IGMP: c_int = 2;
+pub const IPPROTO_IPIP: c_int = 4;
+pub const IPPROTO_TCP: c_int = 6;
+pub const IPPROTO_EGP: c_int = 8;
+pub const IPPROTO_PUP: c_int = 12;
+pub const IPPROTO_UDP: c_int = 17;
+pub const IPPROTO_IDP: c_int = 22;
+pub const IPPROTO_TP: c_int = 29;
+pub const IPPROTO_DCCP: c_int = 33;
+pub const IPPROTO_IPV6: c_int = 41;
+pub const IPPROTO_RSVP: c_int = 46;
+pub const IPPROTO_GRE: c_int = 47;
+pub const IPPROTO_ESP: c_int = 50;
+pub const IPPROTO_AH: c_int = 51;
+pub const IPPROTO_MTP: c_int = 92;
+pub const IPPROTO_BEETPH: c_int = 94;
+pub const IPPROTO_ENCAP: c_int = 98;
+pub const IPPROTO_PIM: c_int = 103;
+pub const IPPROTO_COMP: c_int = 108;
+pub const IPPROTO_L2TP: c_int = 115;
+pub const IPPROTO_SCTP: c_int = 132;
+pub const IPPROTO_UDPLITE: c_int = 136;
+pub const IPPROTO_MPLS: c_int = 137;
+pub const IPPROTO_ETHERNET: c_int = 143;
+pub const IPPROTO_RAW: c_int = 255;
+pub const IPPROTO_SMC: c_int = 256;
+pub const IPPROTO_MPTCP: c_int = 262;
+pub const IPPROTO_MAX: c_int = 263;
+const enum_unnamed_33 = c_uint;
+pub const IPPROTO_HOPOPTS: c_int = 0;
+pub const IPPROTO_ROUTING: c_int = 43;
+pub const IPPROTO_FRAGMENT: c_int = 44;
+pub const IPPROTO_ICMPV6: c_int = 58;
+pub const IPPROTO_NONE: c_int = 59;
+pub const IPPROTO_DSTOPTS: c_int = 60;
+pub const IPPROTO_MH: c_int = 135;
+const enum_unnamed_34 = c_uint;
+pub const in_port_t = u16;
+pub const IPPORT_ECHO: c_int = 7;
+pub const IPPORT_DISCARD: c_int = 9;
+pub const IPPORT_SYSTAT: c_int = 11;
+pub const IPPORT_DAYTIME: c_int = 13;
+pub const IPPORT_NETSTAT: c_int = 15;
+pub const IPPORT_FTP: c_int = 21;
+pub const IPPORT_TELNET: c_int = 23;
+pub const IPPORT_SMTP: c_int = 25;
+pub const IPPORT_TIMESERVER: c_int = 37;
+pub const IPPORT_NAMESERVER: c_int = 42;
+pub const IPPORT_WHOIS: c_int = 43;
+pub const IPPORT_MTP: c_int = 57;
+pub const IPPORT_TFTP: c_int = 69;
+pub const IPPORT_RJE: c_int = 77;
+pub const IPPORT_FINGER: c_int = 79;
+pub const IPPORT_TTYLINK: c_int = 87;
+pub const IPPORT_SUPDUP: c_int = 95;
+pub const IPPORT_EXECSERVER: c_int = 512;
+pub const IPPORT_LOGINSERVER: c_int = 513;
+pub const IPPORT_CMDSERVER: c_int = 514;
+pub const IPPORT_EFSSERVER: c_int = 520;
+pub const IPPORT_BIFFUDP: c_int = 512;
+pub const IPPORT_WHOSERVER: c_int = 513;
+pub const IPPORT_ROUTESERVER: c_int = 520;
+pub const IPPORT_RESERVED: c_int = 1024;
+pub const IPPORT_USERRESERVED: c_int = 5000;
+const enum_unnamed_35 = c_uint;
+const union_unnamed_36 = extern union {
+    __u6_addr8: [16]u8,
+    __u6_addr16: [8]u16,
+    __u6_addr32: [4]u32,
+};
+pub const struct_in6_addr = extern struct {
+    __in6_u: union_unnamed_36 = @import("std").mem.zeroes(union_unnamed_36),
+};
+pub extern const in6addr_any: struct_in6_addr;
+pub extern const in6addr_loopback: struct_in6_addr;
+pub const struct_sockaddr_in = extern struct {
+    sin_family: sa_family_t = 0,
+    sin_port: in_port_t = 0,
+    sin_addr: struct_in_addr = @import("std").mem.zeroes(struct_in_addr),
+    sin_zero: [8]u8 = @import("std").mem.zeroes([8]u8),
+};
+pub const struct_sockaddr_in6 = extern struct {
+    sin6_family: sa_family_t = 0,
+    sin6_port: in_port_t = 0,
+    sin6_flowinfo: u32 = 0,
+    sin6_addr: struct_in6_addr = @import("std").mem.zeroes(struct_in6_addr),
+    sin6_scope_id: u32 = 0,
+};
+pub const struct_ipv6_mreq = extern struct {
+    ipv6mr_multiaddr: struct_in6_addr = @import("std").mem.zeroes(struct_in6_addr),
+    ipv6mr_interface: c_uint = 0,
+};
+pub extern fn ntohl(__netlong: u32) u32;
+pub extern fn ntohs(__netshort: u16) u16;
+pub extern fn htonl(__hostlong: u32) u32;
+pub extern fn htons(__hostshort: u16) u16;
+pub fn __bswap_16(arg___bsx: __uint16_t) callconv(.c) __uint16_t {
+    var __bsx = arg___bsx;
+    _ = &__bsx;
+    return @byteSwap(@as(__uint16_t, __bsx));
+}
+pub fn __bswap_32(arg___bsx: __uint32_t) callconv(.c) __uint32_t {
+    var __bsx = arg___bsx;
+    _ = &__bsx;
+    return @bitCast(@as(c_int, @byteSwap(@as(c_int, @bitCast(@as(c_uint, @truncate(__bsx)))))));
+}
+pub fn __bswap_64(arg___bsx: __uint64_t) callconv(.c) __uint64_t {
+    var __bsx = arg___bsx;
+    _ = &__bsx;
+    return @bitCast(@as(c_long, @byteSwap(@as(c_long, @bitCast(@as(c_ulong, @truncate(__bsx)))))));
+}
+pub fn __uint16_identity(arg___x: __uint16_t) callconv(.c) __uint16_t {
+    var __x = arg___x;
+    _ = &__x;
+    return __x;
+}
+pub fn __uint32_identity(arg___x: __uint32_t) callconv(.c) __uint32_t {
+    var __x = arg___x;
+    _ = &__x;
+    return __x;
+}
+pub fn __uint64_identity(arg___x: __uint64_t) callconv(.c) __uint64_t {
+    var __x = arg___x;
+    _ = &__x;
+    return __x;
+}
+pub fn nckey_synthesized_p(arg_w: u32) callconv(.c) bool {
+    var w = arg_w;
+    _ = &w;
+    return (w >= @as(u32, PRETERUNICODEBASE)) and (w <= @as(u32, @bitCast(@as(c_int, @as(c_int, 500) + PRETERUNICODEBASE))));
+}
+pub fn nckey_pua_p(arg_w: u32) callconv(.c) bool {
+    var w = arg_w;
+    _ = &w;
+    return (w >= @as(u32, 57344)) and (w <= @as(u32, 63743));
+}
+pub fn nckey_supppuaa_p(arg_w: u32) callconv(.c) bool {
+    var w = arg_w;
+    _ = &w;
+    return (w >= @as(u32, 983040)) and (w <= @as(u32, 1048573));
+}
+pub fn nckey_supppuab_p(arg_w: u32) callconv(.c) bool {
+    var w = arg_w;
+    _ = &w;
+    return (w >= @as(u32, 1048576)) and (w <= @as(u32, 1114109));
+}
+pub extern fn notcurses_version() [*c]const u8;
+pub extern fn notcurses_version_components(major: [*c]c_int, minor: [*c]c_int, patch: [*c]c_int, tweak: [*c]c_int) void;
+pub const struct_notcurses = opaque {
+    pub const notcurses_stop = __root.notcurses_stop;
+    pub const notcurses_enter_alternate_screen = __root.notcurses_enter_alternate_screen;
+    pub const notcurses_leave_alternate_screen = __root.notcurses_leave_alternate_screen;
+    pub const notcurses_stdplane = __root.notcurses_stdplane;
+    pub const notcurses_stdplane_const = __root.notcurses_stdplane_const;
+    pub const notcurses_top = __root.notcurses_top;
+    pub const notcurses_bottom = __root.notcurses_bottom;
+    pub const notcurses_render = __root.notcurses_render;
+    pub const notcurses_drop_planes = __root.notcurses_drop_planes;
+    pub const notcurses_get = __root.notcurses_get;
+    pub const notcurses_getvec = __root.notcurses_getvec;
+    pub const notcurses_inputready_fd = __root.notcurses_inputready_fd;
+    pub const notcurses_get_nblock = __root.notcurses_get_nblock;
+    pub const notcurses_get_blocking = __root.notcurses_get_blocking;
+    pub const notcurses_mice_enable = __root.notcurses_mice_enable;
+    pub const notcurses_mice_disable = __root.notcurses_mice_disable;
+    pub const notcurses_linesigs_disable = __root.notcurses_linesigs_disable;
+    pub const notcurses_linesigs_enable = __root.notcurses_linesigs_enable;
+    pub const notcurses_refresh = __root.notcurses_refresh;
+    pub const notcurses_stddim_yx = __root.notcurses_stddim_yx;
+    pub const notcurses_stddim_yx_const = __root.notcurses_stddim_yx_const;
+    pub const notcurses_term_dim_yx = __root.notcurses_term_dim_yx;
+    pub const notcurses_at_yx = __root.notcurses_at_yx;
+    pub const ncpile_create = __root.ncpile_create;
+    pub const ncpalette_new = __root.ncpalette_new;
+    pub const ncpalette_use = __root.ncpalette_use;
+    pub const notcurses_supported_styles = __root.notcurses_supported_styles;
+    pub const notcurses_palette_size = __root.notcurses_palette_size;
+    pub const notcurses_detected_terminal = __root.notcurses_detected_terminal;
+    pub const notcurses_capabilities = __root.notcurses_capabilities;
+    pub const notcurses_check_pixel_support = __root.notcurses_check_pixel_support;
+    pub const notcurses_cantruecolor = __root.notcurses_cantruecolor;
+    pub const notcurses_canchangecolor = __root.notcurses_canchangecolor;
+    pub const notcurses_canfade = __root.notcurses_canfade;
+    pub const notcurses_canopen_images = __root.notcurses_canopen_images;
+    pub const notcurses_canopen_videos = __root.notcurses_canopen_videos;
+    pub const notcurses_canutf8 = __root.notcurses_canutf8;
+    pub const notcurses_canhalfblock = __root.notcurses_canhalfblock;
+    pub const notcurses_canquadrant = __root.notcurses_canquadrant;
+    pub const notcurses_cansextant = __root.notcurses_cansextant;
+    pub const notcurses_canoctant = __root.notcurses_canoctant;
+    pub const notcurses_canbraille = __root.notcurses_canbraille;
+    pub const notcurses_canpixel = __root.notcurses_canpixel;
+    pub const notcurses_stats_alloc = __root.notcurses_stats_alloc;
+    pub const notcurses_stats = __root.notcurses_stats;
+    pub const notcurses_stats_reset = __root.notcurses_stats_reset;
+    pub const ncvisual_geom = __root.ncvisual_geom;
+    pub const ncvisual_blit = __root.ncvisual_blit;
+    pub const ncvisualplane_create = __root.ncvisualplane_create;
+    pub const ncvisual_media_defblitter = __root.ncvisual_media_defblitter;
+    pub const ncvisual_stream = __root.ncvisual_stream;
+    pub const notcurses_default_foreground = __root.notcurses_default_foreground;
+    pub const notcurses_default_background = __root.notcurses_default_background;
+    pub const notcurses_cursor_enable = __root.notcurses_cursor_enable;
+    pub const notcurses_cursor_disable = __root.notcurses_cursor_disable;
+    pub const notcurses_cursor_yx = __root.notcurses_cursor_yx;
+    pub const notcurses_debug = __root.notcurses_debug;
+    pub const stop = __root.notcurses_stop;
+    pub const enter_alternate_screen = __root.notcurses_enter_alternate_screen;
+    pub const leave_alternate_screen = __root.notcurses_leave_alternate_screen;
+    pub const stdplane = __root.notcurses_stdplane;
+    pub const stdplane_const = __root.notcurses_stdplane_const;
+    pub const top = __root.notcurses_top;
+    pub const bottom = __root.notcurses_bottom;
+    pub const render = __root.notcurses_render;
+    pub const drop_planes = __root.notcurses_drop_planes;
+    pub const get = __root.notcurses_get;
+    pub const getvec = __root.notcurses_getvec;
+    pub const inputready_fd = __root.notcurses_inputready_fd;
+    pub const get_nblock = __root.notcurses_get_nblock;
+    pub const get_blocking = __root.notcurses_get_blocking;
+    pub const mice_enable = __root.notcurses_mice_enable;
+    pub const mice_disable = __root.notcurses_mice_disable;
+    pub const linesigs_disable = __root.notcurses_linesigs_disable;
+    pub const linesigs_enable = __root.notcurses_linesigs_enable;
+    pub const refresh = __root.notcurses_refresh;
+    pub const stddim_yx = __root.notcurses_stddim_yx;
+    pub const stddim_yx_const = __root.notcurses_stddim_yx_const;
+    pub const term_dim_yx = __root.notcurses_term_dim_yx;
+    pub const at_yx = __root.notcurses_at_yx;
+    pub const create = __root.ncpile_create;
+    pub const new = __root.ncpalette_new;
+    pub const use = __root.ncpalette_use;
+    pub const supported_styles = __root.notcurses_supported_styles;
+    pub const palette_size = __root.notcurses_palette_size;
+    pub const detected_terminal = __root.notcurses_detected_terminal;
+    pub const capabilities = __root.notcurses_capabilities;
+    pub const check_pixel_support = __root.notcurses_check_pixel_support;
+    pub const cantruecolor = __root.notcurses_cantruecolor;
+    pub const canchangecolor = __root.notcurses_canchangecolor;
+    pub const canfade = __root.notcurses_canfade;
+    pub const canopen_images = __root.notcurses_canopen_images;
+    pub const canopen_videos = __root.notcurses_canopen_videos;
+    pub const canutf8 = __root.notcurses_canutf8;
+    pub const canhalfblock = __root.notcurses_canhalfblock;
+    pub const canquadrant = __root.notcurses_canquadrant;
+    pub const cansextant = __root.notcurses_cansextant;
+    pub const canoctant = __root.notcurses_canoctant;
+    pub const canbraille = __root.notcurses_canbraille;
+    pub const canpixel = __root.notcurses_canpixel;
+    pub const stats_alloc = __root.notcurses_stats_alloc;
+    pub const stats = __root.notcurses_stats;
+    pub const stats_reset = __root.notcurses_stats_reset;
+    pub const geom = __root.ncvisual_geom;
+    pub const blit = __root.ncvisual_blit;
+    pub const defblitter = __root.ncvisual_media_defblitter;
+    pub const stream = __root.ncvisual_stream;
+    pub const default_foreground = __root.notcurses_default_foreground;
+    pub const default_background = __root.notcurses_default_background;
+    pub const cursor_enable = __root.notcurses_cursor_enable;
+    pub const cursor_disable = __root.notcurses_cursor_disable;
+    pub const cursor_yx = __root.notcurses_cursor_yx;
+    pub const debug = __root.notcurses_debug;
+};
+pub const struct_ncplane = opaque {
+    pub const nccell_load = __root.nccell_load;
+    pub const nccell_prime = __root.nccell_prime;
+    pub const nccell_duplicate = __root.nccell_duplicate;
+    pub const nccell_release = __root.nccell_release;
+    pub const nccell_extended_gcluster = __root.nccell_extended_gcluster;
+    pub const nccell_strdup = __root.nccell_strdup;
+    pub const nccell_extract = __root.nccell_extract;
+    pub const nccellcmp = __root.nccellcmp;
+    pub const nccell_load_char = __root.nccell_load_char;
+    pub const nccell_load_egc32 = __root.nccell_load_egc32;
+    pub const nccell_load_ucs32 = __root.nccell_load_ucs32;
+    pub const ncpile_top = __root.ncpile_top;
+    pub const ncpile_bottom = __root.ncpile_bottom;
+    pub const ncpile_render = __root.ncpile_render;
+    pub const ncpile_rasterize = __root.ncpile_rasterize;
+    pub const ncpile_render_to_buffer = __root.ncpile_render_to_buffer;
+    pub const ncpile_render_to_file = __root.ncpile_render_to_file;
+    pub const ncplane_notcurses = __root.ncplane_notcurses;
+    pub const ncplane_notcurses_const = __root.ncplane_notcurses_const;
+    pub const ncplane_dim_yx = __root.ncplane_dim_yx;
+    pub const ncplane_dim_y = __root.ncplane_dim_y;
+    pub const ncplane_dim_x = __root.ncplane_dim_x;
+    pub const ncplane_pixel_geom = __root.ncplane_pixel_geom;
+    pub const ncplane_create = __root.ncplane_create;
+    pub const ncplane_resize_maximize = __root.ncplane_resize_maximize;
+    pub const ncplane_resize_marginalized = __root.ncplane_resize_marginalized;
+    pub const ncplane_resize_realign = __root.ncplane_resize_realign;
+    pub const ncplane_resize_placewithin = __root.ncplane_resize_placewithin;
+    pub const ncplane_set_resizecb = __root.ncplane_set_resizecb;
+    pub const ncplane_resizecb = __root.ncplane_resizecb;
+    pub const ncplane_set_name = __root.ncplane_set_name;
+    pub const ncplane_name = __root.ncplane_name;
+    pub const ncplane_reparent = __root.ncplane_reparent;
+    pub const ncplane_reparent_family = __root.ncplane_reparent_family;
+    pub const ncplane_dup = __root.ncplane_dup;
+    pub const ncplane_translate = __root.ncplane_translate;
+    pub const ncplane_translate_abs = __root.ncplane_translate_abs;
+    pub const ncplane_set_scrolling = __root.ncplane_set_scrolling;
+    pub const ncplane_scrolling_p = __root.ncplane_scrolling_p;
+    pub const ncplane_set_autogrow = __root.ncplane_set_autogrow;
+    pub const ncplane_autogrow_p = __root.ncplane_autogrow_p;
+    pub const ncplane_resize = __root.ncplane_resize;
+    pub const ncplane_resize_simple = __root.ncplane_resize_simple;
+    pub const ncplane_destroy = __root.ncplane_destroy;
+    pub const ncplane_set_base_cell = __root.ncplane_set_base_cell;
+    pub const ncplane_set_base = __root.ncplane_set_base;
+    pub const ncplane_base = __root.ncplane_base;
+    pub const ncplane_yx = __root.ncplane_yx;
+    pub const ncplane_y = __root.ncplane_y;
+    pub const ncplane_x = __root.ncplane_x;
+    pub const ncplane_move_yx = __root.ncplane_move_yx;
+    pub const ncplane_move_rel = __root.ncplane_move_rel;
+    pub const ncplane_abs_yx = __root.ncplane_abs_yx;
+    pub const ncplane_abs_y = __root.ncplane_abs_y;
+    pub const ncplane_abs_x = __root.ncplane_abs_x;
+    pub const ncplane_parent = __root.ncplane_parent;
+    pub const ncplane_parent_const = __root.ncplane_parent_const;
+    pub const ncplane_descendant_p = __root.ncplane_descendant_p;
+    pub const ncplane_move_above = __root.ncplane_move_above;
+    pub const ncplane_move_below = __root.ncplane_move_below;
+    pub const ncplane_move_top = __root.ncplane_move_top;
+    pub const ncplane_move_bottom = __root.ncplane_move_bottom;
+    pub const ncplane_move_family_above = __root.ncplane_move_family_above;
+    pub const ncplane_move_family_below = __root.ncplane_move_family_below;
+    pub const ncplane_move_family_top = __root.ncplane_move_family_top;
+    pub const ncplane_move_family_bottom = __root.ncplane_move_family_bottom;
+    pub const ncplane_family_destroy = __root.ncplane_family_destroy;
+    pub const ncplane_below = __root.ncplane_below;
+    pub const ncplane_above = __root.ncplane_above;
+    pub const ncplane_scrollup = __root.ncplane_scrollup;
+    pub const ncplane_scrollup_child = __root.ncplane_scrollup_child;
+    pub const ncplane_rotate_cw = __root.ncplane_rotate_cw;
+    pub const ncplane_rotate_ccw = __root.ncplane_rotate_ccw;
+    pub const ncplane_at_cursor = __root.ncplane_at_cursor;
+    pub const ncplane_at_cursor_cell = __root.ncplane_at_cursor_cell;
+    pub const ncplane_at_yx = __root.ncplane_at_yx;
+    pub const ncplane_at_yx_cell = __root.ncplane_at_yx_cell;
+    pub const ncplane_contents = __root.ncplane_contents;
+    pub const ncplane_set_userptr = __root.ncplane_set_userptr;
+    pub const ncplane_userptr = __root.ncplane_userptr;
+    pub const ncplane_center_abs = __root.ncplane_center_abs;
+    pub const ncplane_as_rgba = __root.ncplane_as_rgba;
+    pub const ncplane_halign = __root.ncplane_halign;
+    pub const ncplane_valign = __root.ncplane_valign;
+    pub const ncplane_cursor_move_yx = __root.ncplane_cursor_move_yx;
+    pub const ncplane_cursor_move_rel = __root.ncplane_cursor_move_rel;
+    pub const ncplane_home = __root.ncplane_home;
+    pub const ncplane_cursor_yx = __root.ncplane_cursor_yx;
+    pub const ncplane_cursor_y = __root.ncplane_cursor_y;
+    pub const ncplane_cursor_x = __root.ncplane_cursor_x;
+    pub const ncplane_channels = __root.ncplane_channels;
+    pub const ncplane_styles = __root.ncplane_styles;
+    pub const ncplane_putc_yx = __root.ncplane_putc_yx;
+    pub const ncplane_putc = __root.ncplane_putc;
+    pub const ncplane_putchar_yx = __root.ncplane_putchar_yx;
+    pub const ncplane_putchar = __root.ncplane_putchar;
+    pub const ncplane_putchar_stained = __root.ncplane_putchar_stained;
+    pub const ncplane_putegc_yx = __root.ncplane_putegc_yx;
+    pub const ncplane_putegc = __root.ncplane_putegc;
+    pub const ncplane_putegc_stained = __root.ncplane_putegc_stained;
+    pub const ncplane_putwegc = __root.ncplane_putwegc;
+    pub const ncplane_putwegc_yx = __root.ncplane_putwegc_yx;
+    pub const ncplane_putwegc_stained = __root.ncplane_putwegc_stained;
+    pub const ncplane_putstr_yx = __root.ncplane_putstr_yx;
+    pub const ncplane_putstr = __root.ncplane_putstr;
+    pub const ncplane_putstr_aligned = __root.ncplane_putstr_aligned;
+    pub const ncplane_putstr_stained = __root.ncplane_putstr_stained;
+    pub const ncplane_putnstr_aligned = __root.ncplane_putnstr_aligned;
+    pub const ncplane_putnstr_yx = __root.ncplane_putnstr_yx;
+    pub const ncplane_putnstr = __root.ncplane_putnstr;
+    pub const ncplane_putwstr_yx = __root.ncplane_putwstr_yx;
+    pub const ncplane_putwstr_aligned = __root.ncplane_putwstr_aligned;
+    pub const ncplane_putwstr_stained = __root.ncplane_putwstr_stained;
+    pub const ncplane_putwstr = __root.ncplane_putwstr;
+    pub const ncplane_pututf32_yx = __root.ncplane_pututf32_yx;
+    pub const ncplane_putwc_yx = __root.ncplane_putwc_yx;
+    pub const ncplane_putwc = __root.ncplane_putwc;
+    pub const ncplane_putwc_utf32 = __root.ncplane_putwc_utf32;
+    pub const ncplane_putwc_stained = __root.ncplane_putwc_stained;
+    pub const ncplane_vprintf_aligned = __root.ncplane_vprintf_aligned;
+    pub const ncplane_vprintf_yx = __root.ncplane_vprintf_yx;
+    pub const ncplane_vprintf = __root.ncplane_vprintf;
+    pub const ncplane_vprintf_stained = __root.ncplane_vprintf_stained;
+    pub const ncplane_printf = __root.ncplane_printf;
+    pub const ncplane_printf_yx = __root.ncplane_printf_yx;
+    pub const ncplane_printf_aligned = __root.ncplane_printf_aligned;
+    pub const ncplane_printf_stained = __root.ncplane_printf_stained;
+    pub const ncplane_puttext = __root.ncplane_puttext;
+    pub const ncplane_hline_interp = __root.ncplane_hline_interp;
+    pub const ncplane_hline = __root.ncplane_hline;
+    pub const ncplane_vline_interp = __root.ncplane_vline_interp;
+    pub const ncplane_vline = __root.ncplane_vline;
+    pub const ncplane_box = __root.ncplane_box;
+    pub const ncplane_box_sized = __root.ncplane_box_sized;
+    pub const ncplane_perimeter = __root.ncplane_perimeter;
+    pub const ncplane_polyfill_yx = __root.ncplane_polyfill_yx;
+    pub const ncplane_gradient = __root.ncplane_gradient;
+    pub const ncplane_gradient2x1 = __root.ncplane_gradient2x1;
+    pub const ncplane_format = __root.ncplane_format;
+    pub const ncplane_stain = __root.ncplane_stain;
+    pub const ncplane_mergedown_simple = __root.ncplane_mergedown_simple;
+    pub const ncplane_mergedown = __root.ncplane_mergedown;
+    pub const ncplane_erase = __root.ncplane_erase;
+    pub const ncplane_erase_region = __root.ncplane_erase_region;
+    pub const ncplane_bchannel = __root.ncplane_bchannel;
+    pub const ncplane_fchannel = __root.ncplane_fchannel;
+    pub const ncplane_set_channels = __root.ncplane_set_channels;
+    pub const ncplane_set_bchannel = __root.ncplane_set_bchannel;
+    pub const ncplane_set_fchannel = __root.ncplane_set_fchannel;
+    pub const ncplane_set_styles = __root.ncplane_set_styles;
+    pub const ncplane_on_styles = __root.ncplane_on_styles;
+    pub const ncplane_off_styles = __root.ncplane_off_styles;
+    pub const ncplane_fg_rgb = __root.ncplane_fg_rgb;
+    pub const ncplane_bg_rgb = __root.ncplane_bg_rgb;
+    pub const ncplane_fg_alpha = __root.ncplane_fg_alpha;
+    pub const ncplane_fg_default_p = __root.ncplane_fg_default_p;
+    pub const ncplane_bg_alpha = __root.ncplane_bg_alpha;
+    pub const ncplane_bg_default_p = __root.ncplane_bg_default_p;
+    pub const ncplane_fg_rgb8 = __root.ncplane_fg_rgb8;
+    pub const ncplane_bg_rgb8 = __root.ncplane_bg_rgb8;
+    pub const ncplane_set_fg_rgb8 = __root.ncplane_set_fg_rgb8;
+    pub const ncplane_set_bg_rgb8 = __root.ncplane_set_bg_rgb8;
+    pub const ncplane_set_bg_rgb8_clipped = __root.ncplane_set_bg_rgb8_clipped;
+    pub const ncplane_set_fg_rgb8_clipped = __root.ncplane_set_fg_rgb8_clipped;
+    pub const ncplane_set_fg_rgb = __root.ncplane_set_fg_rgb;
+    pub const ncplane_set_bg_rgb = __root.ncplane_set_bg_rgb;
+    pub const ncplane_set_fg_default = __root.ncplane_set_fg_default;
+    pub const ncplane_set_bg_default = __root.ncplane_set_bg_default;
+    pub const ncplane_set_fg_palindex = __root.ncplane_set_fg_palindex;
+    pub const ncplane_set_bg_palindex = __root.ncplane_set_bg_palindex;
+    pub const ncplane_set_fg_alpha = __root.ncplane_set_fg_alpha;
+    pub const ncplane_set_bg_alpha = __root.ncplane_set_bg_alpha;
+    pub const ncplane_fadeout = __root.ncplane_fadeout;
+    pub const ncplane_fadein = __root.ncplane_fadein;
+    pub const ncfadectx_setup = __root.ncfadectx_setup;
+    pub const ncplane_fadeout_iteration = __root.ncplane_fadeout_iteration;
+    pub const ncplane_fadein_iteration = __root.ncplane_fadein_iteration;
+    pub const ncplane_pulse = __root.ncplane_pulse;
+    pub const nccells_load_box = __root.nccells_load_box;
+    pub const nccells_ascii_box = __root.nccells_ascii_box;
+    pub const nccells_double_box = __root.nccells_double_box;
+    pub const nccells_rounded_box = __root.nccells_rounded_box;
+    pub const nccells_light_box = __root.nccells_light_box;
+    pub const nccells_heavy_box = __root.nccells_heavy_box;
+    pub const ncplane_rounded_box = __root.ncplane_rounded_box;
+    pub const ncplane_perimeter_rounded = __root.ncplane_perimeter_rounded;
+    pub const ncplane_rounded_box_sized = __root.ncplane_rounded_box_sized;
+    pub const ncplane_double_box = __root.ncplane_double_box;
+    pub const ncplane_ascii_box = __root.ncplane_ascii_box;
+    pub const ncplane_perimeter_double = __root.ncplane_perimeter_double;
+    pub const ncplane_double_box_sized = __root.ncplane_double_box_sized;
+    pub const ncvisual_from_plane = __root.ncvisual_from_plane;
+    pub const ncvisual_subtitle_plane = __root.ncvisual_subtitle_plane;
+    pub const ncreel_create = __root.ncreel_create;
+    pub const ncplane_greyscale = __root.ncplane_greyscale;
+    pub const ncselector_create = __root.ncselector_create;
+    pub const ncmultiselector_create = __root.ncmultiselector_create;
+    pub const nctree_create = __root.nctree_create;
+    pub const ncmenu_create = __root.ncmenu_create;
+    pub const ncprogbar_create = __root.ncprogbar_create;
+    pub const nctabbed_create = __root.nctabbed_create;
+    pub const ncuplot_create = __root.ncuplot_create;
+    pub const ncdplot_create = __root.ncdplot_create;
+    pub const ncfdplane_create = __root.ncfdplane_create;
+    pub const ncsubproc_createv = __root.ncsubproc_createv;
+    pub const ncsubproc_createvp = __root.ncsubproc_createvp;
+    pub const ncsubproc_createvpe = __root.ncsubproc_createvpe;
+    pub const ncplane_qrcode = __root.ncplane_qrcode;
+    pub const ncreader_create = __root.ncreader_create;
+    pub const load = __root.nccell_load;
+    pub const prime = __root.nccell_prime;
+    pub const duplicate = __root.nccell_duplicate;
+    pub const release = __root.nccell_release;
+    pub const gcluster = __root.nccell_extended_gcluster;
+    pub const extract = __root.nccell_extract;
+    pub const char = __root.nccell_load_char;
+    pub const egc32 = __root.nccell_load_egc32;
+    pub const ucs32 = __root.nccell_load_ucs32;
+    pub const top = __root.ncpile_top;
+    pub const bottom = __root.ncpile_bottom;
+    pub const render = __root.ncpile_render;
+    pub const rasterize = __root.ncpile_rasterize;
+    pub const buffer = __root.ncpile_render_to_buffer;
+    pub const file = __root.ncpile_render_to_file;
+    pub const notcurses_const = __root.ncplane_notcurses_const;
+    pub const dim_yx = __root.ncplane_dim_yx;
+    pub const dim_y = __root.ncplane_dim_y;
+    pub const dim_x = __root.ncplane_dim_x;
+    pub const pixel_geom = __root.ncplane_pixel_geom;
+    pub const create = __root.ncplane_create;
+    pub const resize_maximize = __root.ncplane_resize_maximize;
+    pub const resize_marginalized = __root.ncplane_resize_marginalized;
+    pub const resize_realign = __root.ncplane_resize_realign;
+    pub const resize_placewithin = __root.ncplane_resize_placewithin;
+    pub const set_resizecb = __root.ncplane_set_resizecb;
+    pub const resizecb = __root.ncplane_resizecb;
+    pub const set_name = __root.ncplane_set_name;
+    pub const name = __root.ncplane_name;
+    pub const reparent = __root.ncplane_reparent;
+    pub const reparent_family = __root.ncplane_reparent_family;
+    pub const dup = __root.ncplane_dup;
+    pub const translate = __root.ncplane_translate;
+    pub const translate_abs = __root.ncplane_translate_abs;
+    pub const set_scrolling = __root.ncplane_set_scrolling;
+    pub const scrolling_p = __root.ncplane_scrolling_p;
+    pub const set_autogrow = __root.ncplane_set_autogrow;
+    pub const autogrow_p = __root.ncplane_autogrow_p;
+    pub const resize = __root.ncplane_resize;
+    pub const resize_simple = __root.ncplane_resize_simple;
+    pub const destroy = __root.ncplane_destroy;
+    pub const set_base_cell = __root.ncplane_set_base_cell;
+    pub const set_base = __root.ncplane_set_base;
+    pub const base = __root.ncplane_base;
+    pub const yx = __root.ncplane_yx;
+    pub const y = __root.ncplane_y;
+    pub const x = __root.ncplane_x;
+    pub const move_yx = __root.ncplane_move_yx;
+    pub const move_rel = __root.ncplane_move_rel;
+    pub const abs_yx = __root.ncplane_abs_yx;
+    pub const abs_y = __root.ncplane_abs_y;
+    pub const abs_x = __root.ncplane_abs_x;
+    pub const parent = __root.ncplane_parent;
+    pub const parent_const = __root.ncplane_parent_const;
+    pub const descendant_p = __root.ncplane_descendant_p;
+    pub const move_above = __root.ncplane_move_above;
+    pub const move_below = __root.ncplane_move_below;
+    pub const move_top = __root.ncplane_move_top;
+    pub const move_bottom = __root.ncplane_move_bottom;
+    pub const move_family_above = __root.ncplane_move_family_above;
+    pub const move_family_below = __root.ncplane_move_family_below;
+    pub const move_family_top = __root.ncplane_move_family_top;
+    pub const move_family_bottom = __root.ncplane_move_family_bottom;
+    pub const family_destroy = __root.ncplane_family_destroy;
+    pub const below = __root.ncplane_below;
+    pub const above = __root.ncplane_above;
+    pub const scrollup = __root.ncplane_scrollup;
+    pub const scrollup_child = __root.ncplane_scrollup_child;
+    pub const rotate_cw = __root.ncplane_rotate_cw;
+    pub const rotate_ccw = __root.ncplane_rotate_ccw;
+    pub const at_cursor = __root.ncplane_at_cursor;
+    pub const at_cursor_cell = __root.ncplane_at_cursor_cell;
+    pub const at_yx = __root.ncplane_at_yx;
+    pub const at_yx_cell = __root.ncplane_at_yx_cell;
+    pub const contents = __root.ncplane_contents;
+    pub const set_userptr = __root.ncplane_set_userptr;
+    pub const userptr = __root.ncplane_userptr;
+    pub const center_abs = __root.ncplane_center_abs;
+    pub const as_rgba = __root.ncplane_as_rgba;
+    pub const halign = __root.ncplane_halign;
+    pub const valign = __root.ncplane_valign;
+    pub const cursor_move_yx = __root.ncplane_cursor_move_yx;
+    pub const cursor_move_rel = __root.ncplane_cursor_move_rel;
+    pub const home = __root.ncplane_home;
+    pub const cursor_yx = __root.ncplane_cursor_yx;
+    pub const cursor_y = __root.ncplane_cursor_y;
+    pub const cursor_x = __root.ncplane_cursor_x;
+    pub const channels = __root.ncplane_channels;
+    pub const styles = __root.ncplane_styles;
+    pub const putc_yx = __root.ncplane_putc_yx;
+    pub const putchar_yx = __root.ncplane_putchar_yx;
+    pub const putchar_stained = __root.ncplane_putchar_stained;
+    pub const putegc_yx = __root.ncplane_putegc_yx;
+    pub const putegc = __root.ncplane_putegc;
+    pub const putegc_stained = __root.ncplane_putegc_stained;
+    pub const putwegc = __root.ncplane_putwegc;
+    pub const putwegc_yx = __root.ncplane_putwegc_yx;
+    pub const putwegc_stained = __root.ncplane_putwegc_stained;
+    pub const putstr_yx = __root.ncplane_putstr_yx;
+    pub const putstr = __root.ncplane_putstr;
+    pub const putstr_aligned = __root.ncplane_putstr_aligned;
+    pub const putstr_stained = __root.ncplane_putstr_stained;
+    pub const putnstr_aligned = __root.ncplane_putnstr_aligned;
+    pub const putnstr_yx = __root.ncplane_putnstr_yx;
+    pub const putnstr = __root.ncplane_putnstr;
+    pub const putwstr_yx = __root.ncplane_putwstr_yx;
+    pub const putwstr_aligned = __root.ncplane_putwstr_aligned;
+    pub const putwstr_stained = __root.ncplane_putwstr_stained;
+    pub const putwstr = __root.ncplane_putwstr;
+    pub const pututf32_yx = __root.ncplane_pututf32_yx;
+    pub const putwc_yx = __root.ncplane_putwc_yx;
+    pub const putwc_utf32 = __root.ncplane_putwc_utf32;
+    pub const putwc_stained = __root.ncplane_putwc_stained;
+    pub const vprintf_aligned = __root.ncplane_vprintf_aligned;
+    pub const vprintf_yx = __root.ncplane_vprintf_yx;
+    pub const vprintf_stained = __root.ncplane_vprintf_stained;
+    pub const printf_yx = __root.ncplane_printf_yx;
+    pub const printf_aligned = __root.ncplane_printf_aligned;
+    pub const printf_stained = __root.ncplane_printf_stained;
+    pub const puttext = __root.ncplane_puttext;
+    pub const hline_interp = __root.ncplane_hline_interp;
+    pub const hline = __root.ncplane_hline;
+    pub const vline_interp = __root.ncplane_vline_interp;
+    pub const vline = __root.ncplane_vline;
+    pub const box = __root.ncplane_box;
+    pub const box_sized = __root.ncplane_box_sized;
+    pub const perimeter = __root.ncplane_perimeter;
+    pub const polyfill_yx = __root.ncplane_polyfill_yx;
+    pub const gradient = __root.ncplane_gradient;
+    pub const gradient2x1 = __root.ncplane_gradient2x1;
+    pub const format = __root.ncplane_format;
+    pub const stain = __root.ncplane_stain;
+    pub const mergedown_simple = __root.ncplane_mergedown_simple;
+    pub const mergedown = __root.ncplane_mergedown;
+    pub const erase = __root.ncplane_erase;
+    pub const erase_region = __root.ncplane_erase_region;
+    pub const bchannel = __root.ncplane_bchannel;
+    pub const fchannel = __root.ncplane_fchannel;
+    pub const set_channels = __root.ncplane_set_channels;
+    pub const set_bchannel = __root.ncplane_set_bchannel;
+    pub const set_fchannel = __root.ncplane_set_fchannel;
+    pub const set_styles = __root.ncplane_set_styles;
+    pub const on_styles = __root.ncplane_on_styles;
+    pub const off_styles = __root.ncplane_off_styles;
+    pub const fg_rgb = __root.ncplane_fg_rgb;
+    pub const bg_rgb = __root.ncplane_bg_rgb;
+    pub const fg_alpha = __root.ncplane_fg_alpha;
+    pub const fg_default_p = __root.ncplane_fg_default_p;
+    pub const bg_alpha = __root.ncplane_bg_alpha;
+    pub const bg_default_p = __root.ncplane_bg_default_p;
+    pub const fg_rgb8 = __root.ncplane_fg_rgb8;
+    pub const bg_rgb8 = __root.ncplane_bg_rgb8;
+    pub const set_fg_rgb8 = __root.ncplane_set_fg_rgb8;
+    pub const set_bg_rgb8 = __root.ncplane_set_bg_rgb8;
+    pub const set_bg_rgb8_clipped = __root.ncplane_set_bg_rgb8_clipped;
+    pub const set_fg_rgb8_clipped = __root.ncplane_set_fg_rgb8_clipped;
+    pub const set_fg_rgb = __root.ncplane_set_fg_rgb;
+    pub const set_bg_rgb = __root.ncplane_set_bg_rgb;
+    pub const set_fg_default = __root.ncplane_set_fg_default;
+    pub const set_bg_default = __root.ncplane_set_bg_default;
+    pub const set_fg_palindex = __root.ncplane_set_fg_palindex;
+    pub const set_bg_palindex = __root.ncplane_set_bg_palindex;
+    pub const set_fg_alpha = __root.ncplane_set_fg_alpha;
+    pub const set_bg_alpha = __root.ncplane_set_bg_alpha;
+    pub const fadeout = __root.ncplane_fadeout;
+    pub const fadein = __root.ncplane_fadein;
+    pub const setup = __root.ncfadectx_setup;
+    pub const fadeout_iteration = __root.ncplane_fadeout_iteration;
+    pub const fadein_iteration = __root.ncplane_fadein_iteration;
+    pub const pulse = __root.ncplane_pulse;
+    pub const rounded_box = __root.ncplane_rounded_box;
+    pub const perimeter_rounded = __root.ncplane_perimeter_rounded;
+    pub const rounded_box_sized = __root.ncplane_rounded_box_sized;
+    pub const double_box = __root.ncplane_double_box;
+    pub const ascii_box = __root.ncplane_ascii_box;
+    pub const perimeter_double = __root.ncplane_perimeter_double;
+    pub const double_box_sized = __root.ncplane_double_box_sized;
+    pub const plane = __root.ncvisual_from_plane;
+    pub const greyscale = __root.ncplane_greyscale;
+    pub const createv = __root.ncsubproc_createv;
+    pub const createvp = __root.ncsubproc_createvp;
+    pub const createvpe = __root.ncsubproc_createvpe;
+    pub const qrcode = __root.ncplane_qrcode;
+};
+pub const struct_ncvisual = opaque {
+    pub const ncvisual_destroy = __root.ncvisual_destroy;
+    pub const ncvisual_decode = __root.ncvisual_decode;
+    pub const ncvisual_decode_loop = __root.ncvisual_decode_loop;
+    pub const ncvisual_rotate = __root.ncvisual_rotate;
+    pub const ncvisual_resize = __root.ncvisual_resize;
+    pub const ncvisual_resize_noninterpolative = __root.ncvisual_resize_noninterpolative;
+    pub const ncvisual_polyfill_yx = __root.ncvisual_polyfill_yx;
+    pub const ncvisual_at_yx = __root.ncvisual_at_yx;
+    pub const ncvisual_set_yx = __root.ncvisual_set_yx;
+    pub const ncvisual_simple_streamer = __root.ncvisual_simple_streamer;
+    pub const destroy = __root.ncvisual_destroy;
+    pub const decode = __root.ncvisual_decode;
+    pub const decode_loop = __root.ncvisual_decode_loop;
+    pub const rotate = __root.ncvisual_rotate;
+    pub const resize = __root.ncvisual_resize;
+    pub const resize_noninterpolative = __root.ncvisual_resize_noninterpolative;
+    pub const polyfill_yx = __root.ncvisual_polyfill_yx;
+    pub const at_yx = __root.ncvisual_at_yx;
+    pub const set_yx = __root.ncvisual_set_yx;
+    pub const simple_streamer = __root.ncvisual_simple_streamer;
+};
+pub const struct_ncuplot = opaque {
+    pub const ncuplot_plane = __root.ncuplot_plane;
+    pub const ncuplot_add_sample = __root.ncuplot_add_sample;
+    pub const ncuplot_set_sample = __root.ncuplot_set_sample;
+    pub const ncuplot_sample = __root.ncuplot_sample;
+    pub const ncuplot_destroy = __root.ncuplot_destroy;
+    pub const plane = __root.ncuplot_plane;
+    pub const add_sample = __root.ncuplot_add_sample;
+    pub const set_sample = __root.ncuplot_set_sample;
+    pub const sample = __root.ncuplot_sample;
+    pub const destroy = __root.ncuplot_destroy;
+};
+pub const struct_ncdplot = opaque {
+    pub const ncdplot_plane = __root.ncdplot_plane;
+    pub const ncdplot_add_sample = __root.ncdplot_add_sample;
+    pub const ncdplot_set_sample = __root.ncdplot_set_sample;
+    pub const ncdplot_sample = __root.ncdplot_sample;
+    pub const ncdplot_destroy = __root.ncdplot_destroy;
+    pub const plane = __root.ncdplot_plane;
+    pub const add_sample = __root.ncdplot_add_sample;
+    pub const set_sample = __root.ncdplot_set_sample;
+    pub const sample = __root.ncdplot_sample;
+    pub const destroy = __root.ncdplot_destroy;
+};
+pub const struct_ncprogbar = opaque {
+    pub const ncprogbar_plane = __root.ncprogbar_plane;
+    pub const ncprogbar_set_progress = __root.ncprogbar_set_progress;
+    pub const ncprogbar_progress = __root.ncprogbar_progress;
+    pub const ncprogbar_destroy = __root.ncprogbar_destroy;
+    pub const plane = __root.ncprogbar_plane;
+    pub const set_progress = __root.ncprogbar_set_progress;
+    pub const progress = __root.ncprogbar_progress;
+    pub const destroy = __root.ncprogbar_destroy;
+};
+pub const struct_ncfdplane = opaque {
+    pub const ncfdplane_plane = __root.ncfdplane_plane;
+    pub const ncfdplane_destroy = __root.ncfdplane_destroy;
+    pub const plane = __root.ncfdplane_plane;
+    pub const destroy = __root.ncfdplane_destroy;
+};
+pub const struct_ncsubproc = opaque {
+    pub const ncsubproc_plane = __root.ncsubproc_plane;
+    pub const ncsubproc_destroy = __root.ncsubproc_destroy;
+    pub const plane = __root.ncsubproc_plane;
+    pub const destroy = __root.ncsubproc_destroy;
+};
+pub const struct_ncselector = opaque {
+    pub const ncselector_additem = __root.ncselector_additem;
+    pub const ncselector_delitem = __root.ncselector_delitem;
+    pub const ncselector_selected = __root.ncselector_selected;
+    pub const ncselector_plane = __root.ncselector_plane;
+    pub const ncselector_previtem = __root.ncselector_previtem;
+    pub const ncselector_nextitem = __root.ncselector_nextitem;
+    pub const ncselector_offer_input = __root.ncselector_offer_input;
+    pub const ncselector_destroy = __root.ncselector_destroy;
+    pub const additem = __root.ncselector_additem;
+    pub const delitem = __root.ncselector_delitem;
+    pub const selected = __root.ncselector_selected;
+    pub const plane = __root.ncselector_plane;
+    pub const previtem = __root.ncselector_previtem;
+    pub const nextitem = __root.ncselector_nextitem;
+    pub const offer_input = __root.ncselector_offer_input;
+    pub const destroy = __root.ncselector_destroy;
+};
+pub const struct_ncmultiselector = opaque {
+    pub const ncmultiselector_selected = __root.ncmultiselector_selected;
+    pub const ncmultiselector_plane = __root.ncmultiselector_plane;
+    pub const ncmultiselector_offer_input = __root.ncmultiselector_offer_input;
+    pub const ncmultiselector_destroy = __root.ncmultiselector_destroy;
+    pub const selected = __root.ncmultiselector_selected;
+    pub const plane = __root.ncmultiselector_plane;
+    pub const offer_input = __root.ncmultiselector_offer_input;
+    pub const destroy = __root.ncmultiselector_destroy;
+};
+pub const struct_ncreader = opaque {
+    pub const ncreader_clear = __root.ncreader_clear;
+    pub const ncreader_plane = __root.ncreader_plane;
+    pub const ncreader_offer_input = __root.ncreader_offer_input;
+    pub const ncreader_move_left = __root.ncreader_move_left;
+    pub const ncreader_move_right = __root.ncreader_move_right;
+    pub const ncreader_move_up = __root.ncreader_move_up;
+    pub const ncreader_move_down = __root.ncreader_move_down;
+    pub const ncreader_write_egc = __root.ncreader_write_egc;
+    pub const ncreader_contents = __root.ncreader_contents;
+    pub const ncreader_destroy = __root.ncreader_destroy;
+    pub const clear = __root.ncreader_clear;
+    pub const plane = __root.ncreader_plane;
+    pub const offer_input = __root.ncreader_offer_input;
+    pub const move_left = __root.ncreader_move_left;
+    pub const move_right = __root.ncreader_move_right;
+    pub const move_up = __root.ncreader_move_up;
+    pub const move_down = __root.ncreader_move_down;
+    pub const write_egc = __root.ncreader_write_egc;
+    pub const contents = __root.ncreader_contents;
+    pub const destroy = __root.ncreader_destroy;
+};
+pub const struct_ncfadectx = opaque {
+    pub const ncfadectx_iterations = __root.ncfadectx_iterations;
+    pub const ncfadectx_free = __root.ncfadectx_free;
+    pub const iterations = __root.ncfadectx_iterations;
+};
+pub const struct_nctablet = opaque {
+    pub const nctablet_userptr = __root.nctablet_userptr;
+    pub const nctablet_plane = __root.nctablet_plane;
+    pub const userptr = __root.nctablet_userptr;
+    pub const plane = __root.nctablet_plane;
+};
+pub const struct_ncreel = opaque {
+    pub const ncreel_plane = __root.ncreel_plane;
+    pub const ncreel_add = __root.ncreel_add;
+    pub const ncreel_tabletcount = __root.ncreel_tabletcount;
+    pub const ncreel_del = __root.ncreel_del;
+    pub const ncreel_redraw = __root.ncreel_redraw;
+    pub const ncreel_offer_input = __root.ncreel_offer_input;
+    pub const ncreel_focused = __root.ncreel_focused;
+    pub const ncreel_next = __root.ncreel_next;
+    pub const ncreel_prev = __root.ncreel_prev;
+    pub const ncreel_destroy = __root.ncreel_destroy;
+    pub const plane = __root.ncreel_plane;
+    pub const add = __root.ncreel_add;
+    pub const tabletcount = __root.ncreel_tabletcount;
+    pub const del = __root.ncreel_del;
+    pub const redraw = __root.ncreel_redraw;
+    pub const offer_input = __root.ncreel_offer_input;
+    pub const focused = __root.ncreel_focused;
+    pub const next = __root.ncreel_next;
+    pub const prev = __root.ncreel_prev;
+    pub const destroy = __root.ncreel_destroy;
+};
+pub const struct_nctab = opaque {
+    pub const nctab_cb = __root.nctab_cb;
+    pub const nctab_name = __root.nctab_name;
+    pub const nctab_name_width = __root.nctab_name_width;
+    pub const nctab_userptr = __root.nctab_userptr;
+    pub const nctab_next = __root.nctab_next;
+    pub const nctab_prev = __root.nctab_prev;
+    pub const nctab_set_cb = __root.nctab_set_cb;
+    pub const nctab_set_name = __root.nctab_set_name;
+    pub const nctab_set_userptr = __root.nctab_set_userptr;
+    pub const cb = __root.nctab_cb;
+    pub const name = __root.nctab_name;
+    pub const name_width = __root.nctab_name_width;
+    pub const userptr = __root.nctab_userptr;
+    pub const next = __root.nctab_next;
+    pub const prev = __root.nctab_prev;
+    pub const set_cb = __root.nctab_set_cb;
+    pub const set_name = __root.nctab_set_name;
+    pub const set_userptr = __root.nctab_set_userptr;
+};
+pub const struct_nctabbed = opaque {
+    pub const nctabbed_destroy = __root.nctabbed_destroy;
+    pub const nctabbed_redraw = __root.nctabbed_redraw;
+    pub const nctabbed_ensure_selected_header_visible = __root.nctabbed_ensure_selected_header_visible;
+    pub const nctabbed_selected = __root.nctabbed_selected;
+    pub const nctabbed_leftmost = __root.nctabbed_leftmost;
+    pub const nctabbed_tabcount = __root.nctabbed_tabcount;
+    pub const nctabbed_plane = __root.nctabbed_plane;
+    pub const nctabbed_content_plane = __root.nctabbed_content_plane;
+    pub const nctabbed_add = __root.nctabbed_add;
+    pub const nctabbed_del = __root.nctabbed_del;
+    pub const nctab_move = __root.nctab_move;
+    pub const nctab_move_right = __root.nctab_move_right;
+    pub const nctab_move_left = __root.nctab_move_left;
+    pub const nctabbed_rotate = __root.nctabbed_rotate;
+    pub const nctabbed_next = __root.nctabbed_next;
+    pub const nctabbed_prev = __root.nctabbed_prev;
+    pub const nctabbed_select = __root.nctabbed_select;
+    pub const nctabbed_channels = __root.nctabbed_channels;
+    pub const nctabbed_hdrchan = __root.nctabbed_hdrchan;
+    pub const nctabbed_selchan = __root.nctabbed_selchan;
+    pub const nctabbed_sepchan = __root.nctabbed_sepchan;
+    pub const nctabbed_separator = __root.nctabbed_separator;
+    pub const nctabbed_separator_width = __root.nctabbed_separator_width;
+    pub const nctabbed_set_hdrchan = __root.nctabbed_set_hdrchan;
+    pub const nctabbed_set_selchan = __root.nctabbed_set_selchan;
+    pub const nctabbed_set_sepchan = __root.nctabbed_set_sepchan;
+    pub const nctabbed_set_separator = __root.nctabbed_set_separator;
+    pub const destroy = __root.nctabbed_destroy;
+    pub const redraw = __root.nctabbed_redraw;
+    pub const ensure_selected_header_visible = __root.nctabbed_ensure_selected_header_visible;
+    pub const selected = __root.nctabbed_selected;
+    pub const leftmost = __root.nctabbed_leftmost;
+    pub const tabcount = __root.nctabbed_tabcount;
+    pub const plane = __root.nctabbed_plane;
+    pub const content_plane = __root.nctabbed_content_plane;
+    pub const add = __root.nctabbed_add;
+    pub const del = __root.nctabbed_del;
+    pub const move = __root.nctab_move;
+    pub const right = __root.nctab_move_right;
+    pub const left = __root.nctab_move_left;
+    pub const rotate = __root.nctabbed_rotate;
+    pub const next = __root.nctabbed_next;
+    pub const prev = __root.nctabbed_prev;
+    pub const select = __root.nctabbed_select;
+    pub const channels = __root.nctabbed_channels;
+    pub const hdrchan = __root.nctabbed_hdrchan;
+    pub const selchan = __root.nctabbed_selchan;
+    pub const sepchan = __root.nctabbed_sepchan;
+    pub const separator = __root.nctabbed_separator;
+    pub const separator_width = __root.nctabbed_separator_width;
+    pub const set_hdrchan = __root.nctabbed_set_hdrchan;
+    pub const set_selchan = __root.nctabbed_set_selchan;
+    pub const set_sepchan = __root.nctabbed_set_sepchan;
+    pub const set_separator = __root.nctabbed_set_separator;
+};
+pub const struct_ncdirect = opaque {};
+pub const NCBLIT_DEFAULT: c_int = 0;
+pub const NCBLIT_1x1: c_int = 1;
+pub const NCBLIT_2x1: c_int = 2;
+pub const NCBLIT_2x2: c_int = 3;
+pub const NCBLIT_3x2: c_int = 4;
+pub const NCBLIT_4x2: c_int = 5;
+pub const NCBLIT_BRAILLE: c_int = 6;
+pub const NCBLIT_PIXEL: c_int = 7;
+pub const NCBLIT_4x1: c_int = 8;
+pub const NCBLIT_8x1: c_int = 9;
+pub const ncblitter_e = c_uint;
+pub const NCALIGN_UNALIGNED: c_int = 0;
+pub const NCALIGN_LEFT: c_int = 1;
+pub const NCALIGN_CENTER: c_int = 2;
+pub const NCALIGN_RIGHT: c_int = 3;
+pub const ncalign_e = c_uint;
+pub const NCSCALE_NONE: c_int = 0;
+pub const NCSCALE_SCALE: c_int = 1;
+pub const NCSCALE_STRETCH: c_int = 2;
+pub const NCSCALE_NONE_HIRES: c_int = 3;
+pub const NCSCALE_SCALE_HIRES: c_int = 4;
+pub const ncscale_e = c_uint;
+pub fn ncchannel_alpha(arg_channel: u32) callconv(.c) u32 {
+    var channel = arg_channel;
+    _ = &channel;
+    return @truncate(@as(c_ulonglong, channel) & NC_BG_ALPHA_MASK);
+}
+pub fn ncchannel_set_alpha(arg_channel: [*c]u32, arg_alpha: c_uint) callconv(.c) c_int {
+    var channel = arg_channel;
+    _ = &channel;
+    var alpha = arg_alpha;
+    _ = &alpha;
+    if ((@as(c_ulonglong, alpha) & ~NC_BG_ALPHA_MASK) != 0) {
+        return -@as(c_int, 1);
+    }
+    channel.* = alpha | (channel.* & @as(u32, @truncate(~NC_BG_ALPHA_MASK)));
+    if (@as(c_ulonglong, alpha) != NCALPHA_OPAQUE) {
+        {
+            const ref = &channel.*;
+            ref.* = @truncate(@as(c_ulonglong, ref.*) | NC_BGDEFAULT_MASK);
+        }
+    }
+    return 0;
+}
+pub fn ncchannel_default_p(arg_channel: u32) callconv(.c) bool {
+    var channel = arg_channel;
+    _ = &channel;
+    return !((@as(c_ulonglong, channel) & NC_BGDEFAULT_MASK) != 0);
+}
+pub fn ncchannel_set_default(arg_channel: [*c]u32) callconv(.c) u32 {
+    var channel = arg_channel;
+    _ = &channel;
+    channel.* &= @truncate(~NC_BGDEFAULT_MASK);
+    _ = ncchannel_set_alpha(channel, NCALPHA_OPAQUE);
+    return channel.*;
+}
+pub fn ncchannel_palindex_p(arg_channel: u32) callconv(.c) bool {
+    var channel = arg_channel;
+    _ = &channel;
+    return (@as(c_ulonglong, @bitCast(@as(c_longlong, @intFromBool(!ncchannel_default_p(channel))))) != 0) and ((@as(c_ulonglong, channel) & NC_BG_PALETTE) != 0);
+}
+pub fn ncchannel_palindex(arg_channel: u32) callconv(.c) c_uint {
+    var channel = arg_channel;
+    _ = &channel;
+    return channel & @as(u32, 255);
+}
+pub fn ncchannel_set_palindex(arg_channel: [*c]u32, arg_idx: c_uint) callconv(.c) c_int {
+    var channel = arg_channel;
+    _ = &channel;
+    var idx = arg_idx;
+    _ = &idx;
+    if (idx >= @as(c_uint, NCPALETTESIZE)) {
+        return -@as(c_int, 1);
+    }
+    _ = ncchannel_set_alpha(channel, NCALPHA_OPAQUE);
+    {
+        const ref = &channel.*;
+        ref.* = @truncate(@as(c_ulonglong, ref.*) & @as(c_ulonglong, 4278190080));
+    }
+    {
+        const ref = &channel.*;
+        ref.* = @truncate(@as(c_ulonglong, ref.*) | ((NC_BGDEFAULT_MASK | NC_BG_PALETTE) | @as(c_ulonglong, idx)));
+    }
+    return 0;
+}
+pub fn ncchannel_rgb_p(arg_channel: u32) callconv(.c) bool {
+    var channel = arg_channel;
+    _ = &channel;
+    return !(ncchannel_default_p(channel) or ncchannel_palindex_p(channel));
+}
+pub fn ncchannel_r(arg_channel: u32) callconv(.c) c_uint {
+    var channel = arg_channel;
+    _ = &channel;
+    return (channel & @as(c_uint, 16711680)) >> @intCast(@as(c_uint, 16));
+}
+pub fn ncchannel_g(arg_channel: u32) callconv(.c) c_uint {
+    var channel = arg_channel;
+    _ = &channel;
+    return (channel & @as(c_uint, 65280)) >> @intCast(@as(c_uint, 8));
+}
+pub fn ncchannel_b(arg_channel: u32) callconv(.c) c_uint {
+    var channel = arg_channel;
+    _ = &channel;
+    return channel & @as(c_uint, 255);
+}
+pub fn ncchannel_rgb(arg_channel: u32) callconv(.c) u32 {
+    var channel = arg_channel;
+    _ = &channel;
+    return @truncate(@as(c_ulonglong, channel) & NC_BG_RGB_MASK);
+}
+pub fn ncchannel_rgb8(arg_channel: u32, noalias arg_r: [*c]c_uint, noalias arg_g: [*c]c_uint, noalias arg_b: [*c]c_uint) callconv(.c) u32 {
+    var channel = arg_channel;
+    _ = &channel;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    r.* = ncchannel_r(channel);
+    g.* = ncchannel_g(channel);
+    b.* = ncchannel_b(channel);
+    return channel;
+}
+pub fn ncchannel_set_rgb8(arg_channel: [*c]u32, arg_r: c_uint, arg_g: c_uint, arg_b: c_uint) callconv(.c) c_int {
+    var channel = arg_channel;
+    _ = &channel;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    if (((r >= @as(c_uint, 256)) or (g >= @as(c_uint, 256))) or (b >= @as(c_uint, 256))) {
+        return -@as(c_int, 1);
+    }
+    var c: u32 = ((r << @intCast(@as(c_uint, 16))) | (g << @intCast(@as(c_uint, 8)))) | b;
+    _ = &c;
+    channel.* = @truncate(((@as(c_ulonglong, channel.*) & ~(NC_BG_RGB_MASK | NC_BG_PALETTE)) | NC_BGDEFAULT_MASK) | @as(c_ulonglong, c));
+    return 0;
+}
+pub fn ncchannel_set(arg_channel: [*c]u32, arg_rgb: u32) callconv(.c) c_int {
+    var channel = arg_channel;
+    _ = &channel;
+    var rgb = arg_rgb;
+    _ = &rgb;
+    if (rgb > @as(c_uint, 16777215)) {
+        return -@as(c_int, 1);
+    }
+    channel.* = @truncate(((@as(c_ulonglong, channel.*) & ~(NC_BG_RGB_MASK | NC_BG_PALETTE)) | NC_BGDEFAULT_MASK) | @as(c_ulonglong, rgb));
+    return 0;
+}
+pub fn ncchannel_set_rgb8_clipped(arg_channel: [*c]u32, arg_r: c_int, arg_g: c_int, arg_b: c_int) callconv(.c) void {
+    var channel = arg_channel;
+    _ = &channel;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    if (r >= @as(c_int, 256)) {
+        r = 255;
+    }
+    if (g >= @as(c_int, 256)) {
+        g = 255;
+    }
+    if (b >= @as(c_int, 256)) {
+        b = 255;
+    }
+    if (r <= -@as(c_int, 1)) {
+        r = 0;
+    }
+    if (g <= -@as(c_int, 1)) {
+        g = 0;
+    }
+    if (b <= -@as(c_int, 1)) {
+        b = 0;
+    }
+    var c: u32 = ((@as(c_uint, @bitCast(@as(c_int, r))) << @intCast(@as(c_uint, 16))) | (@as(c_uint, @bitCast(@as(c_int, g))) << @intCast(@as(c_uint, 8)))) | @as(c_uint, @bitCast(@as(c_int, b)));
+    _ = &c;
+    channel.* = @truncate(((@as(c_ulonglong, channel.*) & ~(NC_BG_RGB_MASK | NC_BG_PALETTE)) | NC_BGDEFAULT_MASK) | @as(c_ulonglong, c));
+}
+pub fn ncchannels_bchannel(arg_channels: u64) callconv(.c) u32 {
+    var channels = arg_channels;
+    _ = &channels;
+    return @truncate(@as(c_ulonglong, channels) & (((NC_BG_RGB_MASK | NC_BG_PALETTE) | NC_BGDEFAULT_MASK) | NC_BG_ALPHA_MASK));
+}
+pub fn ncchannels_fchannel(arg_channels: u64) callconv(.c) u32 {
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannels_bchannel(channels >> @intCast(@as(u64, 32)));
+}
+pub fn ncchannels_channels(arg_channels: u64) callconv(.c) u64 {
+    var channels = arg_channels;
+    _ = &channels;
+    return @as(u64, ncchannels_bchannel(channels)) | (@as(u64, ncchannels_fchannel(channels)) << @intCast(@as(u64, 32)));
+}
+pub fn ncchannels_bg_rgb_p(arg_channels: u64) callconv(.c) bool {
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannel_rgb_p(ncchannels_bchannel(channels));
+}
+pub fn ncchannels_fg_rgb_p(arg_channels: u64) callconv(.c) bool {
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannel_rgb_p(ncchannels_fchannel(channels));
+}
+pub fn ncchannels_bg_alpha(arg_channels: u64) callconv(.c) c_uint {
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannel_alpha(ncchannels_bchannel(channels));
+}
+pub fn ncchannels_set_bchannel(arg_channels: [*c]u64, arg_channel: u32) callconv(.c) u64 {
+    var channels = arg_channels;
+    _ = &channels;
+    var channel = arg_channel;
+    _ = &channel;
+    {
+        const ref = &channels.*;
+        ref.* = @truncate(@as(c_ulonglong, ref.*) & ((@as(c_ulonglong, 4294967295) << @intCast(@as(c_ulonglong, 32))) | NC_NOBACKGROUND_MASK));
+    }
+    channels.* |= @as(u32, @truncate(@as(c_ulonglong, channel) & ~NC_NOBACKGROUND_MASK));
+    return channels.*;
+}
+pub fn ncchannels_set_fchannel(arg_channels: [*c]u64, arg_channel: u32) callconv(.c) u64 {
+    var channels = arg_channels;
+    _ = &channels;
+    var channel = arg_channel;
+    _ = &channel;
+    {
+        const ref = &channels.*;
+        ref.* = @truncate(@as(c_ulonglong, ref.*) & (@as(c_ulonglong, 4294967295) | @as(c_ulonglong, @as(u64, @truncate(NC_NOBACKGROUND_MASK)) << @intCast(@as(u64, 32)))));
+    }
+    channels.* |= @as(u64, @truncate(@as(c_ulonglong, channel) & ~NC_NOBACKGROUND_MASK)) << @intCast(@as(u64, 32));
+    return channels.*;
+}
+pub fn ncchannels_set_channels(arg_dst: [*c]u64, arg_channels: u64) callconv(.c) u64 {
+    var dst = arg_dst;
+    _ = &dst;
+    var channels = arg_channels;
+    _ = &channels;
+    _ = ncchannels_set_bchannel(dst, @truncate(@as(c_ulonglong, channels) & @as(c_ulonglong, 4294967295)));
+    _ = ncchannels_set_fchannel(dst, @truncate(@as(c_ulonglong, channels >> @intCast(@as(u64, 32))) & @as(c_ulonglong, 4294967295)));
+    return dst.*;
+}
+pub fn ncchannels_set_bg_alpha(arg_channels: [*c]u64, arg_alpha: c_uint) callconv(.c) c_int {
+    var channels = arg_channels;
+    _ = &channels;
+    var alpha = arg_alpha;
+    _ = &alpha;
+    if (@as(c_ulonglong, alpha) == NCALPHA_HIGHCONTRAST) {
+        return -@as(c_int, 1);
+    }
+    var channel: u32 = ncchannels_bchannel(channels.*);
+    _ = &channel;
+    if (ncchannel_set_alpha(&channel, alpha) < @as(c_int, 0)) {
+        return -@as(c_int, 1);
+    }
+    _ = ncchannels_set_bchannel(channels, channel);
+    return 0;
+}
+pub fn ncchannels_fg_alpha(arg_channels: u64) callconv(.c) c_uint {
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannel_alpha(ncchannels_fchannel(channels));
+}
+pub fn ncchannels_set_fg_alpha(arg_channels: [*c]u64, arg_alpha: c_uint) callconv(.c) c_int {
+    var channels = arg_channels;
+    _ = &channels;
+    var alpha = arg_alpha;
+    _ = &alpha;
+    var channel: u32 = ncchannels_fchannel(channels.*);
+    _ = &channel;
+    if (ncchannel_set_alpha(&channel, alpha) < @as(c_int, 0)) {
+        return -@as(c_int, 1);
+    }
+    channels.* = @truncate((@as(c_ulonglong, @as(u64, channel)) << @intCast(@as(c_ulonglong, 32))) | (@as(c_ulonglong, channels.*) & @as(c_ulonglong, 4294967295)));
+    return 0;
+}
+pub fn ncchannels_reverse(arg_channels: u64) callconv(.c) u64 {
+    var channels = arg_channels;
+    _ = &channels;
+    const raw: u64 = (@as(u64, ncchannels_bchannel(channels)) << @intCast(@as(u64, 32))) +% @as(u64, ncchannels_fchannel(channels));
+    _ = &raw;
+    const statemask: u64 = @truncate((((NC_NOBACKGROUND_MASK | NC_BG_ALPHA_MASK) << @intCast(@as(c_ulonglong, 32))) | NC_NOBACKGROUND_MASK) | NC_BG_ALPHA_MASK);
+    _ = &statemask;
+    var ret: u64 = raw & ~statemask;
+    _ = &ret;
+    ret |= channels & statemask;
+    if (@as(c_ulonglong, ncchannels_bg_alpha(ret)) != NCALPHA_OPAQUE) {
+        if (!ncchannels_bg_rgb_p(ret)) {
+            _ = ncchannels_set_bg_alpha(&ret, NCALPHA_OPAQUE);
+        }
+    }
+    if (@as(c_ulonglong, ncchannels_fg_alpha(ret)) != NCALPHA_OPAQUE) {
+        if (!ncchannels_fg_rgb_p(ret)) {
+            _ = ncchannels_set_fg_alpha(&ret, NCALPHA_OPAQUE);
+        }
+    }
+    return ret;
+}
+pub fn ncchannels_combine(arg_fchan: u32, arg_bchan: u32) callconv(.c) u64 {
+    var fchan = arg_fchan;
+    _ = &fchan;
+    var bchan = arg_bchan;
+    _ = &bchan;
+    var channels: u64 = 0;
+    _ = &channels;
+    _ = ncchannels_set_fchannel(&channels, fchan);
+    _ = ncchannels_set_bchannel(&channels, bchan);
+    return channels;
+}
+pub fn ncchannels_fg_palindex(arg_channels: u64) callconv(.c) c_uint {
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannel_palindex(ncchannels_fchannel(channels));
+}
+pub fn ncchannels_bg_palindex(arg_channels: u64) callconv(.c) c_uint {
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannel_palindex(ncchannels_bchannel(channels));
+}
+pub fn ncchannels_fg_rgb(arg_channels: u64) callconv(.c) u32 {
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannel_rgb(ncchannels_fchannel(channels));
+}
+pub fn ncchannels_bg_rgb(arg_channels: u64) callconv(.c) u32 {
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannel_rgb(ncchannels_bchannel(channels));
+}
+pub fn ncchannels_fg_rgb8(arg_channels: u64, arg_r: [*c]c_uint, arg_g: [*c]c_uint, arg_b: [*c]c_uint) callconv(.c) u32 {
+    var channels = arg_channels;
+    _ = &channels;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    return ncchannel_rgb8(ncchannels_fchannel(channels), r, g, b);
+}
+pub fn ncchannels_bg_rgb8(arg_channels: u64, arg_r: [*c]c_uint, arg_g: [*c]c_uint, arg_b: [*c]c_uint) callconv(.c) u32 {
+    var channels = arg_channels;
+    _ = &channels;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    return ncchannel_rgb8(ncchannels_bchannel(channels), r, g, b);
+}
+pub fn ncchannels_set_fg_rgb8(arg_channels: [*c]u64, arg_r: c_uint, arg_g: c_uint, arg_b: c_uint) callconv(.c) c_int {
+    var channels = arg_channels;
+    _ = &channels;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    var channel: u32 = ncchannels_fchannel(channels.*);
+    _ = &channel;
+    if (ncchannel_set_rgb8(&channel, r, g, b) < @as(c_int, 0)) {
+        return -@as(c_int, 1);
+    }
+    channels.* = @truncate((@as(c_ulonglong, @as(u64, channel)) << @intCast(@as(c_ulonglong, 32))) | (@as(c_ulonglong, channels.*) & @as(c_ulonglong, 4294967295)));
+    return 0;
+}
+pub fn ncchannels_set_fg_rgb8_clipped(arg_channels: [*c]u64, arg_r: c_int, arg_g: c_int, arg_b: c_int) callconv(.c) void {
+    var channels = arg_channels;
+    _ = &channels;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    var channel: u32 = ncchannels_fchannel(channels.*);
+    _ = &channel;
+    ncchannel_set_rgb8_clipped(&channel, r, g, b);
+    channels.* = @truncate((@as(c_ulonglong, @as(u64, channel)) << @intCast(@as(c_ulonglong, 32))) | (@as(c_ulonglong, channels.*) & @as(c_ulonglong, 4294967295)));
+}
+pub fn ncchannels_set_fg_palindex(arg_channels: [*c]u64, arg_idx: c_uint) callconv(.c) c_int {
+    var channels = arg_channels;
+    _ = &channels;
+    var idx = arg_idx;
+    _ = &idx;
+    var channel: u32 = ncchannels_fchannel(channels.*);
+    _ = &channel;
+    if (ncchannel_set_palindex(&channel, idx) < @as(c_int, 0)) {
+        return -@as(c_int, 1);
+    }
+    channels.* = @truncate((@as(c_ulonglong, @as(u64, channel)) << @intCast(@as(c_ulonglong, 32))) | (@as(c_ulonglong, channels.*) & @as(c_ulonglong, 4294967295)));
+    return 0;
+}
+pub fn ncchannels_set_fg_rgb(arg_channels: [*c]u64, arg_rgb: c_uint) callconv(.c) c_int {
+    var channels = arg_channels;
+    _ = &channels;
+    var rgb = arg_rgb;
+    _ = &rgb;
+    var channel: u32 = ncchannels_fchannel(channels.*);
+    _ = &channel;
+    if (ncchannel_set(&channel, rgb) < @as(c_int, 0)) {
+        return -@as(c_int, 1);
+    }
+    channels.* = @truncate((@as(c_ulonglong, @as(u64, channel)) << @intCast(@as(c_ulonglong, 32))) | (@as(c_ulonglong, channels.*) & @as(c_ulonglong, 4294967295)));
+    return 0;
+}
+pub fn ncchannels_set_bg_rgb8(arg_channels: [*c]u64, arg_r: c_uint, arg_g: c_uint, arg_b: c_uint) callconv(.c) c_int {
+    var channels = arg_channels;
+    _ = &channels;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    var channel: u32 = ncchannels_bchannel(channels.*);
+    _ = &channel;
+    if (ncchannel_set_rgb8(&channel, r, g, b) < @as(c_int, 0)) {
+        return -@as(c_int, 1);
+    }
+    _ = ncchannels_set_bchannel(channels, channel);
+    return 0;
+}
+pub fn ncchannels_set_bg_rgb8_clipped(arg_channels: [*c]u64, arg_r: c_int, arg_g: c_int, arg_b: c_int) callconv(.c) void {
+    var channels = arg_channels;
+    _ = &channels;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    var channel: u32 = ncchannels_bchannel(channels.*);
+    _ = &channel;
+    ncchannel_set_rgb8_clipped(&channel, r, g, b);
+    _ = ncchannels_set_bchannel(channels, channel);
+}
+pub fn ncchannels_set_bg_palindex(arg_channels: [*c]u64, arg_idx: c_uint) callconv(.c) c_int {
+    var channels = arg_channels;
+    _ = &channels;
+    var idx = arg_idx;
+    _ = &idx;
+    var channel: u32 = ncchannels_bchannel(channels.*);
+    _ = &channel;
+    if (ncchannel_set_palindex(&channel, idx) < @as(c_int, 0)) {
+        return -@as(c_int, 1);
+    }
+    _ = ncchannels_set_bchannel(channels, channel);
+    return 0;
+}
+pub fn ncchannels_set_bg_rgb(arg_channels: [*c]u64, arg_rgb: c_uint) callconv(.c) c_int {
+    var channels = arg_channels;
+    _ = &channels;
+    var rgb = arg_rgb;
+    _ = &rgb;
+    var channel: u32 = ncchannels_bchannel(channels.*);
+    _ = &channel;
+    if (ncchannel_set(&channel, rgb) < @as(c_int, 0)) {
+        return -@as(c_int, 1);
+    }
+    _ = ncchannels_set_bchannel(channels, channel);
+    return 0;
+}
+pub fn ncchannels_fg_default_p(arg_channels: u64) callconv(.c) bool {
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannel_default_p(ncchannels_fchannel(channels));
+}
+pub fn ncchannels_fg_palindex_p(arg_channels: u64) callconv(.c) bool {
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannel_palindex_p(ncchannels_fchannel(channels));
+}
+pub fn ncchannels_bg_default_p(arg_channels: u64) callconv(.c) bool {
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannel_default_p(ncchannels_bchannel(channels));
+}
+pub fn ncchannels_bg_palindex_p(arg_channels: u64) callconv(.c) bool {
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannel_palindex_p(ncchannels_bchannel(channels));
+}
+pub fn ncchannels_set_fg_default(arg_channels: [*c]u64) callconv(.c) u64 {
+    var channels = arg_channels;
+    _ = &channels;
+    var channel: u32 = ncchannels_fchannel(channels.*);
+    _ = &channel;
+    _ = ncchannel_set_default(&channel);
+    _ = ncchannels_set_fchannel(channels, channel);
+    return channels.*;
+}
+pub fn ncchannels_set_bg_default(arg_channels: [*c]u64) callconv(.c) u64 {
+    var channels = arg_channels;
+    _ = &channels;
+    var channel: u32 = ncchannels_bchannel(channels.*);
+    _ = &channel;
+    _ = ncchannel_set_default(&channel);
+    _ = ncchannels_set_bchannel(channels, channel);
+    return channels.*;
+}
+pub extern fn ncstrwidth(egcs: [*c]const u8, validbytes: [*c]c_int, validwidth: [*c]c_int) c_int;
+pub extern fn notcurses_ucs32_to_utf8(ucs32: [*c]const u32, ucs32count: c_uint, resultbuf: [*c]u8, buflen: usize) c_int;
+pub const struct_nccell = extern struct {
+    gcluster: u32 = 0,
+    gcluster_backstop: u8 = 0,
+    width: u8 = 0,
+    stylemask: u16 = 0,
+    channels: u64 = 0,
+    pub const nccell_init = __root.nccell_init;
+    pub const nccell_set_styles = __root.nccell_set_styles;
+    pub const nccell_styles = __root.nccell_styles;
+    pub const nccell_on_styles = __root.nccell_on_styles;
+    pub const nccell_off_styles = __root.nccell_off_styles;
+    pub const nccell_set_fg_default = __root.nccell_set_fg_default;
+    pub const nccell_set_bg_default = __root.nccell_set_bg_default;
+    pub const nccell_set_fg_alpha = __root.nccell_set_fg_alpha;
+    pub const nccell_set_bg_alpha = __root.nccell_set_bg_alpha;
+    pub const nccell_set_bchannel = __root.nccell_set_bchannel;
+    pub const nccell_set_fchannel = __root.nccell_set_fchannel;
+    pub const nccell_set_channels = __root.nccell_set_channels;
+    pub const nccell_double_wide_p = __root.nccell_double_wide_p;
+    pub const nccell_wide_right_p = __root.nccell_wide_right_p;
+    pub const nccell_wide_left_p = __root.nccell_wide_left_p;
+    pub const nccell_channels = __root.nccell_channels;
+    pub const nccell_bchannel = __root.nccell_bchannel;
+    pub const nccell_fchannel = __root.nccell_fchannel;
+    pub const nccell_cols = __root.nccell_cols;
+    pub const nccell_fg_rgb = __root.nccell_fg_rgb;
+    pub const nccell_bg_rgb = __root.nccell_bg_rgb;
+    pub const nccell_fg_alpha = __root.nccell_fg_alpha;
+    pub const nccell_bg_alpha = __root.nccell_bg_alpha;
+    pub const nccell_fg_rgb8 = __root.nccell_fg_rgb8;
+    pub const nccell_bg_rgb8 = __root.nccell_bg_rgb8;
+    pub const nccell_set_fg_rgb8 = __root.nccell_set_fg_rgb8;
+    pub const nccell_set_fg_rgb8_clipped = __root.nccell_set_fg_rgb8_clipped;
+    pub const nccell_set_fg_rgb = __root.nccell_set_fg_rgb;
+    pub const nccell_set_fg_palindex = __root.nccell_set_fg_palindex;
+    pub const nccell_fg_palindex = __root.nccell_fg_palindex;
+    pub const nccell_set_bg_rgb8 = __root.nccell_set_bg_rgb8;
+    pub const nccell_set_bg_rgb8_clipped = __root.nccell_set_bg_rgb8_clipped;
+    pub const nccell_set_bg_rgb = __root.nccell_set_bg_rgb;
+    pub const nccell_set_bg_palindex = __root.nccell_set_bg_palindex;
+    pub const nccell_bg_palindex = __root.nccell_bg_palindex;
+    pub const nccell_fg_default_p = __root.nccell_fg_default_p;
+    pub const nccell_fg_palindex_p = __root.nccell_fg_palindex_p;
+    pub const nccell_bg_default_p = __root.nccell_bg_default_p;
+    pub const nccell_bg_palindex_p = __root.nccell_bg_palindex_p;
+    pub const init = __root.nccell_init;
+    pub const set_styles = __root.nccell_set_styles;
+    pub const styles = __root.nccell_styles;
+    pub const on_styles = __root.nccell_on_styles;
+    pub const off_styles = __root.nccell_off_styles;
+    pub const set_fg_default = __root.nccell_set_fg_default;
+    pub const set_bg_default = __root.nccell_set_bg_default;
+    pub const set_fg_alpha = __root.nccell_set_fg_alpha;
+    pub const set_bg_alpha = __root.nccell_set_bg_alpha;
+    pub const set_bchannel = __root.nccell_set_bchannel;
+    pub const set_fchannel = __root.nccell_set_fchannel;
+    pub const set_channels = __root.nccell_set_channels;
+    pub const double_wide_p = __root.nccell_double_wide_p;
+    pub const wide_right_p = __root.nccell_wide_right_p;
+    pub const wide_left_p = __root.nccell_wide_left_p;
+    pub const bchannel = __root.nccell_bchannel;
+    pub const fchannel = __root.nccell_fchannel;
+    pub const cols = __root.nccell_cols;
+    pub const fg_rgb = __root.nccell_fg_rgb;
+    pub const bg_rgb = __root.nccell_bg_rgb;
+    pub const fg_alpha = __root.nccell_fg_alpha;
+    pub const bg_alpha = __root.nccell_bg_alpha;
+    pub const fg_rgb8 = __root.nccell_fg_rgb8;
+    pub const bg_rgb8 = __root.nccell_bg_rgb8;
+    pub const set_fg_rgb8 = __root.nccell_set_fg_rgb8;
+    pub const set_fg_rgb8_clipped = __root.nccell_set_fg_rgb8_clipped;
+    pub const set_fg_rgb = __root.nccell_set_fg_rgb;
+    pub const set_fg_palindex = __root.nccell_set_fg_palindex;
+    pub const fg_palindex = __root.nccell_fg_palindex;
+    pub const set_bg_rgb8 = __root.nccell_set_bg_rgb8;
+    pub const set_bg_rgb8_clipped = __root.nccell_set_bg_rgb8_clipped;
+    pub const set_bg_rgb = __root.nccell_set_bg_rgb;
+    pub const set_bg_palindex = __root.nccell_set_bg_palindex;
+    pub const bg_palindex = __root.nccell_bg_palindex;
+    pub const fg_default_p = __root.nccell_fg_default_p;
+    pub const fg_palindex_p = __root.nccell_fg_palindex_p;
+    pub const bg_default_p = __root.nccell_bg_default_p;
+    pub const bg_palindex_p = __root.nccell_bg_palindex_p;
+};
+pub const nccell = struct_nccell;
+pub fn nccell_init(arg_c: [*c]nccell) callconv(.c) void {
+    var c = arg_c;
+    _ = &c;
+    _ = memset(@ptrCast(@alignCast(c)), 0, @sizeOf(@TypeOf(c.*)));
+}
+pub extern fn nccell_load(n: ?*struct_ncplane, c: [*c]nccell, gcluster: [*c]const u8) c_int;
+pub fn nccell_prime(arg_n: ?*struct_ncplane, arg_c: [*c]nccell, arg_gcluster: [*c]const u8, arg_stylemask: u16, arg_channels: u64) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var c = arg_c;
+    _ = &c;
+    var gcluster = arg_gcluster;
+    _ = &gcluster;
+    var stylemask = arg_stylemask;
+    _ = &stylemask;
+    var channels = arg_channels;
+    _ = &channels;
+    c.*.stylemask = stylemask;
+    c.*.channels = channels;
+    var ret: c_int = nccell_load(n, c, gcluster);
+    _ = &ret;
+    return ret;
+}
+pub extern fn nccell_duplicate(n: ?*struct_ncplane, targ: [*c]nccell, c: [*c]const nccell) c_int;
+pub extern fn nccell_release(n: ?*struct_ncplane, c: [*c]nccell) void;
+pub fn nccell_set_styles(arg_c: [*c]nccell, arg_stylebits: c_uint) callconv(.c) void {
+    var c = arg_c;
+    _ = &c;
+    var stylebits = arg_stylebits;
+    _ = &stylebits;
+    c.*.stylemask = @truncate(stylebits & NCSTYLE_MASK);
+}
+pub fn nccell_styles(arg_c: [*c]const nccell) callconv(.c) u16 {
+    var c = arg_c;
+    _ = &c;
+    return c.*.stylemask;
+}
+pub fn nccell_on_styles(arg_c: [*c]nccell, arg_stylebits: c_uint) callconv(.c) void {
+    var c = arg_c;
+    _ = &c;
+    var stylebits = arg_stylebits;
+    _ = &stylebits;
+    {
+        const ref = &c.*.stylemask;
+        ref.* = @bitCast(@as(c_short, @truncate(@as(c_int, ref.*) | @as(c_int, @as(u16, @truncate(stylebits & NCSTYLE_MASK))))));
+    }
+}
+pub fn nccell_off_styles(arg_c: [*c]nccell, arg_stylebits: c_uint) callconv(.c) void {
+    var c = arg_c;
+    _ = &c;
+    var stylebits = arg_stylebits;
+    _ = &stylebits;
+    {
+        const ref = &c.*.stylemask;
+        ref.* = @bitCast(@as(c_short, @truncate(@as(c_int, ref.*) & @as(c_int, @as(u16, @truncate(~(stylebits & NCSTYLE_MASK)))))));
+    }
+}
+pub fn nccell_set_fg_default(arg_c: [*c]nccell) callconv(.c) void {
+    var c = arg_c;
+    _ = &c;
+    _ = ncchannels_set_fg_default(&c.*.channels);
+}
+pub fn nccell_set_bg_default(arg_c: [*c]nccell) callconv(.c) void {
+    var c = arg_c;
+    _ = &c;
+    _ = ncchannels_set_bg_default(&c.*.channels);
+}
+pub fn nccell_set_fg_alpha(arg_c: [*c]nccell, arg_alpha: c_uint) callconv(.c) c_int {
+    var c = arg_c;
+    _ = &c;
+    var alpha = arg_alpha;
+    _ = &alpha;
+    return ncchannels_set_fg_alpha(&c.*.channels, alpha);
+}
+pub fn nccell_set_bg_alpha(arg_c: [*c]nccell, arg_alpha: c_uint) callconv(.c) c_int {
+    var c = arg_c;
+    _ = &c;
+    var alpha = arg_alpha;
+    _ = &alpha;
+    return ncchannels_set_bg_alpha(&c.*.channels, alpha);
+}
+pub fn nccell_set_bchannel(arg_c: [*c]nccell, arg_channel: u32) callconv(.c) u64 {
+    var c = arg_c;
+    _ = &c;
+    var channel = arg_channel;
+    _ = &channel;
+    return ncchannels_set_bchannel(&c.*.channels, channel);
+}
+pub fn nccell_set_fchannel(arg_c: [*c]nccell, arg_channel: u32) callconv(.c) u64 {
+    var c = arg_c;
+    _ = &c;
+    var channel = arg_channel;
+    _ = &channel;
+    return ncchannels_set_fchannel(&c.*.channels, channel);
+}
+pub fn nccell_set_channels(arg_c: [*c]nccell, arg_channels: u64) callconv(.c) u64 {
+    var c = arg_c;
+    _ = &c;
+    var channels = arg_channels;
+    _ = &channels;
+    return ncchannels_set_channels(&c.*.channels, channels);
+}
+pub fn nccell_double_wide_p(arg_c: [*c]const nccell) callconv(.c) bool {
+    var c = arg_c;
+    _ = &c;
+    return @as(c_int, c.*.width) >= @as(c_int, 2);
+}
+pub fn nccell_wide_right_p(arg_c: [*c]const nccell) callconv(.c) bool {
+    var c = arg_c;
+    _ = &c;
+    return nccell_double_wide_p(c) and (c.*.gcluster == @as(u32, 0));
+}
+pub fn nccell_wide_left_p(arg_c: [*c]const nccell) callconv(.c) bool {
+    var c = arg_c;
+    _ = &c;
+    return (@as(u32, @bitCast(@as(c_int, @as(c_int, @intFromBool(nccell_double_wide_p(c)))))) != 0) and (c.*.gcluster != 0);
+}
+pub extern fn nccell_extended_gcluster(n: ?*const struct_ncplane, c: [*c]const nccell) [*c]const u8;
+pub fn nccell_channels(arg_c: [*c]const nccell) callconv(.c) u64 {
+    var c = arg_c;
+    _ = &c;
+    return ncchannels_channels(c.*.channels);
+}
+pub fn nccell_bchannel(arg_cl: [*c]const nccell) callconv(.c) u32 {
+    var cl = arg_cl;
+    _ = &cl;
+    return ncchannels_bchannel(cl.*.channels);
+}
+pub fn nccell_fchannel(arg_cl: [*c]const nccell) callconv(.c) u32 {
+    var cl = arg_cl;
+    _ = &cl;
+    return ncchannels_fchannel(cl.*.channels);
+}
+pub fn nccell_cols(arg_c: [*c]const nccell) callconv(.c) c_uint {
+    var c = arg_c;
+    _ = &c;
+    return @bitCast(@as(c_int, if (c.*.width != 0) @as(c_int, c.*.width) else @as(c_int, 1)));
+}
+pub fn nccell_strdup(arg_n: ?*const struct_ncplane, arg_c: [*c]const nccell) callconv(.c) [*c]u8 {
+    var n = arg_n;
+    _ = &n;
+    var c = arg_c;
+    _ = &c;
+    return strdup(nccell_extended_gcluster(n, c));
+}
+pub fn nccell_extract(arg_n: ?*const struct_ncplane, arg_c: [*c]const nccell, arg_stylemask: [*c]u16, arg_channels: [*c]u64) callconv(.c) [*c]u8 {
+    var n = arg_n;
+    _ = &n;
+    var c = arg_c;
+    _ = &c;
+    var stylemask = arg_stylemask;
+    _ = &stylemask;
+    var channels = arg_channels;
+    _ = &channels;
+    if (stylemask != null) {
+        stylemask.* = c.*.stylemask;
+    }
+    if (channels != null) {
+        channels.* = c.*.channels;
+    }
+    return nccell_strdup(n, c);
+}
+pub fn nccellcmp(arg_n1: ?*const struct_ncplane, noalias arg_c1: [*c]const nccell, arg_n2: ?*const struct_ncplane, noalias arg_c2: [*c]const nccell) callconv(.c) bool {
+    var n1 = arg_n1;
+    _ = &n1;
+    var c1 = arg_c1;
+    _ = &c1;
+    var n2 = arg_n2;
+    _ = &n2;
+    var c2 = arg_c2;
+    _ = &c2;
+    if (@as(c_int, c1.*.stylemask) != @as(c_int, c2.*.stylemask)) {
+        return @"true" != 0;
+    }
+    if (c1.*.channels != c2.*.channels) {
+        return @"true" != 0;
+    }
+    return strcmp(nccell_extended_gcluster(n1, c1), nccell_extended_gcluster(n2, c2)) != 0;
+}
+pub fn nccell_load_char(arg_n: ?*struct_ncplane, arg_c: [*c]nccell, arg_ch: u8) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var c = arg_c;
+    _ = &c;
+    var ch = arg_ch;
+    _ = &ch;
+    var gcluster: [2]u8 = undefined;
+    _ = &gcluster;
+    gcluster[@as(c_int, 0)] = ch;
+    gcluster[@as(c_int, 1)] = '\x00';
+    return nccell_load(n, c, @ptrCast(@alignCast(&gcluster)));
+}
+pub fn nccell_load_egc32(arg_n: ?*struct_ncplane, arg_c: [*c]nccell, arg_egc: u32) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var c = arg_c;
+    _ = &c;
+    var egc = arg_egc;
+    _ = &egc;
+    var gcluster: [5]u8 = undefined;
+    _ = &gcluster;
+    egc = __bswap_32(htonl(egc));
+    _ = memcpy(@ptrCast(@alignCast(@as([*c]u8, @ptrCast(@alignCast(&gcluster))))), @ptrCast(@alignCast(&egc)), @sizeOf(@TypeOf(egc)));
+    gcluster[@as(c_int, 4)] = '\x00';
+    return nccell_load(n, c, @ptrCast(@alignCast(&gcluster)));
+}
+pub fn nccell_load_ucs32(arg_n: ?*struct_ncplane, arg_c: [*c]nccell, arg_u: u32) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var c = arg_c;
+    _ = &c;
+    var u = arg_u;
+    _ = &u;
+    var utf8: [4]u8 = undefined;
+    _ = &utf8;
+    if (notcurses_ucs32_to_utf8(&u, 1, @ptrCast(@alignCast(&utf8)), @sizeOf(@TypeOf(utf8))) < @as(c_int, 0)) {
+        return -@as(c_int, 1);
+    }
+    var utf8asegc: u32 = undefined;
+    _ = &utf8asegc;
+    comptime {
+        if (!(@as(c_ulong, WCHAR_MAX_UTF8BYTES) == @sizeOf(@TypeOf(utf8asegc)))) @compileError("static assertion failed \"WCHAR_MAX_UTF8BYTES didn't equal sizeof(uint32_t)\"");
+    }
+    _ = memcpy(@ptrCast(@alignCast(&utf8asegc)), @ptrCast(@alignCast(@as([*c]u8, @ptrCast(@alignCast(&utf8))))), @sizeOf(@TypeOf(utf8)));
+    return nccell_load_egc32(n, c, utf8asegc);
+}
+pub const NCLOGLEVEL_SILENT: c_int = -1;
+pub const NCLOGLEVEL_PANIC: c_int = 0;
+pub const NCLOGLEVEL_FATAL: c_int = 1;
+pub const NCLOGLEVEL_ERROR: c_int = 2;
+pub const NCLOGLEVEL_WARNING: c_int = 3;
+pub const NCLOGLEVEL_INFO: c_int = 4;
+pub const NCLOGLEVEL_VERBOSE: c_int = 5;
+pub const NCLOGLEVEL_DEBUG: c_int = 6;
+pub const NCLOGLEVEL_TRACE: c_int = 7;
+pub const ncloglevel_e = c_int;
+pub const struct_notcurses_options = extern struct {
+    termtype: [*c]const u8 = null,
+    loglevel: ncloglevel_e = @import("std").mem.zeroes(ncloglevel_e),
+    margin_t: c_uint = 0,
+    margin_r: c_uint = 0,
+    margin_b: c_uint = 0,
+    margin_l: c_uint = 0,
+    flags: u64 = 0,
+    pub const notcurses_init = __root.notcurses_init;
+    pub const notcurses_core_init = __root.notcurses_core_init;
+    pub const init = __root.notcurses_init;
+};
+pub const notcurses_options = struct_notcurses_options;
+pub extern fn notcurses_lex_margins(op: [*c]const u8, opts: [*c]notcurses_options) c_int;
+pub extern fn notcurses_lex_blitter(op: [*c]const u8, blitter: [*c]ncblitter_e) c_int;
+pub extern fn notcurses_str_blitter(blitter: ncblitter_e) [*c]const u8;
+pub extern fn notcurses_lex_scalemode(op: [*c]const u8, scalemode: [*c]ncscale_e) c_int;
+pub extern fn notcurses_str_scalemode(scalemode: ncscale_e) [*c]const u8;
+pub extern fn notcurses_init(opts: [*c]const notcurses_options, fp: ?*FILE) ?*struct_notcurses;
+pub extern fn notcurses_core_init(opts: [*c]const notcurses_options, fp: ?*FILE) ?*struct_notcurses;
+pub extern fn notcurses_stop(nc: ?*struct_notcurses) c_int;
+pub extern fn notcurses_enter_alternate_screen(nc: ?*struct_notcurses) c_int;
+pub extern fn notcurses_leave_alternate_screen(nc: ?*struct_notcurses) c_int;
+pub extern fn notcurses_stdplane(nc: ?*struct_notcurses) ?*struct_ncplane;
+pub extern fn notcurses_stdplane_const(nc: ?*const struct_notcurses) ?*const struct_ncplane;
+pub extern fn ncpile_top(n: ?*struct_ncplane) ?*struct_ncplane;
+pub extern fn ncpile_bottom(n: ?*struct_ncplane) ?*struct_ncplane;
+pub fn notcurses_top(arg_n: ?*struct_notcurses) callconv(.c) ?*struct_ncplane {
+    var n = arg_n;
+    _ = &n;
+    return ncpile_top(notcurses_stdplane(n));
+}
+pub fn notcurses_bottom(arg_n: ?*struct_notcurses) callconv(.c) ?*struct_ncplane {
+    var n = arg_n;
+    _ = &n;
+    return ncpile_bottom(notcurses_stdplane(n));
+}
+pub extern fn ncpile_render(n: ?*struct_ncplane) c_int;
+pub extern fn ncpile_rasterize(n: ?*struct_ncplane) c_int;
+pub fn notcurses_render(arg_nc: ?*struct_notcurses) callconv(.c) c_int {
+    var nc = arg_nc;
+    _ = &nc;
+    var stdn: ?*struct_ncplane = notcurses_stdplane(nc);
+    _ = &stdn;
+    if (ncpile_render(stdn) != 0) {
+        return -@as(c_int, 1);
+    }
+    return ncpile_rasterize(stdn);
+}
+pub extern fn ncpile_render_to_buffer(p: ?*struct_ncplane, buf: [*c][*c]u8, buflen: [*c]usize) c_int;
+pub extern fn ncpile_render_to_file(p: ?*struct_ncplane, fp: ?*FILE) c_int;
+pub extern fn notcurses_drop_planes(nc: ?*struct_notcurses) void;
+pub fn nckey_mouse_p(arg_r: u32) callconv(.c) bool {
+    var r = arg_r;
+    _ = &r;
+    return (r >= @as(u32, @bitCast(@as(c_int, @as(c_int, 200) + PRETERUNICODEBASE)))) and (r <= @as(u32, @bitCast(@as(c_int, @as(c_int, 211) + PRETERUNICODEBASE))));
+}
+pub const NCTYPE_UNKNOWN: c_int = 0;
+pub const NCTYPE_PRESS: c_int = 1;
+pub const NCTYPE_REPEAT: c_int = 2;
+pub const NCTYPE_RELEASE: c_int = 3;
+pub const ncintype_e = c_uint;
+pub const struct_ncinput = extern struct {
+    id: u32 = 0,
+    y: c_int = 0,
+    x: c_int = 0,
+    utf8: [5]u8 = @import("std").mem.zeroes([5]u8),
+    alt: bool = false,
+    shift: bool = false,
+    ctrl: bool = false,
+    evtype: ncintype_e = @import("std").mem.zeroes(ncintype_e),
+    modifiers: c_uint = 0,
+    ypx: c_int = 0,
+    xpx: c_int = 0,
+    eff_text: [4]u32 = @import("std").mem.zeroes([4]u32),
+    pub const ncinput_shift_p = __root.ncinput_shift_p;
+    pub const ncinput_ctrl_p = __root.ncinput_ctrl_p;
+    pub const ncinput_alt_p = __root.ncinput_alt_p;
+    pub const ncinput_meta_p = __root.ncinput_meta_p;
+    pub const ncinput_super_p = __root.ncinput_super_p;
+    pub const ncinput_hyper_p = __root.ncinput_hyper_p;
+    pub const ncinput_capslock_p = __root.ncinput_capslock_p;
+    pub const ncinput_numlock_p = __root.ncinput_numlock_p;
+    pub const ncinput_equal_p = __root.ncinput_equal_p;
+    pub const ncinput_nomod_p = __root.ncinput_nomod_p;
+    pub const shift_p = __root.ncinput_shift_p;
+    pub const ctrl_p = __root.ncinput_ctrl_p;
+    pub const alt_p = __root.ncinput_alt_p;
+    pub const meta_p = __root.ncinput_meta_p;
+    pub const super_p = __root.ncinput_super_p;
+    pub const hyper_p = __root.ncinput_hyper_p;
+    pub const capslock_p = __root.ncinput_capslock_p;
+    pub const numlock_p = __root.ncinput_numlock_p;
+    pub const equal_p = __root.ncinput_equal_p;
+    pub const nomod_p = __root.ncinput_nomod_p;
+};
+pub const ncinput = struct_ncinput;
+pub fn ncinput_shift_p(arg_n: [*c]const ncinput) callconv(.c) bool {
+    var n = arg_n;
+    _ = &n;
+    return (n.*.modifiers & @as(c_uint, NCKEY_MOD_SHIFT)) != 0;
+}
+pub fn ncinput_ctrl_p(arg_n: [*c]const ncinput) callconv(.c) bool {
+    var n = arg_n;
+    _ = &n;
+    return (n.*.modifiers & @as(c_uint, NCKEY_MOD_CTRL)) != 0;
+}
+pub fn ncinput_alt_p(arg_n: [*c]const ncinput) callconv(.c) bool {
+    var n = arg_n;
+    _ = &n;
+    return (n.*.modifiers & @as(c_uint, NCKEY_MOD_ALT)) != 0;
+}
+pub fn ncinput_meta_p(arg_n: [*c]const ncinput) callconv(.c) bool {
+    var n = arg_n;
+    _ = &n;
+    return (n.*.modifiers & @as(c_uint, NCKEY_MOD_META)) != 0;
+}
+pub fn ncinput_super_p(arg_n: [*c]const ncinput) callconv(.c) bool {
+    var n = arg_n;
+    _ = &n;
+    return (n.*.modifiers & @as(c_uint, NCKEY_MOD_SUPER)) != 0;
+}
+pub fn ncinput_hyper_p(arg_n: [*c]const ncinput) callconv(.c) bool {
+    var n = arg_n;
+    _ = &n;
+    return (n.*.modifiers & @as(c_uint, NCKEY_MOD_HYPER)) != 0;
+}
+pub fn ncinput_capslock_p(arg_n: [*c]const ncinput) callconv(.c) bool {
+    var n = arg_n;
+    _ = &n;
+    return (n.*.modifiers & @as(c_uint, NCKEY_MOD_CAPSLOCK)) != 0;
+}
+pub fn ncinput_numlock_p(arg_n: [*c]const ncinput) callconv(.c) bool {
+    var n = arg_n;
+    _ = &n;
+    return (n.*.modifiers & @as(c_uint, NCKEY_MOD_NUMLOCK)) != 0;
+}
+pub fn ncinput_equal_p(arg_n1: [*c]const ncinput, arg_n2: [*c]const ncinput) callconv(.c) bool {
+    var n1 = arg_n1;
+    _ = &n1;
+    var n2 = arg_n2;
+    _ = &n2;
+    if (n1.*.id != n2.*.id) {
+        return @"false" != 0;
+    }
+    if ((n1.*.y != n2.*.y) or (n1.*.x != n2.*.x)) {
+        return @"false" != 0;
+    }
+    if ((n1.*.modifiers & ~@as(c_uint, @bitCast(@as(c_int, NCKEY_MOD_CAPSLOCK | NCKEY_MOD_NUMLOCK)))) != (n2.*.modifiers & ~@as(c_uint, @bitCast(@as(c_int, NCKEY_MOD_CAPSLOCK | NCKEY_MOD_NUMLOCK))))) {
+        return @"false" != 0;
+    }
+    if (n1.*.evtype != n2.*.evtype) {
+        if (((n1.*.evtype != @as(ncintype_e, NCTYPE_UNKNOWN)) and (n1.*.evtype != @as(ncintype_e, NCTYPE_PRESS))) or ((n2.*.evtype != @as(ncintype_e, NCTYPE_UNKNOWN)) and (n2.*.evtype != @as(ncintype_e, NCTYPE_PRESS)))) {
+            return @"false" != 0;
+        }
+    }
+    if ((n1.*.ypx != n2.*.ypx) or (n1.*.xpx != n2.*.xpx)) {
+        return @"false" != 0;
+    }
+    return @"true" != 0;
+}
+pub extern fn notcurses_get(n: ?*struct_notcurses, ts: [*c]const struct_timespec, ni: [*c]ncinput) u32;
+pub extern fn notcurses_getvec(n: ?*struct_notcurses, ts: [*c]const struct_timespec, ni: [*c]ncinput, vcount: c_int) c_int;
+pub extern fn notcurses_inputready_fd(n: ?*struct_notcurses) c_int;
+pub fn notcurses_get_nblock(arg_n: ?*struct_notcurses, arg_ni: [*c]ncinput) callconv(.c) u32 {
+    var n = arg_n;
+    _ = &n;
+    var ni = arg_ni;
+    _ = &ni;
+    var ts: struct_timespec = struct_timespec{
+        .tv_sec = 0,
+        .tv_nsec = 0,
+    };
+    _ = &ts;
+    return notcurses_get(n, &ts, ni);
+}
+pub fn notcurses_get_blocking(arg_n: ?*struct_notcurses, arg_ni: [*c]ncinput) callconv(.c) u32 {
+    var n = arg_n;
+    _ = &n;
+    var ni = arg_ni;
+    _ = &ni;
+    return notcurses_get(n, null, ni);
+}
+pub fn ncinput_nomod_p(arg_ni: [*c]const ncinput) callconv(.c) bool {
+    var ni = arg_ni;
+    _ = &ni;
+    return !(ni.*.modifiers != 0);
+}
+pub extern fn notcurses_mice_enable(n: ?*struct_notcurses, eventmask: c_uint) c_int;
+pub fn notcurses_mice_disable(arg_n: ?*struct_notcurses) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    return notcurses_mice_enable(n, NCMICE_NO_EVENTS);
+}
+pub extern fn notcurses_linesigs_disable(n: ?*struct_notcurses) c_int;
+pub extern fn notcurses_linesigs_enable(n: ?*struct_notcurses) c_int;
+pub extern fn notcurses_refresh(n: ?*struct_notcurses, noalias y: [*c]c_uint, noalias x: [*c]c_uint) c_int;
+pub extern fn ncplane_notcurses(n: ?*const struct_ncplane) ?*struct_notcurses;
+pub extern fn ncplane_notcurses_const(n: ?*const struct_ncplane) ?*const struct_notcurses;
+pub extern fn ncplane_dim_yx(n: ?*const struct_ncplane, noalias y: [*c]c_uint, noalias x: [*c]c_uint) void;
+pub fn notcurses_stddim_yx(arg_nc: ?*struct_notcurses, noalias arg_y: [*c]c_uint, noalias arg_x: [*c]c_uint) callconv(.c) ?*struct_ncplane {
+    var nc = arg_nc;
+    _ = &nc;
+    var y = arg_y;
+    _ = &y;
+    var x = arg_x;
+    _ = &x;
+    var s: ?*struct_ncplane = notcurses_stdplane(nc);
+    _ = &s;
+    ncplane_dim_yx(s, y, x);
+    return s;
+}
+pub fn notcurses_stddim_yx_const(arg_nc: ?*const struct_notcurses, noalias arg_y: [*c]c_uint, noalias arg_x: [*c]c_uint) callconv(.c) ?*const struct_ncplane {
+    var nc = arg_nc;
+    _ = &nc;
+    var y = arg_y;
+    _ = &y;
+    var x = arg_x;
+    _ = &x;
+    var s: ?*const struct_ncplane = notcurses_stdplane_const(nc);
+    _ = &s;
+    ncplane_dim_yx(s, y, x);
+    return s;
+}
+pub fn ncplane_dim_y(arg_n: ?*const struct_ncplane) callconv(.c) c_uint {
+    var n = arg_n;
+    _ = &n;
+    var dimy: c_uint = undefined;
+    _ = &dimy;
+    ncplane_dim_yx(n, &dimy, null);
+    return dimy;
+}
+pub fn ncplane_dim_x(arg_n: ?*const struct_ncplane) callconv(.c) c_uint {
+    var n = arg_n;
+    _ = &n;
+    var dimx: c_uint = undefined;
+    _ = &dimx;
+    ncplane_dim_yx(n, null, &dimx);
+    return dimx;
+}
+pub extern fn ncplane_pixel_geom(n: ?*const struct_ncplane, noalias pxy: [*c]c_uint, noalias pxx: [*c]c_uint, noalias celldimy: [*c]c_uint, noalias celldimx: [*c]c_uint, noalias maxbmapy: [*c]c_uint, noalias maxbmapx: [*c]c_uint) void;
+pub fn notcurses_term_dim_yx(arg_n: ?*const struct_notcurses, noalias arg_rows: [*c]c_uint, noalias arg_cols: [*c]c_uint) callconv(.c) void {
+    var n = arg_n;
+    _ = &n;
+    var rows = arg_rows;
+    _ = &rows;
+    var cols = arg_cols;
+    _ = &cols;
+    ncplane_dim_yx(notcurses_stdplane_const(n), rows, cols);
+}
+pub extern fn notcurses_at_yx(nc: ?*struct_notcurses, yoff: c_uint, xoff: c_uint, stylemask: [*c]u16, channels: [*c]u64) [*c]u8;
+pub const struct_ncplane_options = extern struct {
+    y: c_int = 0,
+    x: c_int = 0,
+    rows: c_uint = 0,
+    cols: c_uint = 0,
+    userptr: ?*anyopaque = null,
+    name: [*c]const u8 = null,
+    resizecb: ?*const fn (?*struct_ncplane) callconv(.c) c_int = null,
+    flags: u64 = 0,
+    margin_b: c_uint = 0,
+    margin_r: c_uint = 0,
+};
+pub const ncplane_options = struct_ncplane_options;
+pub extern fn ncplane_create(n: ?*struct_ncplane, nopts: [*c]const ncplane_options) ?*struct_ncplane;
+pub extern fn ncpile_create(nc: ?*struct_notcurses, nopts: [*c]const ncplane_options) ?*struct_ncplane;
+pub extern fn ncplane_resize_maximize(n: ?*struct_ncplane) c_int;
+pub extern fn ncplane_resize_marginalized(n: ?*struct_ncplane) c_int;
+pub extern fn ncplane_resize_realign(n: ?*struct_ncplane) c_int;
+pub extern fn ncplane_resize_placewithin(n: ?*struct_ncplane) c_int;
+pub extern fn ncplane_set_resizecb(n: ?*struct_ncplane, resizecb: ?*const fn (?*struct_ncplane) callconv(.c) c_int) void;
+pub extern fn ncplane_resizecb(n: ?*const struct_ncplane) ?*const fn (?*struct_ncplane) callconv(.c) c_int;
+pub extern fn ncplane_set_name(n: ?*struct_ncplane, name: [*c]const u8) c_int;
+pub extern fn ncplane_name(n: ?*const struct_ncplane) [*c]u8;
+pub extern fn ncplane_reparent(n: ?*struct_ncplane, newparent: ?*struct_ncplane) ?*struct_ncplane;
+pub extern fn ncplane_reparent_family(n: ?*struct_ncplane, newparent: ?*struct_ncplane) ?*struct_ncplane;
+pub extern fn ncplane_dup(n: ?*const struct_ncplane, @"opaque": ?*anyopaque) ?*struct_ncplane;
+pub extern fn ncplane_translate(src: ?*const struct_ncplane, dst: ?*const struct_ncplane, noalias y: [*c]c_int, noalias x: [*c]c_int) void;
+pub extern fn ncplane_translate_abs(n: ?*const struct_ncplane, noalias y: [*c]c_int, noalias x: [*c]c_int) bool;
+pub extern fn ncplane_set_scrolling(n: ?*struct_ncplane, scrollp: c_uint) bool;
+pub extern fn ncplane_scrolling_p(n: ?*const struct_ncplane) bool;
+pub extern fn ncplane_set_autogrow(n: ?*struct_ncplane, growp: c_uint) bool;
+pub extern fn ncplane_autogrow_p(n: ?*const struct_ncplane) bool;
+pub const struct_ncpalette = extern struct {
+    chans: [256]u32 = @import("std").mem.zeroes([256]u32),
+    pub const ncpalette_set_rgb8 = __root.ncpalette_set_rgb8;
+    pub const ncpalette_set = __root.ncpalette_set;
+    pub const ncpalette_get = __root.ncpalette_get;
+    pub const ncpalette_get_rgb8 = __root.ncpalette_get_rgb8;
+    pub const ncpalette_free = __root.ncpalette_free;
+    pub const set_rgb8 = __root.ncpalette_set_rgb8;
+    pub const set = __root.ncpalette_set;
+    pub const get = __root.ncpalette_get;
+    pub const get_rgb8 = __root.ncpalette_get_rgb8;
+};
+pub const ncpalette = struct_ncpalette;
+pub extern fn ncpalette_new(nc: ?*struct_notcurses) [*c]ncpalette;
+pub extern fn ncpalette_use(nc: ?*struct_notcurses, p: [*c]const ncpalette) c_int;
+pub fn ncpalette_set_rgb8(arg_p: [*c]ncpalette, arg_idx: c_int, arg_r: c_uint, arg_g: c_uint, arg_b: c_uint) callconv(.c) c_int {
+    var p = arg_p;
+    _ = &p;
+    var idx = arg_idx;
+    _ = &idx;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    if ((idx < @as(c_int, 0)) or (@as(usize, @bitCast(@as(c_long, idx))) > (@sizeOf(@TypeOf(p.*.chans)) / @sizeOf(@TypeOf(@as([*c]u32, @ptrCast(@alignCast(&p.*.chans))).*))))) {
+        return -@as(c_int, 1);
+    }
+    return ncchannel_set_rgb8(&p.*.chans[@bitCast(@as(isize, @intCast(idx)))], r, g, b);
+}
+pub fn ncpalette_set(arg_p: [*c]ncpalette, arg_idx: c_int, arg_rgb: c_uint) callconv(.c) c_int {
+    var p = arg_p;
+    _ = &p;
+    var idx = arg_idx;
+    _ = &idx;
+    var rgb = arg_rgb;
+    _ = &rgb;
+    if ((idx < @as(c_int, 0)) or (@as(usize, @bitCast(@as(c_long, idx))) > (@sizeOf(@TypeOf(p.*.chans)) / @sizeOf(@TypeOf(@as([*c]u32, @ptrCast(@alignCast(&p.*.chans))).*))))) {
+        return -@as(c_int, 1);
+    }
+    return ncchannel_set(&p.*.chans[@bitCast(@as(isize, @intCast(idx)))], rgb);
+}
+pub fn ncpalette_get(arg_p: [*c]const ncpalette, arg_idx: c_int, arg_palent: [*c]u32) callconv(.c) c_int {
+    var p = arg_p;
+    _ = &p;
+    var idx = arg_idx;
+    _ = &idx;
+    var palent = arg_palent;
+    _ = &palent;
+    if ((idx < @as(c_int, 0)) or (@as(usize, @bitCast(@as(c_long, idx))) > (@sizeOf(@TypeOf(p.*.chans)) / @sizeOf(@TypeOf(@as([*c]u32, @ptrCast(@alignCast(&p.*.chans))).*))))) {
+        return -@as(c_int, 1);
+    }
+    palent.* = ncchannel_rgb(p.*.chans[@bitCast(@as(isize, @intCast(idx)))]);
+    return 0;
+}
+pub fn ncpalette_get_rgb8(arg_p: [*c]const ncpalette, arg_idx: c_int, noalias arg_r: [*c]c_uint, noalias arg_g: [*c]c_uint, noalias arg_b: [*c]c_uint) callconv(.c) c_int {
+    var p = arg_p;
+    _ = &p;
+    var idx = arg_idx;
+    _ = &idx;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    if ((idx < @as(c_int, 0)) or (@as(usize, @bitCast(@as(c_long, idx))) > (@sizeOf(@TypeOf(p.*.chans)) / @sizeOf(@TypeOf(@as([*c]u32, @ptrCast(@alignCast(&p.*.chans))).*))))) {
+        return -@as(c_int, 1);
+    }
+    return @bitCast(@as(c_uint, @truncate(ncchannel_rgb8(p.*.chans[@bitCast(@as(isize, @intCast(idx)))], r, g, b))));
+}
+pub extern fn ncpalette_free(p: [*c]ncpalette) void;
+pub const struct_nccapabilities = extern struct {
+    colors: c_uint = 0,
+    utf8: bool = false,
+    rgb: bool = false,
+    can_change_colors: bool = false,
+    halfblocks: bool = false,
+    quadrants: bool = false,
+    sextants: bool = false,
+    octants: bool = false,
+    braille: bool = false,
+    pub const nccapability_canchangecolor = __root.nccapability_canchangecolor;
+    pub const canchangecolor = __root.nccapability_canchangecolor;
+};
+pub const nccapabilities = struct_nccapabilities;
+pub extern fn notcurses_supported_styles(nc: ?*const struct_notcurses) u16;
+pub extern fn notcurses_palette_size(nc: ?*const struct_notcurses) c_uint;
+pub extern fn notcurses_detected_terminal(nc: ?*const struct_notcurses) [*c]u8;
+pub extern fn notcurses_capabilities(n: ?*const struct_notcurses) [*c]const nccapabilities;
+pub const NCPIXEL_NONE: c_int = 0;
+pub const NCPIXEL_SIXEL: c_int = 1;
+pub const NCPIXEL_LINUXFB: c_int = 2;
+pub const NCPIXEL_ITERM2: c_int = 3;
+pub const NCPIXEL_KITTY_STATIC: c_int = 4;
+pub const NCPIXEL_KITTY_ANIMATED: c_int = 5;
+pub const NCPIXEL_KITTY_SELFREF: c_int = 6;
+pub const ncpixelimpl_e = c_uint;
+pub extern fn notcurses_check_pixel_support(nc: ?*const struct_notcurses) ncpixelimpl_e;
+pub fn nccapability_canchangecolor(arg_caps: [*c]const nccapabilities) callconv(.c) bool {
+    var caps = arg_caps;
+    _ = &caps;
+    if (!caps.*.can_change_colors) {
+        return @"false" != 0;
+    }
+    var p: [*c]ncpalette = undefined;
+    _ = &p;
+    if (@as(c_ulong, caps.*.colors) < (@sizeOf(@TypeOf(p.*.chans)) / @sizeOf(@TypeOf(@as([*c]u32, @ptrCast(@alignCast(&p.*.chans))).*)))) {
+        return @"false" != 0;
+    }
+    return @"true" != 0;
+}
+pub fn notcurses_cantruecolor(arg_nc: ?*const struct_notcurses) callconv(.c) bool {
+    var nc = arg_nc;
+    _ = &nc;
+    return notcurses_capabilities(nc).*.rgb;
+}
+pub fn notcurses_canchangecolor(arg_nc: ?*const struct_notcurses) callconv(.c) bool {
+    var nc = arg_nc;
+    _ = &nc;
+    return nccapability_canchangecolor(notcurses_capabilities(nc));
+}
+pub fn notcurses_canfade(arg_n: ?*const struct_notcurses) callconv(.c) bool {
+    var n = arg_n;
+    _ = &n;
+    return notcurses_canchangecolor(n) or notcurses_cantruecolor(n);
+}
+pub extern fn notcurses_canopen_images(nc: ?*const struct_notcurses) bool;
+pub extern fn notcurses_canopen_videos(nc: ?*const struct_notcurses) bool;
+pub fn notcurses_canutf8(arg_nc: ?*const struct_notcurses) callconv(.c) bool {
+    var nc = arg_nc;
+    _ = &nc;
+    return notcurses_capabilities(nc).*.utf8;
+}
+pub fn notcurses_canhalfblock(arg_nc: ?*const struct_notcurses) callconv(.c) bool {
+    var nc = arg_nc;
+    _ = &nc;
+    return notcurses_canutf8(nc);
+}
+pub fn notcurses_canquadrant(arg_nc: ?*const struct_notcurses) callconv(.c) bool {
+    var nc = arg_nc;
+    _ = &nc;
+    return notcurses_canutf8(nc) and notcurses_capabilities(nc).*.quadrants;
+}
+pub fn notcurses_cansextant(arg_nc: ?*const struct_notcurses) callconv(.c) bool {
+    var nc = arg_nc;
+    _ = &nc;
+    return notcurses_canutf8(nc) and notcurses_capabilities(nc).*.sextants;
+}
+pub fn notcurses_canoctant(arg_nc: ?*const struct_notcurses) callconv(.c) bool {
+    var nc = arg_nc;
+    _ = &nc;
+    return notcurses_canutf8(nc) and notcurses_capabilities(nc).*.octants;
+}
+pub fn notcurses_canbraille(arg_nc: ?*const struct_notcurses) callconv(.c) bool {
+    var nc = arg_nc;
+    _ = &nc;
+    return notcurses_canutf8(nc) and notcurses_capabilities(nc).*.braille;
+}
+pub fn notcurses_canpixel(arg_nc: ?*const struct_notcurses) callconv(.c) bool {
+    var nc = arg_nc;
+    _ = &nc;
+    return notcurses_check_pixel_support(nc) != @as(ncpixelimpl_e, NCPIXEL_NONE);
+}
+pub const struct_ncstats = extern struct {
+    renders: u64 = 0,
+    writeouts: u64 = 0,
+    failed_renders: u64 = 0,
+    failed_writeouts: u64 = 0,
+    raster_bytes: u64 = 0,
+    raster_max_bytes: i64 = 0,
+    raster_min_bytes: i64 = 0,
+    render_ns: u64 = 0,
+    render_max_ns: i64 = 0,
+    render_min_ns: i64 = 0,
+    raster_ns: u64 = 0,
+    raster_max_ns: i64 = 0,
+    raster_min_ns: i64 = 0,
+    writeout_ns: u64 = 0,
+    writeout_max_ns: i64 = 0,
+    writeout_min_ns: i64 = 0,
+    cellelisions: u64 = 0,
+    cellemissions: u64 = 0,
+    fgelisions: u64 = 0,
+    fgemissions: u64 = 0,
+    bgelisions: u64 = 0,
+    bgemissions: u64 = 0,
+    defaultelisions: u64 = 0,
+    defaultemissions: u64 = 0,
+    refreshes: u64 = 0,
+    sprixelemissions: u64 = 0,
+    sprixelelisions: u64 = 0,
+    sprixelbytes: u64 = 0,
+    appsync_updates: u64 = 0,
+    input_errors: u64 = 0,
+    input_events: u64 = 0,
+    hpa_gratuitous: u64 = 0,
+    cell_geo_changes: u64 = 0,
+    pixel_geo_changes: u64 = 0,
+    fbbytes: u64 = 0,
+    planes: c_uint = 0,
+};
+pub const ncstats = struct_ncstats;
+pub extern fn notcurses_stats_alloc(nc: ?*const struct_notcurses) [*c]ncstats;
+pub extern fn notcurses_stats(nc: ?*struct_notcurses, stats: [*c]ncstats) void;
+pub extern fn notcurses_stats_reset(nc: ?*struct_notcurses, stats: [*c]ncstats) void;
+pub extern fn ncplane_resize(n: ?*struct_ncplane, keepy: c_int, keepx: c_int, keepleny: c_uint, keeplenx: c_uint, yoff: c_int, xoff: c_int, ylen: c_uint, xlen: c_uint) c_int;
+pub fn ncplane_resize_simple(arg_n: ?*struct_ncplane, arg_ylen: c_uint, arg_xlen: c_uint) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var ylen = arg_ylen;
+    _ = &ylen;
+    var xlen = arg_xlen;
+    _ = &xlen;
+    var oldy: c_uint = undefined;
+    _ = &oldy;
+    var oldx: c_uint = undefined;
+    _ = &oldx;
+    ncplane_dim_yx(n, &oldy, &oldx);
+    var keepleny: c_uint = if (oldy > ylen) ylen else oldy;
+    _ = &keepleny;
+    var keeplenx: c_uint = if (oldx > xlen) xlen else oldx;
+    _ = &keeplenx;
+    return ncplane_resize(n, 0, 0, keepleny, keeplenx, 0, 0, ylen, xlen);
+}
+pub extern fn ncplane_destroy(n: ?*struct_ncplane) c_int;
+pub extern fn ncplane_set_base_cell(n: ?*struct_ncplane, c: [*c]const nccell) c_int;
+pub extern fn ncplane_set_base(n: ?*struct_ncplane, egc: [*c]const u8, stylemask: u16, channels: u64) c_int;
+pub extern fn ncplane_base(n: ?*struct_ncplane, c: [*c]nccell) c_int;
+pub extern fn ncplane_yx(n: ?*const struct_ncplane, noalias y: [*c]c_int, noalias x: [*c]c_int) void;
+pub extern fn ncplane_y(n: ?*const struct_ncplane) c_int;
+pub extern fn ncplane_x(n: ?*const struct_ncplane) c_int;
+pub extern fn ncplane_move_yx(n: ?*struct_ncplane, y: c_int, x: c_int) c_int;
+pub fn ncplane_move_rel(arg_n: ?*struct_ncplane, arg_y: c_int, arg_x: c_int) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var y = arg_y;
+    _ = &y;
+    var x = arg_x;
+    _ = &x;
+    var oy: c_int = undefined;
+    _ = &oy;
+    var ox: c_int = undefined;
+    _ = &ox;
+    ncplane_yx(n, &oy, &ox);
+    return ncplane_move_yx(n, oy + y, ox + x);
+}
+pub extern fn ncplane_abs_yx(n: ?*const struct_ncplane, noalias y: [*c]c_int, noalias x: [*c]c_int) void;
+pub extern fn ncplane_abs_y(n: ?*const struct_ncplane) c_int;
+pub extern fn ncplane_abs_x(n: ?*const struct_ncplane) c_int;
+pub extern fn ncplane_parent(n: ?*struct_ncplane) ?*struct_ncplane;
+pub extern fn ncplane_parent_const(n: ?*const struct_ncplane) ?*const struct_ncplane;
+pub fn ncplane_descendant_p(arg_n: ?*const struct_ncplane, arg_ancestor: ?*const struct_ncplane) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var ancestor = arg_ancestor;
+    _ = &ancestor;
+    {
+        var parent: ?*const struct_ncplane = ncplane_parent_const(n);
+        _ = &parent;
+        while (parent != ancestor) : (parent = ncplane_parent_const(parent)) {
+            if (ncplane_parent_const(parent) == parent) {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+pub extern fn ncplane_move_above(noalias n: ?*struct_ncplane, noalias above: ?*struct_ncplane) c_int;
+pub extern fn ncplane_move_below(noalias n: ?*struct_ncplane, noalias below: ?*struct_ncplane) c_int;
+pub fn ncplane_move_top(arg_n: ?*struct_ncplane) callconv(.c) void {
+    var n = arg_n;
+    _ = &n;
+    _ = ncplane_move_below(n, null);
+}
+pub fn ncplane_move_bottom(arg_n: ?*struct_ncplane) callconv(.c) void {
+    var n = arg_n;
+    _ = &n;
+    _ = ncplane_move_above(n, null);
+}
+pub extern fn ncplane_move_family_above(n: ?*struct_ncplane, targ: ?*struct_ncplane) c_int;
+pub extern fn ncplane_move_family_below(n: ?*struct_ncplane, targ: ?*struct_ncplane) c_int;
+pub fn ncplane_move_family_top(arg_n: ?*struct_ncplane) callconv(.c) void {
+    var n = arg_n;
+    _ = &n;
+    _ = ncplane_move_family_below(n, null);
+}
+pub fn ncplane_move_family_bottom(arg_n: ?*struct_ncplane) callconv(.c) void {
+    var n = arg_n;
+    _ = &n;
+    _ = ncplane_move_family_above(n, null);
+}
+pub extern fn ncplane_family_destroy(n: ?*struct_ncplane) c_int;
+pub extern fn ncplane_below(n: ?*struct_ncplane) ?*struct_ncplane;
+pub extern fn ncplane_above(n: ?*struct_ncplane) ?*struct_ncplane;
+pub extern fn ncplane_scrollup(n: ?*struct_ncplane, r: c_int) c_int;
+pub extern fn ncplane_scrollup_child(n: ?*struct_ncplane, child: ?*const struct_ncplane) c_int;
+pub extern fn ncplane_rotate_cw(n: ?*struct_ncplane) c_int;
+pub extern fn ncplane_rotate_ccw(n: ?*struct_ncplane) c_int;
+pub extern fn ncplane_at_cursor(n: ?*const struct_ncplane, stylemask: [*c]u16, channels: [*c]u64) [*c]u8;
+pub extern fn ncplane_at_cursor_cell(n: ?*struct_ncplane, c: [*c]nccell) c_int;
+pub extern fn ncplane_at_yx(n: ?*const struct_ncplane, y: c_int, x: c_int, stylemask: [*c]u16, channels: [*c]u64) [*c]u8;
+pub extern fn ncplane_at_yx_cell(n: ?*struct_ncplane, y: c_int, x: c_int, c: [*c]nccell) c_int;
+pub extern fn ncplane_contents(n: ?*struct_ncplane, begy: c_int, begx: c_int, leny: c_uint, lenx: c_uint) [*c]u8;
+pub extern fn ncplane_set_userptr(n: ?*struct_ncplane, @"opaque": ?*anyopaque) ?*anyopaque;
+pub extern fn ncplane_userptr(n: ?*struct_ncplane) ?*anyopaque;
+pub extern fn ncplane_center_abs(n: ?*const struct_ncplane, noalias y: [*c]c_int, noalias x: [*c]c_int) void;
+pub extern fn ncplane_as_rgba(n: ?*const struct_ncplane, blit: ncblitter_e, begy: c_int, begx: c_int, leny: c_uint, lenx: c_uint, pxdimy: [*c]c_uint, pxdimx: [*c]c_uint) [*c]u32;
+pub fn notcurses_align(arg_availu: c_int, arg_align: ncalign_e, arg_u: c_int) callconv(.c) c_int {
+    var availu = arg_availu;
+    _ = &availu;
+    var @"align" = arg_align;
+    _ = &@"align";
+    var u = arg_u;
+    _ = &u;
+    if ((@"align" == @as(ncalign_e, NCALIGN_LEFT)) or (@"align" == @as(ncalign_e, NCALIGN_LEFT))) {
+        return 0;
+    }
+    if (@"align" == @as(ncalign_e, NCALIGN_CENTER)) {
+        return @divTrunc(availu - u, @as(c_int, 2));
+    }
+    if ((@"align" == @as(ncalign_e, NCALIGN_RIGHT)) or (@"align" == @as(ncalign_e, NCALIGN_RIGHT))) {
+        return availu - u;
+    }
+    return -__INT_MAX__;
+}
+pub fn ncplane_halign(arg_n: ?*const struct_ncplane, arg_align: ncalign_e, arg_c: c_int) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var @"align" = arg_align;
+    _ = &@"align";
+    var c = arg_c;
+    _ = &c;
+    return notcurses_align(@bitCast(@as(c_uint, @truncate(ncplane_dim_x(n)))), @"align", c);
+}
+pub fn ncplane_valign(arg_n: ?*const struct_ncplane, arg_align: ncalign_e, arg_r: c_int) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var @"align" = arg_align;
+    _ = &@"align";
+    var r = arg_r;
+    _ = &r;
+    return notcurses_align(@bitCast(@as(c_uint, @truncate(ncplane_dim_y(n)))), @"align", r);
+}
+pub extern fn ncplane_cursor_move_yx(n: ?*struct_ncplane, y: c_int, x: c_int) c_int;
+pub extern fn ncplane_cursor_move_rel(n: ?*struct_ncplane, y: c_int, x: c_int) c_int;
+pub extern fn ncplane_home(n: ?*struct_ncplane) void;
+pub extern fn ncplane_cursor_yx(n: ?*const struct_ncplane, noalias y: [*c]c_uint, noalias x: [*c]c_uint) void;
+pub fn ncplane_cursor_y(arg_n: ?*const struct_ncplane) callconv(.c) c_uint {
+    var n = arg_n;
+    _ = &n;
+    var y: c_uint = undefined;
+    _ = &y;
+    ncplane_cursor_yx(n, &y, null);
+    return y;
+}
+pub fn ncplane_cursor_x(arg_n: ?*const struct_ncplane) callconv(.c) c_uint {
+    var n = arg_n;
+    _ = &n;
+    var x: c_uint = undefined;
+    _ = &x;
+    ncplane_cursor_yx(n, null, &x);
+    return x;
+}
+pub extern fn ncplane_channels(n: ?*const struct_ncplane) u64;
+pub extern fn ncplane_styles(n: ?*const struct_ncplane) u16;
+pub extern fn ncplane_putc_yx(n: ?*struct_ncplane, y: c_int, x: c_int, c: [*c]const nccell) c_int;
+pub fn ncplane_putc(arg_n: ?*struct_ncplane, arg_c: [*c]const nccell) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var c = arg_c;
+    _ = &c;
+    return ncplane_putc_yx(n, -@as(c_int, 1), -@as(c_int, 1), c);
+}
+pub fn ncplane_putchar_yx(arg_n: ?*struct_ncplane, arg_y: c_int, arg_x: c_int, arg_c: u8) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var y = arg_y;
+    _ = &y;
+    var x = arg_x;
+    _ = &x;
+    var c = arg_c;
+    _ = &c;
+    var ce: nccell = nccell{
+        .gcluster = __bswap_32(htonl(c)),
+        .gcluster_backstop = 0,
+        .width = @bitCast(@as(i8, @truncate(if ((wcwidth(@bitCast(@as(c_uint, @truncate(@as(u32, c))))) < @as(c_int, 0)) or !(@as(u32, c) != 0)) @as(c_int, 1) else wcwidth(@bitCast(@as(c_uint, @truncate(@as(u32, c)))))))),
+        .stylemask = ncplane_styles(n),
+        .channels = ncplane_channels(n),
+    };
+    _ = &ce;
+    return ncplane_putc_yx(n, y, x, &ce);
+}
+pub fn ncplane_putchar(arg_n: ?*struct_ncplane, arg_c: u8) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var c = arg_c;
+    _ = &c;
+    return ncplane_putchar_yx(n, -@as(c_int, 1), -@as(c_int, 1), c);
+}
+pub extern fn ncplane_putchar_stained(n: ?*struct_ncplane, c: u8) c_int;
+pub extern fn ncplane_putegc_yx(n: ?*struct_ncplane, y: c_int, x: c_int, gclust: [*c]const u8, sbytes: [*c]usize) c_int;
+pub fn ncplane_putegc(arg_n: ?*struct_ncplane, arg_gclust: [*c]const u8, arg_sbytes: [*c]usize) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var gclust = arg_gclust;
+    _ = &gclust;
+    var sbytes = arg_sbytes;
+    _ = &sbytes;
+    return ncplane_putegc_yx(n, -@as(c_int, 1), -@as(c_int, 1), gclust, sbytes);
+}
+pub extern fn ncplane_putegc_stained(n: ?*struct_ncplane, gclust: [*c]const u8, sbytes: [*c]usize) c_int;
+pub fn ncwcsrtombs(arg_src: [*c]const wchar_t) callconv(.c) [*c]u8 {
+    var src = arg_src;
+    _ = &src;
+    var ps: mbstate_t = undefined;
+    _ = &ps;
+    _ = memset(@ptrCast(@alignCast(&ps)), 0, @sizeOf(@TypeOf(ps)));
+    var mbytes: usize = wcsrtombs(null, &src, 0, &ps);
+    _ = &mbytes;
+    if (mbytes == @as(usize, @bitCast(@as(c_long, -@as(c_int, 1))))) {
+        return null;
+    }
+    mbytes +%= 1;
+    var mbstr: [*c]u8 = @ptrCast(@alignCast(malloc(mbytes)));
+    _ = &mbstr;
+    if (@as(?*anyopaque, @ptrCast(@alignCast(mbstr))) == @as(?*anyopaque, null)) {
+        return null;
+    }
+    var s: usize = wcsrtombs(mbstr, &src, mbytes, &ps);
+    _ = &s;
+    if (s == @as(usize, @bitCast(@as(c_long, -@as(c_int, 1))))) {
+        free(@ptrCast(@alignCast(mbstr)));
+        return null;
+    }
+    return mbstr;
+}
+pub fn ncplane_putwegc(arg_n: ?*struct_ncplane, arg_gclust: [*c]const wchar_t, arg_sbytes: [*c]usize) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var gclust = arg_gclust;
+    _ = &gclust;
+    var sbytes = arg_sbytes;
+    _ = &sbytes;
+    var mbstr: [*c]u8 = ncwcsrtombs(gclust);
+    _ = &mbstr;
+    if (@as(?*anyopaque, @ptrCast(@alignCast(mbstr))) == @as(?*anyopaque, null)) {
+        return -@as(c_int, 1);
+    }
+    var ret: c_int = ncplane_putegc(n, mbstr, sbytes);
+    _ = &ret;
+    free(@ptrCast(@alignCast(mbstr)));
+    return ret;
+}
+pub fn ncplane_putwegc_yx(arg_n: ?*struct_ncplane, arg_y: c_int, arg_x: c_int, arg_gclust: [*c]const wchar_t, arg_sbytes: [*c]usize) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var y = arg_y;
+    _ = &y;
+    var x = arg_x;
+    _ = &x;
+    var gclust = arg_gclust;
+    _ = &gclust;
+    var sbytes = arg_sbytes;
+    _ = &sbytes;
+    if (ncplane_cursor_move_yx(n, y, x) != 0) {
+        return -@as(c_int, 1);
+    }
+    return ncplane_putwegc(n, gclust, sbytes);
+}
+pub extern fn ncplane_putwegc_stained(n: ?*struct_ncplane, gclust: [*c]const wchar_t, sbytes: [*c]usize) c_int;
+pub fn ncplane_putstr_yx(arg_n: ?*struct_ncplane, arg_y: c_int, arg_x: c_int, arg_gclusters: [*c]const u8) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var y = arg_y;
+    _ = &y;
+    var x = arg_x;
+    _ = &x;
+    var gclusters = arg_gclusters;
+    _ = &gclusters;
+    var ret: c_int = 0;
+    _ = &ret;
+    while (@as(c_int, gclusters.*) != 0) {
+        var wcs: usize = undefined;
+        _ = &wcs;
+        var cols: c_int = ncplane_putegc_yx(n, y, x, gclusters, &wcs);
+        _ = &cols;
+        if (cols < @as(c_int, 0)) {
+            return -ret;
+        }
+        if (wcs == @as(usize, 0)) {
+            break;
+        }
+        y = -@as(c_int, 1);
+        x = -@as(c_int, 1);
+        gclusters += wcs;
+        ret += cols;
+    }
+    return ret;
+}
+pub fn ncplane_putstr(arg_n: ?*struct_ncplane, arg_gclustarr: [*c]const u8) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var gclustarr = arg_gclustarr;
+    _ = &gclustarr;
+    return ncplane_putstr_yx(n, -@as(c_int, 1), -@as(c_int, 1), gclustarr);
+}
+pub fn ncplane_putstr_aligned(arg_n: ?*struct_ncplane, arg_y: c_int, arg_align: ncalign_e, arg_s: [*c]const u8) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var y = arg_y;
+    _ = &y;
+    var @"align" = arg_align;
+    _ = &@"align";
+    var s = arg_s;
+    _ = &s;
+    var validbytes: c_int = undefined;
+    _ = &validbytes;
+    var validwidth: c_int = undefined;
+    _ = &validwidth;
+    _ = ncstrwidth(s, &validbytes, &validwidth);
+    var xpos: c_int = ncplane_halign(n, @"align", validwidth);
+    _ = &xpos;
+    if (xpos < @as(c_int, 0)) {
+        xpos = 0;
+    }
+    return ncplane_putstr_yx(n, y, xpos, s);
+}
+pub fn ncplane_putstr_stained(arg_n: ?*struct_ncplane, arg_gclusters: [*c]const u8) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var gclusters = arg_gclusters;
+    _ = &gclusters;
+    var ret: c_int = 0;
+    _ = &ret;
+    while (@as(c_int, gclusters.*) != 0) {
+        var wcs: usize = undefined;
+        _ = &wcs;
+        var cols: c_int = ncplane_putegc_stained(n, gclusters, &wcs);
+        _ = &cols;
+        if (cols < @as(c_int, 0)) {
+            return -ret;
+        }
+        if (wcs == @as(usize, 0)) {
+            break;
+        }
+        gclusters += wcs;
+        ret += cols;
+    }
+    return ret;
+}
+pub extern fn ncplane_putnstr_aligned(n: ?*struct_ncplane, y: c_int, @"align": ncalign_e, s: usize, str: [*c]const u8) c_int;
+pub fn ncplane_putnstr_yx(arg_n: ?*struct_ncplane, arg_y: c_int, arg_x: c_int, arg_s: usize, arg_gclusters: [*c]const u8) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var y = arg_y;
+    _ = &y;
+    var x = arg_x;
+    _ = &x;
+    var s = arg_s;
+    _ = &s;
+    var gclusters = arg_gclusters;
+    _ = &gclusters;
+    var ret: c_int = 0;
+    _ = &ret;
+    var offset: usize = 0;
+    _ = &offset;
+    while ((offset < s) and (@as(c_int, gclusters[offset]) != 0)) {
+        var wcs: usize = undefined;
+        _ = &wcs;
+        var cols: c_int = ncplane_putegc_yx(n, y, x, gclusters + offset, &wcs);
+        _ = &cols;
+        if (cols < @as(c_int, 0)) {
+            return -ret;
+        }
+        if (wcs == @as(usize, 0)) {
+            break;
+        }
+        y = -@as(c_int, 1);
+        x = -@as(c_int, 1);
+        offset +%= wcs;
+        ret += cols;
+    }
+    return ret;
+}
+pub fn ncplane_putnstr(arg_n: ?*struct_ncplane, arg_s: usize, arg_gclustarr: [*c]const u8) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var s = arg_s;
+    _ = &s;
+    var gclustarr = arg_gclustarr;
+    _ = &gclustarr;
+    return ncplane_putnstr_yx(n, -@as(c_int, 1), -@as(c_int, 1), s, gclustarr);
+}
+pub fn ncplane_putwstr_yx(arg_n: ?*struct_ncplane, arg_y: c_int, arg_x: c_int, arg_gclustarr: [*c]const wchar_t) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var y = arg_y;
+    _ = &y;
+    var x = arg_x;
+    _ = &x;
+    var gclustarr = arg_gclustarr;
+    _ = &gclustarr;
+    const mbytes: usize = (wcslen(gclustarr) *% @as(usize, WCHAR_MAX_UTF8BYTES)) +% @as(usize, 1);
+    _ = &mbytes;
+    var mbstr: [*c]u8 = @ptrCast(@alignCast(malloc(mbytes)));
+    _ = &mbstr;
+    if (@as(?*anyopaque, @ptrCast(@alignCast(mbstr))) == @as(?*anyopaque, null)) {
+        return -@as(c_int, 1);
+    }
+    var ps: mbstate_t = undefined;
+    _ = &ps;
+    _ = memset(@ptrCast(@alignCast(&ps)), 0, @sizeOf(@TypeOf(ps)));
+    var gend: [*c][*c]const wchar_t = &gclustarr;
+    _ = &gend;
+    var s: usize = wcsrtombs(mbstr, gend, mbytes, &ps);
+    _ = &s;
+    if (s == @as(usize, @bitCast(@as(c_long, -@as(c_int, 1))))) {
+        free(@ptrCast(@alignCast(mbstr)));
+        return -@as(c_int, 1);
+    }
+    var ret: c_int = ncplane_putstr_yx(n, y, x, mbstr);
+    _ = &ret;
+    free(@ptrCast(@alignCast(mbstr)));
+    return ret;
+}
+pub fn ncplane_putwstr_aligned(arg_n: ?*struct_ncplane, arg_y: c_int, arg_align: ncalign_e, arg_gclustarr: [*c]const wchar_t) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var y = arg_y;
+    _ = &y;
+    var @"align" = arg_align;
+    _ = &@"align";
+    var gclustarr = arg_gclustarr;
+    _ = &gclustarr;
+    var width: c_int = wcswidth(gclustarr, __INT_MAX__);
+    _ = &width;
+    var xpos: c_int = ncplane_halign(n, @"align", width);
+    _ = &xpos;
+    if (xpos < @as(c_int, 0)) {
+        xpos = 0;
+    }
+    return ncplane_putwstr_yx(n, y, xpos, gclustarr);
+}
+pub extern fn ncplane_putwstr_stained(n: ?*struct_ncplane, gclustarr: [*c]const wchar_t) c_int;
+pub fn ncplane_putwstr(arg_n: ?*struct_ncplane, arg_gclustarr: [*c]const wchar_t) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var gclustarr = arg_gclustarr;
+    _ = &gclustarr;
+    return ncplane_putwstr_yx(n, -@as(c_int, 1), -@as(c_int, 1), gclustarr);
+}
+pub fn ncplane_pututf32_yx(arg_n: ?*struct_ncplane, arg_y: c_int, arg_x: c_int, arg_u: u32) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var y = arg_y;
+    _ = &y;
+    var x = arg_x;
+    _ = &x;
+    var u = arg_u;
+    _ = &u;
+    if (u > @as(u32, __WCHAR_MAX__)) {
+        return -@as(c_int, 1);
+    }
+    var utf8c: [17]u8 = undefined;
+    _ = &utf8c;
+    var ps: mbstate_t = undefined;
+    _ = &ps;
+    _ = memset(@ptrCast(@alignCast(&ps)), 0, @sizeOf(@TypeOf(ps)));
+    var s: usize = wcrtomb(@ptrCast(@alignCast(&utf8c)), @bitCast(@as(c_uint, @truncate(u))), &ps);
+    _ = &s;
+    if (s == @as(usize, @bitCast(@as(c_long, -@as(c_int, 1))))) {
+        return -@as(c_int, 1);
+    }
+    utf8c[s] = '\x00';
+    return ncplane_putegc_yx(n, y, x, @ptrCast(@alignCast(&utf8c)), null);
+}
+pub fn ncplane_putwc_yx(arg_n: ?*struct_ncplane, arg_y: c_int, arg_x: c_int, arg_w: wchar_t) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var y = arg_y;
+    _ = &y;
+    var x = arg_x;
+    _ = &x;
+    var w = arg_w;
+    _ = &w;
+    return ncplane_pututf32_yx(n, y, x, @bitCast(@as(c_int, w)));
+}
+pub fn ncplane_putwc(arg_n: ?*struct_ncplane, arg_w: wchar_t) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var w = arg_w;
+    _ = &w;
+    return ncplane_putwc_yx(n, -@as(c_int, 1), -@as(c_int, 1), w);
+}
+pub fn ncplane_putwc_utf32(arg_n: ?*struct_ncplane, arg_w: [*c]const wchar_t, arg_wchars: [*c]c_uint) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var w = arg_w;
+    _ = &w;
+    var wchars = arg_wchars;
+    _ = &wchars;
+    var utf32: u32 = undefined;
+    _ = &utf32;
+    if ((w.* >= @as(c_int, 53248)) and (w.* <= @as(c_int, 56319))) {
+        wchars.* = 2;
+        if ((w[@as(c_int, 1)] < @as(c_int, 56320)) or (w[@as(c_int, 1)] > @as(c_int, 57343))) {
+            return -@as(c_int, 1);
+        }
+        utf32 = @truncate((@as(c_ulong, @bitCast(@as(c_long, w[@as(c_int, 0)]))) & @as(c_ulong, 1023)) << @intCast(@as(c_ulong, 10)));
+        {
+            const ref = &utf32;
+            ref.* = @truncate(@as(c_ulong, ref.*) +% (@as(c_ulong, @bitCast(@as(c_long, w[@as(c_int, 1)]))) & @as(c_ulong, 1023)));
+        }
+    } else {
+        wchars.* = 1;
+        utf32 = @bitCast(@as(c_int, w.*));
+    }
+    return ncplane_pututf32_yx(n, -@as(c_int, 1), -@as(c_int, 1), utf32);
+}
+pub fn ncplane_putwc_stained(arg_n: ?*struct_ncplane, arg_w: wchar_t) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var w = arg_w;
+    _ = &w;
+    var warr: [2]wchar_t = [2]wchar_t{
+        w,
+        '\u{0}',
+    };
+    _ = &warr;
+    return ncplane_putwstr_stained(n, @ptrCast(@alignCast(&warr)));
+}
+pub extern fn ncplane_vprintf_aligned(n: ?*struct_ncplane, y: c_int, @"align": ncalign_e, format: [*c]const u8, ap: [*c]struct___va_list_tag_5) c_int;
+pub extern fn ncplane_vprintf_yx(n: ?*struct_ncplane, y: c_int, x: c_int, format: [*c]const u8, ap: [*c]struct___va_list_tag_5) c_int;
+pub fn ncplane_vprintf(arg_n: ?*struct_ncplane, arg_format: [*c]const u8, arg_ap: [*c]struct___va_list_tag_5) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var format = arg_format;
+    _ = &format;
+    var ap = arg_ap;
+    _ = &ap;
+    return ncplane_vprintf_yx(n, -@as(c_int, 1), -@as(c_int, 1), format, ap);
+}
+pub extern fn ncplane_vprintf_stained(n: ?*struct_ncplane, format: [*c]const u8, ap: [*c]struct___va_list_tag_5) c_int; // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/notcurses.h:2510:1: warning: TODO unable to translate variadic function, demoted to extern
+pub extern fn ncplane_printf(n: ?*struct_ncplane, format: [*c]const u8, ...) c_int; // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/notcurses.h:2523:1: warning: TODO unable to translate variadic function, demoted to extern
+pub extern fn ncplane_printf_yx(n: ?*struct_ncplane, y: c_int, x: c_int, format: [*c]const u8, ...) c_int; // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/notcurses.h:2537:1: warning: TODO unable to translate variadic function, demoted to extern
+pub extern fn ncplane_printf_aligned(n: ?*struct_ncplane, y: c_int, @"align": ncalign_e, format: [*c]const u8, ...) c_int; // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/notcurses.h:2550:1: warning: TODO unable to translate variadic function, demoted to extern
+pub extern fn ncplane_printf_stained(n: ?*struct_ncplane, format: [*c]const u8, ...) c_int;
+pub extern fn ncplane_puttext(n: ?*struct_ncplane, y: c_int, @"align": ncalign_e, text: [*c]const u8, bytes: [*c]usize) c_int;
+pub extern fn ncplane_hline_interp(n: ?*struct_ncplane, c: [*c]const nccell, len: c_uint, c1: u64, c2: u64) c_int;
+pub fn ncplane_hline(arg_n: ?*struct_ncplane, arg_c: [*c]const nccell, arg_len: c_uint) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var c = arg_c;
+    _ = &c;
+    var len = arg_len;
+    _ = &len;
+    return ncplane_hline_interp(n, c, len, c.*.channels, c.*.channels);
+}
+pub extern fn ncplane_vline_interp(n: ?*struct_ncplane, c: [*c]const nccell, len: c_uint, c1: u64, c2: u64) c_int;
+pub fn ncplane_vline(arg_n: ?*struct_ncplane, arg_c: [*c]const nccell, arg_len: c_uint) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var c = arg_c;
+    _ = &c;
+    var len = arg_len;
+    _ = &len;
+    return ncplane_vline_interp(n, c, len, c.*.channels, c.*.channels);
+}
+pub extern fn ncplane_box(n: ?*struct_ncplane, ul: [*c]const nccell, ur: [*c]const nccell, ll: [*c]const nccell, lr: [*c]const nccell, hline: [*c]const nccell, vline: [*c]const nccell, ystop: c_uint, xstop: c_uint, ctlword: c_uint) c_int;
+pub fn ncplane_box_sized(arg_n: ?*struct_ncplane, arg_ul: [*c]const nccell, arg_ur: [*c]const nccell, arg_ll: [*c]const nccell, arg_lr: [*c]const nccell, arg_hline: [*c]const nccell, arg_vline: [*c]const nccell, arg_ystop: c_uint, arg_xstop: c_uint, arg_ctlword: c_uint) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var ul = arg_ul;
+    _ = &ul;
+    var ur = arg_ur;
+    _ = &ur;
+    var ll = arg_ll;
+    _ = &ll;
+    var lr = arg_lr;
+    _ = &lr;
+    var hline = arg_hline;
+    _ = &hline;
+    var vline = arg_vline;
+    _ = &vline;
+    var ystop = arg_ystop;
+    _ = &ystop;
+    var xstop = arg_xstop;
+    _ = &xstop;
+    var ctlword = arg_ctlword;
+    _ = &ctlword;
+    var y: c_uint = undefined;
+    _ = &y;
+    var x: c_uint = undefined;
+    _ = &x;
+    ncplane_cursor_yx(n, &y, &x);
+    return ncplane_box(n, ul, ur, ll, lr, hline, vline, (y +% ystop) -% @as(c_uint, 1), (x +% xstop) -% @as(c_uint, 1), ctlword);
+}
+pub fn ncplane_perimeter(arg_n: ?*struct_ncplane, arg_ul: [*c]const nccell, arg_ur: [*c]const nccell, arg_ll: [*c]const nccell, arg_lr: [*c]const nccell, arg_hline: [*c]const nccell, arg_vline: [*c]const nccell, arg_ctlword: c_uint) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var ul = arg_ul;
+    _ = &ul;
+    var ur = arg_ur;
+    _ = &ur;
+    var ll = arg_ll;
+    _ = &ll;
+    var lr = arg_lr;
+    _ = &lr;
+    var hline = arg_hline;
+    _ = &hline;
+    var vline = arg_vline;
+    _ = &vline;
+    var ctlword = arg_ctlword;
+    _ = &ctlword;
+    if (ncplane_cursor_move_yx(n, 0, 0) != 0) {
+        return -@as(c_int, 1);
+    }
+    var dimy: c_uint = undefined;
+    _ = &dimy;
+    var dimx: c_uint = undefined;
+    _ = &dimx;
+    ncplane_dim_yx(n, &dimy, &dimx);
+    return ncplane_box_sized(n, ul, ur, ll, lr, hline, vline, dimy, dimx, ctlword);
+}
+pub extern fn ncplane_polyfill_yx(n: ?*struct_ncplane, y: c_int, x: c_int, c: [*c]const nccell) c_int;
+pub extern fn ncplane_gradient(n: ?*struct_ncplane, y: c_int, x: c_int, ylen: c_uint, xlen: c_uint, egc: [*c]const u8, styles: u16, ul: u64, ur: u64, ll: u64, lr: u64) c_int;
+pub extern fn ncplane_gradient2x1(n: ?*struct_ncplane, y: c_int, x: c_int, ylen: c_uint, xlen: c_uint, ul: u32, ur: u32, ll: u32, lr: u32) c_int;
+pub extern fn ncplane_format(n: ?*struct_ncplane, y: c_int, x: c_int, ylen: c_uint, xlen: c_uint, stylemask: u16) c_int;
+pub extern fn ncplane_stain(n: ?*struct_ncplane, y: c_int, x: c_int, ylen: c_uint, xlen: c_uint, ul: u64, ur: u64, ll: u64, lr: u64) c_int;
+pub extern fn ncplane_mergedown_simple(noalias src: ?*struct_ncplane, noalias dst: ?*struct_ncplane) c_int;
+pub extern fn ncplane_mergedown(noalias src: ?*struct_ncplane, noalias dst: ?*struct_ncplane, begsrcy: c_int, begsrcx: c_int, leny: c_uint, lenx: c_uint, dsty: c_int, dstx: c_int) c_int;
+pub extern fn ncplane_erase(n: ?*struct_ncplane) void;
+pub extern fn ncplane_erase_region(n: ?*struct_ncplane, ystart: c_int, xstart: c_int, ylen: c_int, xlen: c_int) c_int;
+pub fn nccell_fg_rgb(arg_cl: [*c]const nccell) callconv(.c) u32 {
+    var cl = arg_cl;
+    _ = &cl;
+    return ncchannels_fg_rgb(cl.*.channels);
+}
+pub fn nccell_bg_rgb(arg_cl: [*c]const nccell) callconv(.c) u32 {
+    var cl = arg_cl;
+    _ = &cl;
+    return ncchannels_bg_rgb(cl.*.channels);
+}
+pub fn nccell_fg_alpha(arg_cl: [*c]const nccell) callconv(.c) u32 {
+    var cl = arg_cl;
+    _ = &cl;
+    return ncchannels_fg_alpha(cl.*.channels);
+}
+pub fn nccell_bg_alpha(arg_cl: [*c]const nccell) callconv(.c) u32 {
+    var cl = arg_cl;
+    _ = &cl;
+    return ncchannels_bg_alpha(cl.*.channels);
+}
+pub fn nccell_fg_rgb8(arg_cl: [*c]const nccell, arg_r: [*c]c_uint, arg_g: [*c]c_uint, arg_b: [*c]c_uint) callconv(.c) u32 {
+    var cl = arg_cl;
+    _ = &cl;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    return ncchannels_fg_rgb8(cl.*.channels, r, g, b);
+}
+pub fn nccell_bg_rgb8(arg_cl: [*c]const nccell, arg_r: [*c]c_uint, arg_g: [*c]c_uint, arg_b: [*c]c_uint) callconv(.c) u32 {
+    var cl = arg_cl;
+    _ = &cl;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    return ncchannels_bg_rgb8(cl.*.channels, r, g, b);
+}
+pub fn nccell_set_fg_rgb8(arg_cl: [*c]nccell, arg_r: c_uint, arg_g: c_uint, arg_b: c_uint) callconv(.c) c_int {
+    var cl = arg_cl;
+    _ = &cl;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    return ncchannels_set_fg_rgb8(&cl.*.channels, r, g, b);
+}
+pub fn nccell_set_fg_rgb8_clipped(arg_cl: [*c]nccell, arg_r: c_int, arg_g: c_int, arg_b: c_int) callconv(.c) void {
+    var cl = arg_cl;
+    _ = &cl;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    ncchannels_set_fg_rgb8_clipped(&cl.*.channels, r, g, b);
+}
+pub fn nccell_set_fg_rgb(arg_c: [*c]nccell, arg_channel: u32) callconv(.c) c_int {
+    var c = arg_c;
+    _ = &c;
+    var channel = arg_channel;
+    _ = &channel;
+    return ncchannels_set_fg_rgb(&c.*.channels, channel);
+}
+pub fn nccell_set_fg_palindex(arg_cl: [*c]nccell, arg_idx: c_uint) callconv(.c) c_int {
+    var cl = arg_cl;
+    _ = &cl;
+    var idx = arg_idx;
+    _ = &idx;
+    return ncchannels_set_fg_palindex(&cl.*.channels, idx);
+}
+pub fn nccell_fg_palindex(arg_cl: [*c]const nccell) callconv(.c) u32 {
+    var cl = arg_cl;
+    _ = &cl;
+    return ncchannels_fg_palindex(cl.*.channels);
+}
+pub fn nccell_set_bg_rgb8(arg_cl: [*c]nccell, arg_r: c_uint, arg_g: c_uint, arg_b: c_uint) callconv(.c) c_int {
+    var cl = arg_cl;
+    _ = &cl;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    return ncchannels_set_bg_rgb8(&cl.*.channels, r, g, b);
+}
+pub fn nccell_set_bg_rgb8_clipped(arg_cl: [*c]nccell, arg_r: c_int, arg_g: c_int, arg_b: c_int) callconv(.c) void {
+    var cl = arg_cl;
+    _ = &cl;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    ncchannels_set_bg_rgb8_clipped(&cl.*.channels, r, g, b);
+}
+pub fn nccell_set_bg_rgb(arg_c: [*c]nccell, arg_channel: u32) callconv(.c) c_int {
+    var c = arg_c;
+    _ = &c;
+    var channel = arg_channel;
+    _ = &channel;
+    return ncchannels_set_bg_rgb(&c.*.channels, channel);
+}
+pub fn nccell_set_bg_palindex(arg_cl: [*c]nccell, arg_idx: c_uint) callconv(.c) c_int {
+    var cl = arg_cl;
+    _ = &cl;
+    var idx = arg_idx;
+    _ = &idx;
+    return ncchannels_set_bg_palindex(&cl.*.channels, idx);
+}
+pub fn nccell_bg_palindex(arg_cl: [*c]const nccell) callconv(.c) u32 {
+    var cl = arg_cl;
+    _ = &cl;
+    return ncchannels_bg_palindex(cl.*.channels);
+}
+pub fn nccell_fg_default_p(arg_cl: [*c]const nccell) callconv(.c) bool {
+    var cl = arg_cl;
+    _ = &cl;
+    return ncchannels_fg_default_p(cl.*.channels);
+}
+pub fn nccell_fg_palindex_p(arg_cl: [*c]const nccell) callconv(.c) bool {
+    var cl = arg_cl;
+    _ = &cl;
+    return ncchannels_fg_palindex_p(cl.*.channels);
+}
+pub fn nccell_bg_default_p(arg_cl: [*c]const nccell) callconv(.c) bool {
+    var cl = arg_cl;
+    _ = &cl;
+    return ncchannels_bg_default_p(cl.*.channels);
+}
+pub fn nccell_bg_palindex_p(arg_cl: [*c]const nccell) callconv(.c) bool {
+    var cl = arg_cl;
+    _ = &cl;
+    return ncchannels_bg_palindex_p(cl.*.channels);
+}
+pub fn ncplane_bchannel(arg_n: ?*const struct_ncplane) callconv(.c) u32 {
+    var n = arg_n;
+    _ = &n;
+    return ncchannels_bchannel(ncplane_channels(n));
+}
+pub fn ncplane_fchannel(arg_n: ?*const struct_ncplane) callconv(.c) u32 {
+    var n = arg_n;
+    _ = &n;
+    return ncchannels_fchannel(ncplane_channels(n));
+}
+pub extern fn ncplane_set_channels(n: ?*struct_ncplane, channels: u64) void;
+pub extern fn ncplane_set_bchannel(n: ?*struct_ncplane, channel: u32) u64;
+pub extern fn ncplane_set_fchannel(n: ?*struct_ncplane, channel: u32) u64;
+pub extern fn ncplane_set_styles(n: ?*struct_ncplane, stylebits: c_uint) void;
+pub extern fn ncplane_on_styles(n: ?*struct_ncplane, stylebits: c_uint) void;
+pub extern fn ncplane_off_styles(n: ?*struct_ncplane, stylebits: c_uint) void;
+pub fn ncplane_fg_rgb(arg_n: ?*const struct_ncplane) callconv(.c) u32 {
+    var n = arg_n;
+    _ = &n;
+    return ncchannels_fg_rgb(ncplane_channels(n));
+}
+pub fn ncplane_bg_rgb(arg_n: ?*const struct_ncplane) callconv(.c) u32 {
+    var n = arg_n;
+    _ = &n;
+    return ncchannels_bg_rgb(ncplane_channels(n));
+}
+pub fn ncplane_fg_alpha(arg_n: ?*const struct_ncplane) callconv(.c) u32 {
+    var n = arg_n;
+    _ = &n;
+    return ncchannels_fg_alpha(ncplane_channels(n));
+}
+pub fn ncplane_fg_default_p(arg_n: ?*const struct_ncplane) callconv(.c) bool {
+    var n = arg_n;
+    _ = &n;
+    return ncchannels_fg_default_p(ncplane_channels(n));
+}
+pub fn ncplane_bg_alpha(arg_n: ?*const struct_ncplane) callconv(.c) u32 {
+    var n = arg_n;
+    _ = &n;
+    return ncchannels_bg_alpha(ncplane_channels(n));
+}
+pub fn ncplane_bg_default_p(arg_n: ?*const struct_ncplane) callconv(.c) bool {
+    var n = arg_n;
+    _ = &n;
+    return ncchannels_bg_default_p(ncplane_channels(n));
+}
+pub fn ncplane_fg_rgb8(arg_n: ?*const struct_ncplane, arg_r: [*c]c_uint, arg_g: [*c]c_uint, arg_b: [*c]c_uint) callconv(.c) u32 {
+    var n = arg_n;
+    _ = &n;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    return ncchannels_fg_rgb8(ncplane_channels(n), r, g, b);
+}
+pub fn ncplane_bg_rgb8(arg_n: ?*const struct_ncplane, arg_r: [*c]c_uint, arg_g: [*c]c_uint, arg_b: [*c]c_uint) callconv(.c) u32 {
+    var n = arg_n;
+    _ = &n;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    return ncchannels_bg_rgb8(ncplane_channels(n), r, g, b);
+}
+pub extern fn ncplane_set_fg_rgb8(n: ?*struct_ncplane, r: c_uint, g: c_uint, b: c_uint) c_int;
+pub extern fn ncplane_set_bg_rgb8(n: ?*struct_ncplane, r: c_uint, g: c_uint, b: c_uint) c_int;
+pub extern fn ncplane_set_bg_rgb8_clipped(n: ?*struct_ncplane, r: c_int, g: c_int, b: c_int) void;
+pub extern fn ncplane_set_fg_rgb8_clipped(n: ?*struct_ncplane, r: c_int, g: c_int, b: c_int) void;
+pub extern fn ncplane_set_fg_rgb(n: ?*struct_ncplane, channel: u32) c_int;
+pub extern fn ncplane_set_bg_rgb(n: ?*struct_ncplane, channel: u32) c_int;
+pub extern fn ncplane_set_fg_default(n: ?*struct_ncplane) void;
+pub extern fn ncplane_set_bg_default(n: ?*struct_ncplane) void;
+pub extern fn ncplane_set_fg_palindex(n: ?*struct_ncplane, idx: c_uint) c_int;
+pub extern fn ncplane_set_bg_palindex(n: ?*struct_ncplane, idx: c_uint) c_int;
+pub extern fn ncplane_set_fg_alpha(n: ?*struct_ncplane, alpha: c_int) c_int;
+pub extern fn ncplane_set_bg_alpha(n: ?*struct_ncplane, alpha: c_int) c_int;
+pub const fadecb = ?*const fn (nc: ?*struct_notcurses, n: ?*struct_ncplane, [*c]const struct_timespec, curry: ?*anyopaque) callconv(.c) c_int;
+pub extern fn ncplane_fadeout(n: ?*struct_ncplane, ts: [*c]const struct_timespec, fader: fadecb, curry: ?*anyopaque) c_int;
+pub extern fn ncplane_fadein(n: ?*struct_ncplane, ts: [*c]const struct_timespec, fader: fadecb, curry: ?*anyopaque) c_int;
+pub extern fn ncfadectx_setup(n: ?*struct_ncplane) ?*struct_ncfadectx;
+pub extern fn ncfadectx_iterations(nctx: ?*const struct_ncfadectx) c_int;
+pub extern fn ncplane_fadeout_iteration(n: ?*struct_ncplane, nctx: ?*struct_ncfadectx, iter: c_int, fader: fadecb, curry: ?*anyopaque) c_int;
+pub extern fn ncplane_fadein_iteration(n: ?*struct_ncplane, nctx: ?*struct_ncfadectx, iter: c_int, fader: fadecb, curry: ?*anyopaque) c_int;
+pub extern fn ncplane_pulse(n: ?*struct_ncplane, ts: [*c]const struct_timespec, fader: fadecb, curry: ?*anyopaque) c_int;
+pub extern fn ncfadectx_free(nctx: ?*struct_ncfadectx) void;
+pub fn nccells_load_box(arg_n: ?*struct_ncplane, arg_styles: u16, arg_channels: u64, arg_ul: [*c]nccell, arg_ur: [*c]nccell, arg_ll: [*c]nccell, arg_lr: [*c]nccell, arg_hl: [*c]nccell, arg_vl: [*c]nccell, arg_gclusters: [*c]const u8) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var styles = arg_styles;
+    _ = &styles;
+    var channels = arg_channels;
+    _ = &channels;
+    var ul = arg_ul;
+    _ = &ul;
+    var ur = arg_ur;
+    _ = &ur;
+    var ll = arg_ll;
+    _ = &ll;
+    var lr = arg_lr;
+    _ = &lr;
+    var hl = arg_hl;
+    _ = &hl;
+    var vl = arg_vl;
+    _ = &vl;
+    var gclusters = arg_gclusters;
+    _ = &gclusters;
+    var ulen: c_int = undefined;
+    _ = &ulen;
+    if ((blk: {
+        const tmp = nccell_prime(n, ul, gclusters, styles, channels);
+        ulen = tmp;
+        break :blk tmp;
+    }) > @as(c_int, 0)) {
+        if ((blk: {
+            const tmp = nccell_prime(n, ur, blk_1: {
+                const ref = &gclusters;
+                ref.* += @as(usize, @bitCast(@as(isize, @intCast(ulen))));
+                break :blk_1 ref.*;
+            }, styles, channels);
+            ulen = tmp;
+            break :blk tmp;
+        }) > @as(c_int, 0)) {
+            if ((blk: {
+                const tmp = nccell_prime(n, ll, blk_1: {
+                    const ref = &gclusters;
+                    ref.* += @as(usize, @bitCast(@as(isize, @intCast(ulen))));
+                    break :blk_1 ref.*;
+                }, styles, channels);
+                ulen = tmp;
+                break :blk tmp;
+            }) > @as(c_int, 0)) {
+                if ((blk: {
+                    const tmp = nccell_prime(n, lr, blk_1: {
+                        const ref = &gclusters;
+                        ref.* += @as(usize, @bitCast(@as(isize, @intCast(ulen))));
+                        break :blk_1 ref.*;
+                    }, styles, channels);
+                    ulen = tmp;
+                    break :blk tmp;
+                }) > @as(c_int, 0)) {
+                    if ((blk: {
+                        const tmp = nccell_prime(n, hl, blk_1: {
+                            const ref = &gclusters;
+                            ref.* += @as(usize, @bitCast(@as(isize, @intCast(ulen))));
+                            break :blk_1 ref.*;
+                        }, styles, channels);
+                        ulen = tmp;
+                        break :blk tmp;
+                    }) > @as(c_int, 0)) {
+                        if (nccell_prime(n, vl, gclusters + @as(usize, @bitCast(@as(isize, @intCast(ulen)))), styles, channels) > @as(c_int, 0)) {
+                            return 0;
+                        }
+                        nccell_release(n, hl);
+                    }
+                    nccell_release(n, lr);
+                }
+                nccell_release(n, ll);
+            }
+            nccell_release(n, ur);
+        }
+        nccell_release(n, ul);
+    }
+    return -@as(c_int, 1);
+}
+pub fn nccells_ascii_box(arg_n: ?*struct_ncplane, arg_attr: u16, arg_channels: u64, arg_ul: [*c]nccell, arg_ur: [*c]nccell, arg_ll: [*c]nccell, arg_lr: [*c]nccell, arg_hl: [*c]nccell, arg_vl: [*c]nccell) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var attr = arg_attr;
+    _ = &attr;
+    var channels = arg_channels;
+    _ = &channels;
+    var ul = arg_ul;
+    _ = &ul;
+    var ur = arg_ur;
+    _ = &ur;
+    var ll = arg_ll;
+    _ = &ll;
+    var lr = arg_lr;
+    _ = &lr;
+    var hl = arg_hl;
+    _ = &hl;
+    var vl = arg_vl;
+    _ = &vl;
+    return nccells_load_box(n, attr, channels, ul, ur, ll, lr, hl, vl, "/\\\\/-|");
+}
+pub fn nccells_double_box(arg_n: ?*struct_ncplane, arg_attr: u16, arg_channels: u64, arg_ul: [*c]nccell, arg_ur: [*c]nccell, arg_ll: [*c]nccell, arg_lr: [*c]nccell, arg_hl: [*c]nccell, arg_vl: [*c]nccell) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var attr = arg_attr;
+    _ = &attr;
+    var channels = arg_channels;
+    _ = &channels;
+    var ul = arg_ul;
+    _ = &ul;
+    var ur = arg_ur;
+    _ = &ur;
+    var ll = arg_ll;
+    _ = &ll;
+    var lr = arg_lr;
+    _ = &lr;
+    var hl = arg_hl;
+    _ = &hl;
+    var vl = arg_vl;
+    _ = &vl;
+    if (notcurses_canutf8(ncplane_notcurses(n))) {
+        return nccells_load_box(n, attr, channels, ul, ur, ll, lr, hl, vl, "\xe2\x95\x94\xe2\x95\x97\xe2\x95\x9a\xe2\x95\x9d\xe2\x95\x90\xe2\x95\x91");
+    }
+    return nccells_ascii_box(n, attr, channels, ul, ur, ll, lr, hl, vl);
+}
+pub fn nccells_rounded_box(arg_n: ?*struct_ncplane, arg_attr: u16, arg_channels: u64, arg_ul: [*c]nccell, arg_ur: [*c]nccell, arg_ll: [*c]nccell, arg_lr: [*c]nccell, arg_hl: [*c]nccell, arg_vl: [*c]nccell) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var attr = arg_attr;
+    _ = &attr;
+    var channels = arg_channels;
+    _ = &channels;
+    var ul = arg_ul;
+    _ = &ul;
+    var ur = arg_ur;
+    _ = &ur;
+    var ll = arg_ll;
+    _ = &ll;
+    var lr = arg_lr;
+    _ = &lr;
+    var hl = arg_hl;
+    _ = &hl;
+    var vl = arg_vl;
+    _ = &vl;
+    if (notcurses_canutf8(ncplane_notcurses(n))) {
+        return nccells_load_box(n, attr, channels, ul, ur, ll, lr, hl, vl, "\xe2\x95\xad\xe2\x95\xae\xe2\x95\xb0\xe2\x95\xaf\xe2\x94\x80\xe2\x94\x82");
+    }
+    return nccells_ascii_box(n, attr, channels, ul, ur, ll, lr, hl, vl);
+}
+pub fn nccells_light_box(arg_n: ?*struct_ncplane, arg_attr: u16, arg_channels: u64, arg_ul: [*c]nccell, arg_ur: [*c]nccell, arg_ll: [*c]nccell, arg_lr: [*c]nccell, arg_hl: [*c]nccell, arg_vl: [*c]nccell) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var attr = arg_attr;
+    _ = &attr;
+    var channels = arg_channels;
+    _ = &channels;
+    var ul = arg_ul;
+    _ = &ul;
+    var ur = arg_ur;
+    _ = &ur;
+    var ll = arg_ll;
+    _ = &ll;
+    var lr = arg_lr;
+    _ = &lr;
+    var hl = arg_hl;
+    _ = &hl;
+    var vl = arg_vl;
+    _ = &vl;
+    if (notcurses_canutf8(ncplane_notcurses(n))) {
+        return nccells_load_box(n, attr, channels, ul, ur, ll, lr, hl, vl, "\xe2\x94\x8c\xe2\x94\x90\xe2\x94\x94\xe2\x94\x98\xe2\x94\x80\xe2\x94\x82");
+    }
+    return nccells_ascii_box(n, attr, channels, ul, ur, ll, lr, hl, vl);
+}
+pub fn nccells_heavy_box(arg_n: ?*struct_ncplane, arg_attr: u16, arg_channels: u64, arg_ul: [*c]nccell, arg_ur: [*c]nccell, arg_ll: [*c]nccell, arg_lr: [*c]nccell, arg_hl: [*c]nccell, arg_vl: [*c]nccell) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var attr = arg_attr;
+    _ = &attr;
+    var channels = arg_channels;
+    _ = &channels;
+    var ul = arg_ul;
+    _ = &ul;
+    var ur = arg_ur;
+    _ = &ur;
+    var ll = arg_ll;
+    _ = &ll;
+    var lr = arg_lr;
+    _ = &lr;
+    var hl = arg_hl;
+    _ = &hl;
+    var vl = arg_vl;
+    _ = &vl;
+    if (notcurses_canutf8(ncplane_notcurses(n))) {
+        return nccells_load_box(n, attr, channels, ul, ur, ll, lr, hl, vl, "\xe2\x94\x8f\xe2\x94\x93\xe2\x94\x97\xe2\x94\x9b\xe2\x94\x81\xe2\x94\x83");
+    }
+    return nccells_ascii_box(n, attr, channels, ul, ur, ll, lr, hl, vl);
+}
+pub fn ncplane_rounded_box(arg_n: ?*struct_ncplane, arg_styles: u16, arg_channels: u64, arg_ystop: c_uint, arg_xstop: c_uint, arg_ctlword: c_uint) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var styles = arg_styles;
+    _ = &styles;
+    var channels = arg_channels;
+    _ = &channels;
+    var ystop = arg_ystop;
+    _ = &ystop;
+    var xstop = arg_xstop;
+    _ = &xstop;
+    var ctlword = arg_ctlword;
+    _ = &ctlword;
+    var ret: c_int = 0;
+    _ = &ret;
+    var ul: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ul;
+    var ur: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ur;
+    var ll: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ll;
+    var lr: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &lr;
+    var hl: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &hl;
+    var vl: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &vl;
+    if ((blk: {
+        const tmp = nccells_rounded_box(n, styles, channels, &ul, &ur, &ll, &lr, &hl, &vl);
+        ret = tmp;
+        break :blk tmp;
+    }) == @as(c_int, 0)) {
+        ret = ncplane_box(n, &ul, &ur, &ll, &lr, &hl, &vl, ystop, xstop, ctlword);
+    }
+    nccell_release(n, &ul);
+    nccell_release(n, &ur);
+    nccell_release(n, &ll);
+    nccell_release(n, &lr);
+    nccell_release(n, &hl);
+    nccell_release(n, &vl);
+    return ret;
+}
+pub fn ncplane_perimeter_rounded(arg_n: ?*struct_ncplane, arg_stylemask: u16, arg_channels: u64, arg_ctlword: c_uint) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var stylemask = arg_stylemask;
+    _ = &stylemask;
+    var channels = arg_channels;
+    _ = &channels;
+    var ctlword = arg_ctlword;
+    _ = &ctlword;
+    if (ncplane_cursor_move_yx(n, 0, 0) != 0) {
+        return -@as(c_int, 1);
+    }
+    var dimy: c_uint = undefined;
+    _ = &dimy;
+    var dimx: c_uint = undefined;
+    _ = &dimx;
+    ncplane_dim_yx(n, &dimy, &dimx);
+    var ul: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ul;
+    var ur: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ur;
+    var ll: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ll;
+    var lr: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &lr;
+    var vl: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &vl;
+    var hl: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &hl;
+    if (nccells_rounded_box(n, stylemask, channels, &ul, &ur, &ll, &lr, &hl, &vl) != 0) {
+        return -@as(c_int, 1);
+    }
+    var r: c_int = ncplane_box_sized(n, &ul, &ur, &ll, &lr, &hl, &vl, dimy, dimx, ctlword);
+    _ = &r;
+    nccell_release(n, &ul);
+    nccell_release(n, &ur);
+    nccell_release(n, &ll);
+    nccell_release(n, &lr);
+    nccell_release(n, &hl);
+    nccell_release(n, &vl);
+    return r;
+}
+pub fn ncplane_rounded_box_sized(arg_n: ?*struct_ncplane, arg_styles: u16, arg_channels: u64, arg_ylen: c_uint, arg_xlen: c_uint, arg_ctlword: c_uint) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var styles = arg_styles;
+    _ = &styles;
+    var channels = arg_channels;
+    _ = &channels;
+    var ylen = arg_ylen;
+    _ = &ylen;
+    var xlen = arg_xlen;
+    _ = &xlen;
+    var ctlword = arg_ctlword;
+    _ = &ctlword;
+    var y: c_uint = undefined;
+    _ = &y;
+    var x: c_uint = undefined;
+    _ = &x;
+    ncplane_cursor_yx(n, &y, &x);
+    return ncplane_rounded_box(n, styles, channels, (y +% ylen) -% @as(c_uint, 1), (x +% xlen) -% @as(c_uint, 1), ctlword);
+}
+pub fn ncplane_double_box(arg_n: ?*struct_ncplane, arg_styles: u16, arg_channels: u64, arg_ylen: c_uint, arg_xlen: c_uint, arg_ctlword: c_uint) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var styles = arg_styles;
+    _ = &styles;
+    var channels = arg_channels;
+    _ = &channels;
+    var ylen = arg_ylen;
+    _ = &ylen;
+    var xlen = arg_xlen;
+    _ = &xlen;
+    var ctlword = arg_ctlword;
+    _ = &ctlword;
+    var ret: c_int = 0;
+    _ = &ret;
+    var ul: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ul;
+    var ur: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ur;
+    var ll: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ll;
+    var lr: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &lr;
+    var hl: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &hl;
+    var vl: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &vl;
+    if ((blk: {
+        const tmp = nccells_double_box(n, styles, channels, &ul, &ur, &ll, &lr, &hl, &vl);
+        ret = tmp;
+        break :blk tmp;
+    }) == @as(c_int, 0)) {
+        ret = ncplane_box(n, &ul, &ur, &ll, &lr, &hl, &vl, ylen, xlen, ctlword);
+    }
+    nccell_release(n, &ul);
+    nccell_release(n, &ur);
+    nccell_release(n, &ll);
+    nccell_release(n, &lr);
+    nccell_release(n, &hl);
+    nccell_release(n, &vl);
+    return ret;
+}
+pub fn ncplane_ascii_box(arg_n: ?*struct_ncplane, arg_styles: u16, arg_channels: u64, arg_ylen: c_uint, arg_xlen: c_uint, arg_ctlword: c_uint) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var styles = arg_styles;
+    _ = &styles;
+    var channels = arg_channels;
+    _ = &channels;
+    var ylen = arg_ylen;
+    _ = &ylen;
+    var xlen = arg_xlen;
+    _ = &xlen;
+    var ctlword = arg_ctlword;
+    _ = &ctlword;
+    var ret: c_int = 0;
+    _ = &ret;
+    var ul: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ul;
+    var ur: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ur;
+    var ll: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ll;
+    var lr: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &lr;
+    var hl: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &hl;
+    var vl: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &vl;
+    if ((blk: {
+        const tmp = nccells_ascii_box(n, styles, channels, &ul, &ur, &ll, &lr, &hl, &vl);
+        ret = tmp;
+        break :blk tmp;
+    }) == @as(c_int, 0)) {
+        ret = ncplane_box(n, &ul, &ur, &ll, &lr, &hl, &vl, ylen, xlen, ctlword);
+    }
+    nccell_release(n, &ul);
+    nccell_release(n, &ur);
+    nccell_release(n, &ll);
+    nccell_release(n, &lr);
+    nccell_release(n, &hl);
+    nccell_release(n, &vl);
+    return ret;
+}
+pub fn ncplane_perimeter_double(arg_n: ?*struct_ncplane, arg_stylemask: u16, arg_channels: u64, arg_ctlword: c_uint) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var stylemask = arg_stylemask;
+    _ = &stylemask;
+    var channels = arg_channels;
+    _ = &channels;
+    var ctlword = arg_ctlword;
+    _ = &ctlword;
+    if (ncplane_cursor_move_yx(n, 0, 0) != 0) {
+        return -@as(c_int, 1);
+    }
+    var dimy: c_uint = undefined;
+    _ = &dimy;
+    var dimx: c_uint = undefined;
+    _ = &dimx;
+    ncplane_dim_yx(n, &dimy, &dimx);
+    var ul: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ul;
+    var ur: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ur;
+    var ll: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &ll;
+    var lr: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &lr;
+    var vl: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &vl;
+    var hl: nccell = nccell{
+        .gcluster = 0,
+        .gcluster_backstop = 0,
+        .width = 1,
+        .stylemask = 0,
+        .channels = 0,
+    };
+    _ = &hl;
+    if (nccells_double_box(n, stylemask, channels, &ul, &ur, &ll, &lr, &hl, &vl) != 0) {
+        return -@as(c_int, 1);
+    }
+    var r: c_int = ncplane_box_sized(n, &ul, &ur, &ll, &lr, &hl, &vl, dimy, dimx, ctlword);
+    _ = &r;
+    nccell_release(n, &ul);
+    nccell_release(n, &ur);
+    nccell_release(n, &ll);
+    nccell_release(n, &lr);
+    nccell_release(n, &hl);
+    nccell_release(n, &vl);
+    return r;
+}
+pub fn ncplane_double_box_sized(arg_n: ?*struct_ncplane, arg_styles: u16, arg_channels: u64, arg_ylen: c_uint, arg_xlen: c_uint, arg_ctlword: c_uint) callconv(.c) c_int {
+    var n = arg_n;
+    _ = &n;
+    var styles = arg_styles;
+    _ = &styles;
+    var channels = arg_channels;
+    _ = &channels;
+    var ylen = arg_ylen;
+    _ = &ylen;
+    var xlen = arg_xlen;
+    _ = &xlen;
+    var ctlword = arg_ctlword;
+    _ = &ctlword;
+    var y: c_uint = undefined;
+    _ = &y;
+    var x: c_uint = undefined;
+    _ = &x;
+    ncplane_cursor_yx(n, &y, &x);
+    return ncplane_double_box(n, styles, channels, (y +% ylen) -% @as(c_uint, 1), (x +% xlen) -% @as(c_uint, 1), ctlword);
+}
+pub extern fn ncvisual_from_file(file: [*c]const u8) ?*struct_ncvisual;
+pub extern fn ncvisual_from_rgba(rgba: ?*const anyopaque, rows: c_int, rowstride: c_int, cols: c_int) ?*struct_ncvisual;
+pub extern fn ncvisual_from_rgb_packed(rgba: ?*const anyopaque, rows: c_int, rowstride: c_int, cols: c_int, alpha: c_int) ?*struct_ncvisual;
+pub extern fn ncvisual_from_rgb_loose(rgba: ?*const anyopaque, rows: c_int, rowstride: c_int, cols: c_int, alpha: c_int) ?*struct_ncvisual;
+pub extern fn ncvisual_from_bgra(bgra: ?*const anyopaque, rows: c_int, rowstride: c_int, cols: c_int) ?*struct_ncvisual;
+pub extern fn ncvisual_from_palidx(data: ?*const anyopaque, rows: c_int, rowstride: c_int, cols: c_int, palsize: c_int, pstride: c_int, palette: [*c]const u32) ?*struct_ncvisual;
+pub extern fn ncvisual_from_plane(n: ?*const struct_ncplane, blit: ncblitter_e, begy: c_int, begx: c_int, leny: c_uint, lenx: c_uint) ?*struct_ncvisual;
+pub extern fn ncvisual_from_sixel(s: [*c]const u8, leny: c_uint, lenx: c_uint) ?*struct_ncvisual;
+pub const struct_ncvisual_options = extern struct {
+    n: ?*struct_ncplane = null,
+    scaling: ncscale_e = @import("std").mem.zeroes(ncscale_e),
+    y: c_int = 0,
+    x: c_int = 0,
+    begy: c_uint = 0,
+    begx: c_uint = 0,
+    leny: c_uint = 0,
+    lenx: c_uint = 0,
+    blitter: ncblitter_e = @import("std").mem.zeroes(ncblitter_e),
+    flags: u64 = 0,
+    transcolor: u32 = 0,
+    pxoffy: c_uint = 0,
+    pxoffx: c_uint = 0,
+};
+pub const struct_ncvgeom = extern struct {
+    pixy: c_uint = 0,
+    pixx: c_uint = 0,
+    cdimy: c_uint = 0,
+    cdimx: c_uint = 0,
+    rpixy: c_uint = 0,
+    rpixx: c_uint = 0,
+    rcelly: c_uint = 0,
+    rcellx: c_uint = 0,
+    scaley: c_uint = 0,
+    scalex: c_uint = 0,
+    begy: c_uint = 0,
+    begx: c_uint = 0,
+    leny: c_uint = 0,
+    lenx: c_uint = 0,
+    maxpixely: c_uint = 0,
+    maxpixelx: c_uint = 0,
+    blitter: ncblitter_e = @import("std").mem.zeroes(ncblitter_e),
+};
+pub const ncvgeom = struct_ncvgeom;
+pub extern fn ncvisual_geom(nc: ?*const struct_notcurses, n: ?*const struct_ncvisual, vopts: [*c]const struct_ncvisual_options, geom: [*c]ncvgeom) c_int;
+pub extern fn ncvisual_destroy(ncv: ?*struct_ncvisual) void;
+pub extern fn ncvisual_decode(nc: ?*struct_ncvisual) c_int;
+pub extern fn ncvisual_decode_loop(nc: ?*struct_ncvisual) c_int;
+pub extern fn ncvisual_rotate(n: ?*struct_ncvisual, rads: f64) c_int;
+pub extern fn ncvisual_resize(n: ?*struct_ncvisual, rows: c_int, cols: c_int) c_int;
+pub extern fn ncvisual_resize_noninterpolative(n: ?*struct_ncvisual, rows: c_int, cols: c_int) c_int;
+pub extern fn ncvisual_polyfill_yx(n: ?*struct_ncvisual, y: c_uint, x: c_uint, rgba: u32) c_int;
+pub extern fn ncvisual_at_yx(n: ?*const struct_ncvisual, y: c_uint, x: c_uint, pixel: [*c]u32) c_int;
+pub extern fn ncvisual_set_yx(n: ?*const struct_ncvisual, y: c_uint, x: c_uint, pixel: u32) c_int;
+pub extern fn ncvisual_blit(nc: ?*struct_notcurses, ncv: ?*struct_ncvisual, vopts: [*c]const struct_ncvisual_options) ?*struct_ncplane;
+pub fn ncvisualplane_create(arg_nc: ?*struct_notcurses, arg_opts: [*c]const struct_ncplane_options, arg_ncv: ?*struct_ncvisual, arg_vopts: [*c]struct_ncvisual_options) callconv(.c) ?*struct_ncplane {
+    var nc = arg_nc;
+    _ = &nc;
+    var opts = arg_opts;
+    _ = &opts;
+    var ncv = arg_ncv;
+    _ = &ncv;
+    var vopts = arg_vopts;
+    _ = &vopts;
+    var newn: ?*struct_ncplane = undefined;
+    _ = &newn;
+    if ((vopts != null) and (vopts.*.n != null)) {
+        if ((@as(c_ulonglong, vopts.*.flags) & NCVISUAL_OPTION_CHILDPLANE) != 0) {
+            return null;
+        }
+        newn = ncplane_create(vopts.*.n, opts);
+    } else {
+        newn = ncpile_create(nc, opts);
+    }
+    if (@as(?*anyopaque, @ptrCast(@alignCast(newn))) == @as(?*anyopaque, null)) {
+        return null;
+    }
+    var v: struct_ncvisual_options = undefined;
+    _ = &v;
+    if (!(vopts != null)) {
+        vopts = &v;
+        _ = memset(@ptrCast(@alignCast(vopts)), 0, @sizeOf(@TypeOf(vopts.*)));
+    }
+    vopts.*.n = newn;
+    if (@as(?*anyopaque, @ptrCast(@alignCast(ncvisual_blit(nc, ncv, vopts)))) == @as(?*anyopaque, null)) {
+        _ = ncplane_destroy(newn);
+        vopts.*.n = null;
+        return null;
+    }
+    return newn;
+}
+pub extern fn ncvisual_subtitle_plane(parent: ?*struct_ncplane, ncv: ?*const struct_ncvisual) ?*struct_ncplane;
+pub extern fn ncvisual_media_defblitter(nc: ?*const struct_notcurses, scale: ncscale_e) ncblitter_e;
+pub const ncstreamcb = ?*const fn (?*struct_ncvisual, [*c]struct_ncvisual_options, [*c]const struct_timespec, ?*anyopaque) callconv(.c) c_int;
+pub extern fn ncvisual_simple_streamer(ncv: ?*struct_ncvisual, vopts: [*c]struct_ncvisual_options, tspec: [*c]const struct_timespec, curry: ?*anyopaque) c_int;
+pub extern fn ncvisual_stream(nc: ?*struct_notcurses, ncv: ?*struct_ncvisual, timescale: f32, streamer: ncstreamcb, vopts: [*c]const struct_ncvisual_options, curry: ?*anyopaque) c_int;
+pub extern fn ncblit_rgba(data: ?*const anyopaque, linesize: c_int, vopts: [*c]const struct_ncvisual_options) c_int;
+pub extern fn ncblit_bgrx(data: ?*const anyopaque, linesize: c_int, vopts: [*c]const struct_ncvisual_options) c_int;
+pub extern fn ncblit_rgb_packed(data: ?*const anyopaque, linesize: c_int, vopts: [*c]const struct_ncvisual_options, alpha: c_int) c_int;
+pub extern fn ncblit_rgb_loose(data: ?*const anyopaque, linesize: c_int, vopts: [*c]const struct_ncvisual_options, alpha: c_int) c_int;
+pub fn ncpixel_a(arg_pixel: u32) callconv(.c) c_uint {
+    var pixel = arg_pixel;
+    _ = &pixel;
+    return (__bswap_32(htonl(pixel)) & @as(c_uint, 4278190080)) >> @intCast(@as(c_uint, 24));
+}
+pub fn ncpixel_r(arg_pixel: u32) callconv(.c) c_uint {
+    var pixel = arg_pixel;
+    _ = &pixel;
+    return __bswap_32(htonl(pixel)) & @as(c_uint, 255);
+}
+pub fn ncpixel_g(arg_pixel: u32) callconv(.c) c_uint {
+    var pixel = arg_pixel;
+    _ = &pixel;
+    return (__bswap_32(htonl(pixel)) & @as(c_uint, 65280)) >> @intCast(@as(c_uint, 8));
+}
+pub fn ncpixel_b(arg_pixel: u32) callconv(.c) c_uint {
+    var pixel = arg_pixel;
+    _ = &pixel;
+    return (__bswap_32(htonl(pixel)) & @as(c_uint, 16711680)) >> @intCast(@as(c_uint, 16));
+}
+pub fn ncpixel_set_a(arg_pixel: [*c]u32, arg_a: c_uint) callconv(.c) c_int {
+    var pixel = arg_pixel;
+    _ = &pixel;
+    var a = arg_a;
+    _ = &a;
+    if (a > @as(c_uint, 255)) {
+        return -@as(c_int, 1);
+    }
+    pixel.* = __bswap_32(htonl((__bswap_32(htonl(pixel.*)) & @as(c_uint, 16777215)) | (a << @intCast(@as(c_uint, 24)))));
+    return 0;
+}
+pub fn ncpixel_set_r(arg_pixel: [*c]u32, arg_r: c_uint) callconv(.c) c_int {
+    var pixel = arg_pixel;
+    _ = &pixel;
+    var r = arg_r;
+    _ = &r;
+    if (r > @as(c_uint, 255)) {
+        return -@as(c_int, 1);
+    }
+    pixel.* = __bswap_32(htonl((__bswap_32(htonl(pixel.*)) & @as(c_uint, 4294967040)) | r));
+    return 0;
+}
+pub fn ncpixel_set_g(arg_pixel: [*c]u32, arg_g: c_uint) callconv(.c) c_int {
+    var pixel = arg_pixel;
+    _ = &pixel;
+    var g = arg_g;
+    _ = &g;
+    if (g > @as(c_uint, 255)) {
+        return -@as(c_int, 1);
+    }
+    pixel.* = __bswap_32(htonl((__bswap_32(htonl(pixel.*)) & @as(c_uint, 4294902015)) | (g << @intCast(@as(c_uint, 8)))));
+    return 0;
+}
+pub fn ncpixel_set_b(arg_pixel: [*c]u32, arg_b: c_uint) callconv(.c) c_int {
+    var pixel = arg_pixel;
+    _ = &pixel;
+    var b = arg_b;
+    _ = &b;
+    if (b > @as(c_uint, 255)) {
+        return -@as(c_int, 1);
+    }
+    pixel.* = __bswap_32(htonl((__bswap_32(htonl(pixel.*)) & @as(c_uint, 4278255615)) | (b << @intCast(@as(c_uint, 16)))));
+    return 0;
+}
+pub fn ncpixel(arg_r: c_uint, arg_g: c_uint, arg_b: c_uint) callconv(.c) u32 {
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    var pixel: u32 = 0;
+    _ = &pixel;
+    _ = ncpixel_set_a(&pixel, 255);
+    if (r > @as(c_uint, 255)) {
+        r = 255;
+    }
+    _ = ncpixel_set_r(&pixel, r);
+    if (g > @as(c_uint, 255)) {
+        g = 255;
+    }
+    _ = ncpixel_set_g(&pixel, g);
+    if (b > @as(c_uint, 255)) {
+        b = 255;
+    }
+    _ = ncpixel_set_b(&pixel, b);
+    return pixel;
+}
+pub fn ncpixel_set_rgb8(arg_pixel: [*c]u32, arg_r: c_uint, arg_g: c_uint, arg_b: c_uint) callconv(.c) c_int {
+    var pixel = arg_pixel;
+    _ = &pixel;
+    var r = arg_r;
+    _ = &r;
+    var g = arg_g;
+    _ = &g;
+    var b = arg_b;
+    _ = &b;
+    if (((ncpixel_set_r(pixel, r) != 0) or (ncpixel_set_g(pixel, g) != 0)) or (ncpixel_set_b(pixel, b) != 0)) {
+        return -@as(c_int, 1);
+    }
+    return 0;
+}
+pub const struct_ncreel_options = extern struct {
+    bordermask: c_uint = 0,
+    borderchan: u64 = 0,
+    tabletmask: c_uint = 0,
+    tabletchan: u64 = 0,
+    focusedchan: u64 = 0,
+    flags: u64 = 0,
+};
+pub const ncreel_options = struct_ncreel_options;
+pub extern fn ncreel_create(n: ?*struct_ncplane, popts: [*c]const ncreel_options) ?*struct_ncreel;
+pub extern fn ncreel_plane(nr: ?*struct_ncreel) ?*struct_ncplane;
+pub const tabletcb = ?*const fn (t: ?*struct_nctablet, drawfromtop: bool) callconv(.c) c_int;
+pub extern fn ncreel_add(nr: ?*struct_ncreel, after: ?*struct_nctablet, before: ?*struct_nctablet, cb: tabletcb, @"opaque": ?*anyopaque) ?*struct_nctablet;
+pub extern fn ncreel_tabletcount(nr: ?*const struct_ncreel) c_int;
+pub extern fn ncreel_del(nr: ?*struct_ncreel, t: ?*struct_nctablet) c_int;
+pub extern fn ncreel_redraw(nr: ?*struct_ncreel) c_int;
+pub extern fn ncreel_offer_input(nr: ?*struct_ncreel, ni: [*c]const ncinput) bool;
+pub extern fn ncreel_focused(nr: ?*struct_ncreel) ?*struct_nctablet;
+pub extern fn ncreel_next(nr: ?*struct_ncreel) ?*struct_nctablet;
+pub extern fn ncreel_prev(nr: ?*struct_ncreel) ?*struct_nctablet;
+pub extern fn ncreel_destroy(nr: ?*struct_ncreel) void;
+pub extern fn nctablet_userptr(t: ?*struct_nctablet) ?*anyopaque;
+pub extern fn nctablet_plane(t: ?*struct_nctablet) ?*struct_ncplane;
+pub extern fn ncnmetric(val: uintmax_t, s: usize, decimal: uintmax_t, buf: [*c]u8, omitdec: c_int, mult: uintmax_t, uprefix: c_int) [*c]const u8;
+pub fn ncqprefix(arg_val: uintmax_t, arg_decimal: uintmax_t, arg_buf: [*c]u8, arg_omitdec: c_int) callconv(.c) [*c]const u8 {
+    var val = arg_val;
+    _ = &val;
+    var decimal = arg_decimal;
+    _ = &decimal;
+    var buf = arg_buf;
+    _ = &buf;
+    var omitdec = arg_omitdec;
+    _ = &omitdec;
+    return ncnmetric(val, @bitCast(@as(c_long, (NCPREFIXCOLUMNS + @as(c_int, 1)) + @as(c_int, 1))), decimal, buf, omitdec, 1000, '\x00');
+}
+pub fn nciprefix(arg_val: uintmax_t, arg_decimal: uintmax_t, arg_buf: [*c]u8, arg_omitdec: c_int) callconv(.c) [*c]const u8 {
+    var val = arg_val;
+    _ = &val;
+    var decimal = arg_decimal;
+    _ = &decimal;
+    var buf = arg_buf;
+    _ = &buf;
+    var omitdec = arg_omitdec;
+    _ = &omitdec;
+    return ncnmetric(val, @bitCast(@as(c_long, (NCIPREFIXCOLUMNS + @as(c_int, 1)) + @as(c_int, 1))), decimal, buf, omitdec, 1024, '\x00');
+}
+pub fn ncbprefix(arg_val: uintmax_t, arg_decimal: uintmax_t, arg_buf: [*c]u8, arg_omitdec: c_int) callconv(.c) [*c]const u8 {
+    var val = arg_val;
+    _ = &val;
+    var decimal = arg_decimal;
+    _ = &decimal;
+    var buf = arg_buf;
+    _ = &buf;
+    var omitdec = arg_omitdec;
+    _ = &omitdec;
+    return ncnmetric(val, @bitCast(@as(c_long, (NCBPREFIXCOLUMNS + @as(c_int, 1)) + @as(c_int, 1))), decimal, buf, omitdec, 1024, 'i');
+}
+pub extern fn notcurses_default_foreground(nc: ?*const struct_notcurses, fg: [*c]u32) c_int;
+pub extern fn notcurses_default_background(nc: ?*const struct_notcurses, bg: [*c]u32) c_int;
+pub extern fn notcurses_cursor_enable(nc: ?*struct_notcurses, y: c_int, x: c_int) c_int;
+pub extern fn notcurses_cursor_disable(nc: ?*struct_notcurses) c_int;
+pub extern fn notcurses_cursor_yx(nc: ?*const struct_notcurses, y: [*c]c_int, x: [*c]c_int) c_int;
+pub extern fn ncplane_greyscale(n: ?*struct_ncplane) void;
+pub const struct_ncselector_item = extern struct {
+    option: [*c]const u8 = null,
+    desc: [*c]const u8 = null,
+};
+pub const struct_ncselector_options = extern struct {
+    title: [*c]const u8 = null,
+    secondary: [*c]const u8 = null,
+    footer: [*c]const u8 = null,
+    items: [*c]const struct_ncselector_item = null,
+    defidx: c_uint = 0,
+    maxdisplay: c_uint = 0,
+    opchannels: u64 = 0,
+    descchannels: u64 = 0,
+    titlechannels: u64 = 0,
+    footchannels: u64 = 0,
+    boxchannels: u64 = 0,
+    flags: u64 = 0,
+};
+pub const ncselector_options = struct_ncselector_options;
+pub extern fn ncselector_create(n: ?*struct_ncplane, opts: [*c]const ncselector_options) ?*struct_ncselector;
+pub extern fn ncselector_additem(n: ?*struct_ncselector, item: [*c]const struct_ncselector_item) c_int;
+pub extern fn ncselector_delitem(n: ?*struct_ncselector, item: [*c]const u8) c_int;
+pub extern fn ncselector_selected(n: ?*const struct_ncselector) [*c]const u8;
+pub extern fn ncselector_plane(n: ?*struct_ncselector) ?*struct_ncplane;
+pub extern fn ncselector_previtem(n: ?*struct_ncselector) [*c]const u8;
+pub extern fn ncselector_nextitem(n: ?*struct_ncselector) [*c]const u8;
+pub extern fn ncselector_offer_input(n: ?*struct_ncselector, nc: [*c]const ncinput) bool;
+pub extern fn ncselector_destroy(n: ?*struct_ncselector, item: [*c][*c]u8) void;
+pub const struct_ncmselector_item = extern struct {
+    option: [*c]const u8 = null,
+    desc: [*c]const u8 = null,
+    selected: bool = false,
+};
+pub const struct_ncmultiselector_options = extern struct {
+    title: [*c]const u8 = null,
+    secondary: [*c]const u8 = null,
+    footer: [*c]const u8 = null,
+    items: [*c]const struct_ncmselector_item = null,
+    maxdisplay: c_uint = 0,
+    opchannels: u64 = 0,
+    descchannels: u64 = 0,
+    titlechannels: u64 = 0,
+    footchannels: u64 = 0,
+    boxchannels: u64 = 0,
+    flags: u64 = 0,
+};
+pub const ncmultiselector_options = struct_ncmultiselector_options;
+pub extern fn ncmultiselector_create(n: ?*struct_ncplane, opts: [*c]const ncmultiselector_options) ?*struct_ncmultiselector;
+pub extern fn ncmultiselector_selected(n: ?*struct_ncmultiselector, selected: [*c]bool, count: c_uint) c_int;
+pub extern fn ncmultiselector_plane(n: ?*struct_ncmultiselector) ?*struct_ncplane;
+pub extern fn ncmultiselector_offer_input(n: ?*struct_ncmultiselector, nc: [*c]const ncinput) bool;
+pub extern fn ncmultiselector_destroy(n: ?*struct_ncmultiselector) void;
+pub const struct_nctree_item = extern struct {
+    curry: ?*anyopaque = null,
+    subs: [*c]struct_nctree_item = null,
+    subcount: c_uint = 0,
+};
+pub const struct_nctree_options = extern struct {
+    items: [*c]const struct_nctree_item = null,
+    count: c_uint = 0,
+    nctreecb: ?*const fn (?*struct_ncplane, ?*anyopaque, c_int) callconv(.c) c_int = null,
+    indentcols: c_int = 0,
+    flags: u64 = 0,
+};
+pub const nctree_options = struct_nctree_options;
+pub const struct_nctree = opaque {
+    pub const nctree_plane = __root.nctree_plane;
+    pub const nctree_redraw = __root.nctree_redraw;
+    pub const nctree_offer_input = __root.nctree_offer_input;
+    pub const nctree_focused = __root.nctree_focused;
+    pub const nctree_next = __root.nctree_next;
+    pub const nctree_prev = __root.nctree_prev;
+    pub const nctree_goto = __root.nctree_goto;
+    pub const nctree_add = __root.nctree_add;
+    pub const nctree_del = __root.nctree_del;
+    pub const nctree_destroy = __root.nctree_destroy;
+    pub const plane = __root.nctree_plane;
+    pub const redraw = __root.nctree_redraw;
+    pub const offer_input = __root.nctree_offer_input;
+    pub const focused = __root.nctree_focused;
+    pub const next = __root.nctree_next;
+    pub const prev = __root.nctree_prev;
+    pub const goto = __root.nctree_goto;
+    pub const add = __root.nctree_add;
+    pub const del = __root.nctree_del;
+    pub const destroy = __root.nctree_destroy;
+};
+pub extern fn nctree_create(n: ?*struct_ncplane, opts: [*c]const nctree_options) ?*struct_nctree;
+pub extern fn nctree_plane(n: ?*struct_nctree) ?*struct_ncplane;
+pub extern fn nctree_redraw(n: ?*struct_nctree) c_int;
+pub extern fn nctree_offer_input(n: ?*struct_nctree, ni: [*c]const ncinput) bool;
+pub extern fn nctree_focused(n: ?*struct_nctree) ?*anyopaque;
+pub extern fn nctree_next(n: ?*struct_nctree) ?*anyopaque;
+pub extern fn nctree_prev(n: ?*struct_nctree) ?*anyopaque;
+pub extern fn nctree_goto(n: ?*struct_nctree, spec: [*c]const c_uint, failspec: [*c]c_int) ?*anyopaque;
+pub extern fn nctree_add(n: ?*struct_nctree, spec: [*c]const c_uint, add: [*c]const struct_nctree_item) c_int;
+pub extern fn nctree_del(n: ?*struct_nctree, spec: [*c]const c_uint) c_int;
+pub extern fn nctree_destroy(n: ?*struct_nctree) void;
+pub const struct_ncmenu_item = extern struct {
+    desc: [*c]const u8 = null,
+    shortcut: ncinput = @import("std").mem.zeroes(ncinput),
+};
+pub const struct_ncmenu_section = extern struct {
+    name: [*c]const u8 = null,
+    itemcount: c_int = 0,
+    items: [*c]struct_ncmenu_item = null,
+    shortcut: ncinput = @import("std").mem.zeroes(ncinput),
+};
+pub const struct_ncmenu_options = extern struct {
+    sections: [*c]struct_ncmenu_section = null,
+    sectioncount: c_int = 0,
+    headerchannels: u64 = 0,
+    sectionchannels: u64 = 0,
+    flags: u64 = 0,
+};
+pub const ncmenu_options = struct_ncmenu_options;
+pub const struct_ncmenu = opaque {
+    pub const ncmenu_unroll = __root.ncmenu_unroll;
+    pub const ncmenu_rollup = __root.ncmenu_rollup;
+    pub const ncmenu_nextsection = __root.ncmenu_nextsection;
+    pub const ncmenu_prevsection = __root.ncmenu_prevsection;
+    pub const ncmenu_nextitem = __root.ncmenu_nextitem;
+    pub const ncmenu_previtem = __root.ncmenu_previtem;
+    pub const ncmenu_item_set_status = __root.ncmenu_item_set_status;
+    pub const ncmenu_selected = __root.ncmenu_selected;
+    pub const ncmenu_mouse_selected = __root.ncmenu_mouse_selected;
+    pub const ncmenu_plane = __root.ncmenu_plane;
+    pub const ncmenu_offer_input = __root.ncmenu_offer_input;
+    pub const ncmenu_destroy = __root.ncmenu_destroy;
+    pub const unroll = __root.ncmenu_unroll;
+    pub const rollup = __root.ncmenu_rollup;
+    pub const nextsection = __root.ncmenu_nextsection;
+    pub const prevsection = __root.ncmenu_prevsection;
+    pub const nextitem = __root.ncmenu_nextitem;
+    pub const previtem = __root.ncmenu_previtem;
+    pub const item_set_status = __root.ncmenu_item_set_status;
+    pub const selected = __root.ncmenu_selected;
+    pub const mouse_selected = __root.ncmenu_mouse_selected;
+    pub const plane = __root.ncmenu_plane;
+    pub const offer_input = __root.ncmenu_offer_input;
+    pub const destroy = __root.ncmenu_destroy;
+};
+pub extern fn ncmenu_create(n: ?*struct_ncplane, opts: [*c]const ncmenu_options) ?*struct_ncmenu;
+pub extern fn ncmenu_unroll(n: ?*struct_ncmenu, sectionidx: c_int) c_int;
+pub extern fn ncmenu_rollup(n: ?*struct_ncmenu) c_int;
+pub extern fn ncmenu_nextsection(n: ?*struct_ncmenu) c_int;
+pub extern fn ncmenu_prevsection(n: ?*struct_ncmenu) c_int;
+pub extern fn ncmenu_nextitem(n: ?*struct_ncmenu) c_int;
+pub extern fn ncmenu_previtem(n: ?*struct_ncmenu) c_int;
+pub extern fn ncmenu_item_set_status(n: ?*struct_ncmenu, section: [*c]const u8, item: [*c]const u8, enabled: bool) c_int;
+pub extern fn ncmenu_selected(n: ?*const struct_ncmenu, ni: [*c]ncinput) [*c]const u8;
+pub extern fn ncmenu_mouse_selected(n: ?*const struct_ncmenu, click: [*c]const ncinput, ni: [*c]ncinput) [*c]const u8;
+pub extern fn ncmenu_plane(n: ?*struct_ncmenu) ?*struct_ncplane;
+pub extern fn ncmenu_offer_input(n: ?*struct_ncmenu, nc: [*c]const ncinput) bool;
+pub extern fn ncmenu_destroy(n: ?*struct_ncmenu) void;
+pub const struct_ncprogbar_options = extern struct {
+    ulchannel: u32 = 0,
+    urchannel: u32 = 0,
+    blchannel: u32 = 0,
+    brchannel: u32 = 0,
+    flags: u64 = 0,
+};
+pub const ncprogbar_options = struct_ncprogbar_options;
+pub extern fn ncprogbar_create(n: ?*struct_ncplane, opts: [*c]const ncprogbar_options) ?*struct_ncprogbar;
+pub extern fn ncprogbar_plane(n: ?*struct_ncprogbar) ?*struct_ncplane;
+pub extern fn ncprogbar_set_progress(n: ?*struct_ncprogbar, p: f64) c_int;
+pub extern fn ncprogbar_progress(n: ?*const struct_ncprogbar) f64;
+pub extern fn ncprogbar_destroy(n: ?*struct_ncprogbar) void;
+pub const struct_nctabbed_options = extern struct {
+    selchan: u64 = 0,
+    hdrchan: u64 = 0,
+    sepchan: u64 = 0,
+    separator: [*c]const u8 = null,
+    flags: u64 = 0,
+};
+pub const nctabbed_options = struct_nctabbed_options;
+pub const tabcb = ?*const fn (t: ?*struct_nctab, ncp: ?*struct_ncplane, curry: ?*anyopaque) callconv(.c) void;
+pub extern fn nctabbed_create(n: ?*struct_ncplane, opts: [*c]const nctabbed_options) ?*struct_nctabbed;
+pub extern fn nctabbed_destroy(nt: ?*struct_nctabbed) void;
+pub extern fn nctabbed_redraw(nt: ?*struct_nctabbed) void;
+pub extern fn nctabbed_ensure_selected_header_visible(nt: ?*struct_nctabbed) void;
+pub extern fn nctabbed_selected(nt: ?*struct_nctabbed) ?*struct_nctab;
+pub extern fn nctabbed_leftmost(nt: ?*struct_nctabbed) ?*struct_nctab;
+pub extern fn nctabbed_tabcount(nt: ?*struct_nctabbed) c_int;
+pub extern fn nctabbed_plane(nt: ?*struct_nctabbed) ?*struct_ncplane;
+pub extern fn nctabbed_content_plane(nt: ?*struct_nctabbed) ?*struct_ncplane;
+pub extern fn nctab_cb(t: ?*struct_nctab) tabcb;
+pub extern fn nctab_name(t: ?*struct_nctab) [*c]const u8;
+pub extern fn nctab_name_width(t: ?*struct_nctab) c_int;
+pub extern fn nctab_userptr(t: ?*struct_nctab) ?*anyopaque;
+pub extern fn nctab_next(t: ?*struct_nctab) ?*struct_nctab;
+pub extern fn nctab_prev(t: ?*struct_nctab) ?*struct_nctab;
+pub extern fn nctabbed_add(nt: ?*struct_nctabbed, after: ?*struct_nctab, before: ?*struct_nctab, tcb: tabcb, name: [*c]const u8, @"opaque": ?*anyopaque) ?*struct_nctab;
+pub extern fn nctabbed_del(nt: ?*struct_nctabbed, t: ?*struct_nctab) c_int;
+pub extern fn nctab_move(nt: ?*struct_nctabbed, t: ?*struct_nctab, after: ?*struct_nctab, before: ?*struct_nctab) c_int;
+pub extern fn nctab_move_right(nt: ?*struct_nctabbed, t: ?*struct_nctab) void;
+pub extern fn nctab_move_left(nt: ?*struct_nctabbed, t: ?*struct_nctab) void;
+pub extern fn nctabbed_rotate(nt: ?*struct_nctabbed, amt: c_int) void;
+pub extern fn nctabbed_next(nt: ?*struct_nctabbed) ?*struct_nctab;
+pub extern fn nctabbed_prev(nt: ?*struct_nctabbed) ?*struct_nctab;
+pub extern fn nctabbed_select(nt: ?*struct_nctabbed, t: ?*struct_nctab) ?*struct_nctab;
+pub extern fn nctabbed_channels(nt: ?*struct_nctabbed, noalias hdrchan: [*c]u64, noalias selchan: [*c]u64, noalias sepchan: [*c]u64) void;
+pub fn nctabbed_hdrchan(arg_nt: ?*struct_nctabbed) callconv(.c) u64 {
+    var nt = arg_nt;
+    _ = &nt;
+    var ch: u64 = undefined;
+    _ = &ch;
+    nctabbed_channels(nt, &ch, null, null);
+    return ch;
+}
+pub fn nctabbed_selchan(arg_nt: ?*struct_nctabbed) callconv(.c) u64 {
+    var nt = arg_nt;
+    _ = &nt;
+    var ch: u64 = undefined;
+    _ = &ch;
+    nctabbed_channels(nt, null, &ch, null);
+    return ch;
+}
+pub fn nctabbed_sepchan(arg_nt: ?*struct_nctabbed) callconv(.c) u64 {
+    var nt = arg_nt;
+    _ = &nt;
+    var ch: u64 = undefined;
+    _ = &ch;
+    nctabbed_channels(nt, null, null, &ch);
+    return ch;
+}
+pub extern fn nctabbed_separator(nt: ?*struct_nctabbed) [*c]const u8;
+pub extern fn nctabbed_separator_width(nt: ?*struct_nctabbed) c_int;
+pub extern fn nctabbed_set_hdrchan(nt: ?*struct_nctabbed, chan: u64) void;
+pub extern fn nctabbed_set_selchan(nt: ?*struct_nctabbed, chan: u64) void;
+pub extern fn nctabbed_set_sepchan(nt: ?*struct_nctabbed, chan: u64) void;
+pub extern fn nctab_set_cb(t: ?*struct_nctab, newcb: tabcb) tabcb;
+pub extern fn nctab_set_name(t: ?*struct_nctab, newname: [*c]const u8) c_int;
+pub extern fn nctab_set_userptr(t: ?*struct_nctab, newopaque: ?*anyopaque) ?*anyopaque;
+pub extern fn nctabbed_set_separator(nt: ?*struct_nctabbed, separator: [*c]const u8) c_int;
+pub const struct_ncplot_options = extern struct {
+    maxchannels: u64 = 0,
+    minchannels: u64 = 0,
+    legendstyle: u16 = 0,
+    gridtype: ncblitter_e = @import("std").mem.zeroes(ncblitter_e),
+    rangex: c_int = 0,
+    title: [*c]const u8 = null,
+    flags: u64 = 0,
+};
+pub const ncplot_options = struct_ncplot_options;
+pub extern fn ncuplot_create(n: ?*struct_ncplane, opts: [*c]const ncplot_options, miny: u64, maxy: u64) ?*struct_ncuplot;
+pub extern fn ncdplot_create(n: ?*struct_ncplane, opts: [*c]const ncplot_options, miny: f64, maxy: f64) ?*struct_ncdplot;
+pub extern fn ncuplot_plane(n: ?*struct_ncuplot) ?*struct_ncplane;
+pub extern fn ncdplot_plane(n: ?*struct_ncdplot) ?*struct_ncplane;
+pub extern fn ncuplot_add_sample(n: ?*struct_ncuplot, x: u64, y: u64) c_int;
+pub extern fn ncdplot_add_sample(n: ?*struct_ncdplot, x: u64, y: f64) c_int;
+pub extern fn ncuplot_set_sample(n: ?*struct_ncuplot, x: u64, y: u64) c_int;
+pub extern fn ncdplot_set_sample(n: ?*struct_ncdplot, x: u64, y: f64) c_int;
+pub extern fn ncuplot_sample(n: ?*const struct_ncuplot, x: u64, y: [*c]u64) c_int;
+pub extern fn ncdplot_sample(n: ?*const struct_ncdplot, x: u64, y: [*c]f64) c_int;
+pub extern fn ncuplot_destroy(n: ?*struct_ncuplot) void;
+pub extern fn ncdplot_destroy(n: ?*struct_ncdplot) void;
+pub const ncfdplane_callback = ?*const fn (n: ?*struct_ncfdplane, buf: ?*const anyopaque, s: usize, curry: ?*anyopaque) callconv(.c) c_int;
+pub const ncfdplane_done_cb = ?*const fn (n: ?*struct_ncfdplane, fderrno: c_int, curry: ?*anyopaque) callconv(.c) c_int;
+pub const struct_ncfdplane_options = extern struct {
+    curry: ?*anyopaque = null,
+    follow: bool = false,
+    flags: u64 = 0,
+};
+pub const ncfdplane_options = struct_ncfdplane_options;
+pub extern fn ncfdplane_create(n: ?*struct_ncplane, opts: [*c]const ncfdplane_options, fd: c_int, cbfxn: ncfdplane_callback, donecbfxn: ncfdplane_done_cb) ?*struct_ncfdplane;
+pub extern fn ncfdplane_plane(n: ?*struct_ncfdplane) ?*struct_ncplane;
+pub extern fn ncfdplane_destroy(n: ?*struct_ncfdplane) c_int;
+pub const struct_ncsubproc_options = extern struct {
+    curry: ?*anyopaque = null,
+    restart_period: u64 = 0,
+    flags: u64 = 0,
+};
+pub const ncsubproc_options = struct_ncsubproc_options;
+pub extern fn ncsubproc_createv(n: ?*struct_ncplane, opts: [*c]const ncsubproc_options, bin: [*c]const u8, arg: [*c]const [*c]const u8, cbfxn: ncfdplane_callback, donecbfxn: ncfdplane_done_cb) ?*struct_ncsubproc;
+pub extern fn ncsubproc_createvp(n: ?*struct_ncplane, opts: [*c]const ncsubproc_options, bin: [*c]const u8, arg: [*c]const [*c]const u8, cbfxn: ncfdplane_callback, donecbfxn: ncfdplane_done_cb) ?*struct_ncsubproc;
+pub extern fn ncsubproc_createvpe(n: ?*struct_ncplane, opts: [*c]const ncsubproc_options, bin: [*c]const u8, arg: [*c]const [*c]const u8, env: [*c]const [*c]const u8, cbfxn: ncfdplane_callback, donecbfxn: ncfdplane_done_cb) ?*struct_ncsubproc;
+pub extern fn ncsubproc_plane(n: ?*struct_ncsubproc) ?*struct_ncplane;
+pub extern fn ncsubproc_destroy(n: ?*struct_ncsubproc) c_int;
+pub extern fn ncplane_qrcode(n: ?*struct_ncplane, ymax: [*c]c_uint, xmax: [*c]c_uint, data: ?*const anyopaque, len: usize) c_int;
+pub const struct_ncreader_options = extern struct {
+    tchannels: u64 = 0,
+    tattrword: u32 = 0,
+    flags: u64 = 0,
+};
+pub const ncreader_options = struct_ncreader_options;
+pub extern fn ncreader_create(n: ?*struct_ncplane, opts: [*c]const ncreader_options) ?*struct_ncreader;
+pub extern fn ncreader_clear(n: ?*struct_ncreader) c_int;
+pub extern fn ncreader_plane(n: ?*struct_ncreader) ?*struct_ncplane;
+pub extern fn ncreader_offer_input(n: ?*struct_ncreader, ni: [*c]const ncinput) bool;
+pub extern fn ncreader_move_left(n: ?*struct_ncreader) c_int;
+pub extern fn ncreader_move_right(n: ?*struct_ncreader) c_int;
+pub extern fn ncreader_move_up(n: ?*struct_ncreader) c_int;
+pub extern fn ncreader_move_down(n: ?*struct_ncreader) c_int;
+pub extern fn ncreader_write_egc(n: ?*struct_ncreader, egc: [*c]const u8) c_int;
+pub extern fn ncreader_contents(n: ?*const struct_ncreader) [*c]u8;
+pub extern fn ncreader_destroy(n: ?*struct_ncreader, contents: [*c][*c]u8) void;
+pub extern fn notcurses_accountname() [*c]u8;
+pub extern fn notcurses_hostname() [*c]u8;
+pub extern fn notcurses_osversion() [*c]u8;
+pub extern fn notcurses_debug(nc: ?*const struct_notcurses, debugfp: ?*FILE) void;
+
+pub const __VERSION__ = "Aro aro-zig";
+pub const __Aro__ = "";
+pub const __STDC__ = @as(c_int, 1);
+pub const __STDC_HOSTED__ = @as(c_int, 1);
+pub const __STDC_UTF_16__ = @as(c_int, 1);
+pub const __STDC_UTF_32__ = @as(c_int, 1);
+pub const __STDC_EMBED_NOT_FOUND__ = @as(c_int, 0);
+pub const __STDC_EMBED_FOUND__ = @as(c_int, 1);
+pub const __STDC_EMBED_EMPTY__ = @as(c_int, 2);
+pub const __STDC_VERSION__ = @as(c_long, 201710);
+pub const __GNUC__ = @as(c_int, 7);
+pub const __GNUC_MINOR__ = @as(c_int, 1);
+pub const __GNUC_PATCHLEVEL__ = @as(c_int, 0);
+pub const __ARO_EMULATE_NO__ = @as(c_int, 0);
+pub const __ARO_EMULATE_CLANG__ = @as(c_int, 1);
+pub const __ARO_EMULATE_GCC__ = @as(c_int, 2);
+pub const __ARO_EMULATE_MSVC__ = @as(c_int, 3);
+pub const __ARO_EMULATE__ = __ARO_EMULATE_GCC__;
+pub inline fn __building_module(x: anytype) @TypeOf(@as(c_int, 0)) {
+    _ = &x;
+    return @as(c_int, 0);
+}
+pub const linux = @as(c_int, 1);
+pub const __linux = @as(c_int, 1);
+pub const __linux__ = @as(c_int, 1);
+pub const unix = @as(c_int, 1);
+pub const __unix = @as(c_int, 1);
+pub const __unix__ = @as(c_int, 1);
+pub const __code_model_small__ = @as(c_int, 1);
+pub const __amd64__ = @as(c_int, 1);
+pub const __amd64 = @as(c_int, 1);
+pub const __x86_64__ = @as(c_int, 1);
+pub const __x86_64 = @as(c_int, 1);
+pub const __SEG_GS = @as(c_int, 1);
+pub const __SEG_FS = @as(c_int, 1);
+pub const __seg_gs = @compileError("unable to translate macro: undefined identifier `address_space`"); // <builtin>:33:9
+pub const __seg_fs = @compileError("unable to translate macro: undefined identifier `address_space`"); // <builtin>:34:9
+pub const __LAHF_SAHF__ = @as(c_int, 1);
+pub const __AES__ = @as(c_int, 1);
+pub const __VAES__ = @as(c_int, 1);
+pub const __PCLMUL__ = @as(c_int, 1);
+pub const __VPCLMULQDQ__ = @as(c_int, 1);
+pub const __LZCNT__ = @as(c_int, 1);
+pub const __RDRND__ = @as(c_int, 1);
+pub const __FSGSBASE__ = @as(c_int, 1);
+pub const __BMI__ = @as(c_int, 1);
+pub const __BMI2__ = @as(c_int, 1);
+pub const __POPCNT__ = @as(c_int, 1);
+pub const __PRFCHW__ = @as(c_int, 1);
+pub const __RDSEED__ = @as(c_int, 1);
+pub const __ADX__ = @as(c_int, 1);
+pub const __MWAITX__ = @as(c_int, 1);
+pub const __MOVBE__ = @as(c_int, 1);
+pub const __SSE4A__ = @as(c_int, 1);
+pub const __FMA__ = @as(c_int, 1);
+pub const __F16C__ = @as(c_int, 1);
+pub const __GFNI__ = @as(c_int, 1);
+pub const __EVEX512__ = @as(c_int, 1);
+pub const __AVX512CD__ = @as(c_int, 1);
+pub const __AVX512VPOPCNTDQ__ = @as(c_int, 1);
+pub const __AVX512VNNI__ = @as(c_int, 1);
+pub const __AVX512BF16__ = @as(c_int, 1);
+pub const __AVX512DQ__ = @as(c_int, 1);
+pub const __AVX512BITALG__ = @as(c_int, 1);
+pub const __AVX512BW__ = @as(c_int, 1);
+pub const __AVX512VL__ = @as(c_int, 1);
+pub const __EVEX256__ = @as(c_int, 1);
+pub const __AVX512VBMI__ = @as(c_int, 1);
+pub const __AVX512VBMI2__ = @as(c_int, 1);
+pub const __AVX512IFMA__ = @as(c_int, 1);
+pub const __AVX512VP2INTERSECT__ = @as(c_int, 1);
+pub const __SHA__ = @as(c_int, 1);
+pub const __FXSR__ = @as(c_int, 1);
+pub const __XSAVE__ = @as(c_int, 1);
+pub const __XSAVEOPT__ = @as(c_int, 1);
+pub const __XSAVEC__ = @as(c_int, 1);
+pub const __XSAVES__ = @as(c_int, 1);
+pub const __PKU__ = @as(c_int, 1);
+pub const __CLFLUSHOPT__ = @as(c_int, 1);
+pub const __CLWB__ = @as(c_int, 1);
+pub const __WBNOINVD__ = @as(c_int, 1);
+pub const __SHSTK__ = @as(c_int, 1);
+pub const __CLZERO__ = @as(c_int, 1);
+pub const __RDPID__ = @as(c_int, 1);
+pub const __RDPRU__ = @as(c_int, 1);
+pub const __MOVDIRI__ = @as(c_int, 1);
+pub const __MOVDIR64B__ = @as(c_int, 1);
+pub const __INVPCID__ = @as(c_int, 1);
+pub const __AVXVNNI__ = @as(c_int, 1);
+pub const __CRC32__ = @as(c_int, 1);
+pub const __AVX512F__ = @as(c_int, 1);
+pub const __AVX2__ = @as(c_int, 1);
+pub const __AVX__ = @as(c_int, 1);
+pub const __SSE4_2__ = @as(c_int, 1);
+pub const __SSE4_1__ = @as(c_int, 1);
+pub const __SSSE3__ = @as(c_int, 1);
+pub const __SSE3__ = @as(c_int, 1);
+pub const __SSE2__ = @as(c_int, 1);
+pub const __SSE__ = @as(c_int, 1);
+pub const __SSE_MATH__ = @as(c_int, 1);
+pub const __MMX__ = @as(c_int, 1);
+pub const __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8 = @as(c_int, 1);
+pub const __SIZEOF_FLOAT128__ = @as(c_int, 16);
+pub const _LP64 = @as(c_int, 1);
+pub const __LP64__ = @as(c_int, 1);
+pub const __FLOAT128__ = @as(c_int, 1);
+pub const __ORDER_LITTLE_ENDIAN__ = @as(c_int, 1234);
+pub const __ORDER_BIG_ENDIAN__ = @as(c_int, 4321);
+pub const __ORDER_PDP_ENDIAN__ = @as(c_int, 3412);
+pub const __BYTE_ORDER__ = __ORDER_LITTLE_ENDIAN__;
+pub const __LITTLE_ENDIAN__ = @as(c_int, 1);
+pub const __ELF__ = @as(c_int, 1);
+pub const __ATOMIC_RELAXED = @as(c_int, 0);
+pub const __ATOMIC_CONSUME = @as(c_int, 1);
+pub const __ATOMIC_ACQUIRE = @as(c_int, 2);
+pub const __ATOMIC_RELEASE = @as(c_int, 3);
+pub const __ATOMIC_ACQ_REL = @as(c_int, 4);
+pub const __ATOMIC_SEQ_CST = @as(c_int, 5);
+pub const __ATOMIC_BOOL_LOCK_FREE = @as(c_int, 1);
+pub const __ATOMIC_CHAR_LOCK_FREE = @as(c_int, 1);
+pub const __ATOMIC_CHAR16_T_LOCK_FREE = @as(c_int, 1);
+pub const __ATOMIC_CHAR32_T_LOCK_FREE = @as(c_int, 1);
+pub const __ATOMIC_WCHAR_T_LOCK_FREE = @as(c_int, 1);
+pub const __ATOMIC_WINT_T_LOCK_FREE = @as(c_int, 1);
+pub const __ATOMIC_SHORT_LOCK_FREE = @as(c_int, 1);
+pub const __ATOMIC_INT_LOCK_FREE = @as(c_int, 1);
+pub const __ATOMIC_LONG_LOCK_FREE = @as(c_int, 1);
+pub const __ATOMIC_LLONG_LOCK_FREE = @as(c_int, 1);
+pub const __ATOMIC_POINTER_LOCK_FREE = @as(c_int, 1);
+pub const __WINT_UNSIGNED__ = @as(c_int, 1);
+pub const __CHAR_BIT__ = @as(c_int, 8);
+pub const __BOOL_WIDTH__ = @as(c_int, 8);
+pub const __SCHAR_MAX__ = @as(c_int, 127);
+pub const __SCHAR_WIDTH__ = @as(c_int, 8);
+pub const __SHRT_MAX__ = @as(c_int, 32767);
+pub const __SHRT_WIDTH__ = @as(c_int, 16);
+pub const __INT_MAX__ = __helpers.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const __INT_WIDTH__ = @as(c_int, 32);
+pub const __LONG_MAX__ = __helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __LONG_WIDTH__ = @as(c_int, 64);
+pub const __LONG_LONG_MAX__ = @as(c_longlong, 9223372036854775807);
+pub const __LONG_LONG_WIDTH__ = @as(c_int, 64);
+pub const __WCHAR_MAX__ = __helpers.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const __WCHAR_WIDTH__ = @as(c_int, 32);
+pub const __WINT_MAX__ = __helpers.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const __WINT_WIDTH__ = @as(c_int, 32);
+pub const __INTMAX_MAX__ = __helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __INTMAX_WIDTH__ = @as(c_int, 64);
+pub const __SIZE_MAX__ = __helpers.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const __SIZE_WIDTH__ = @as(c_int, 64);
+pub const __UINTMAX_MAX__ = __helpers.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const __UINTMAX_WIDTH__ = @as(c_int, 64);
+pub const __PTRDIFF_MAX__ = __helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __PTRDIFF_WIDTH__ = @as(c_int, 64);
+pub const __INTPTR_MAX__ = __helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __INTPTR_WIDTH__ = @as(c_int, 64);
+pub const __UINTPTR_MAX__ = __helpers.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const __UINTPTR_WIDTH__ = @as(c_int, 64);
+pub const __SIG_ATOMIC_MAX__ = __helpers.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const __SIG_ATOMIC_WIDTH__ = @as(c_int, 32);
+pub const __BITINT_MAXWIDTH__ = __helpers.promoteIntLiteral(c_int, 65535, .decimal);
+pub const __SIZEOF_FLOAT__ = @as(c_int, 4);
+pub const __SIZEOF_DOUBLE__ = @as(c_int, 8);
+pub const __SIZEOF_LONG_DOUBLE__ = @as(c_int, 10);
+pub const __SIZEOF_SHORT__ = @as(c_int, 2);
+pub const __SIZEOF_INT__ = @as(c_int, 4);
+pub const __SIZEOF_LONG__ = @as(c_int, 8);
+pub const __SIZEOF_LONG_LONG__ = @as(c_int, 8);
+pub const __SIZEOF_POINTER__ = @as(c_int, 8);
+pub const __SIZEOF_PTRDIFF_T__ = @as(c_int, 8);
+pub const __SIZEOF_SIZE_T__ = @as(c_int, 8);
+pub const __SIZEOF_WCHAR_T__ = @as(c_int, 4);
+pub const __SIZEOF_WINT_T__ = @as(c_int, 4);
+pub const __SIZEOF_INT128__ = @as(c_int, 16);
+pub const __INTPTR_TYPE__ = c_long;
+pub const __UINTPTR_TYPE__ = c_ulong;
+pub const __INTMAX_TYPE__ = c_long;
+pub const __INTMAX_C_SUFFIX__ = @compileError("unable to translate macro: undefined identifier `L`"); // <builtin>:176:9
+pub const __INTMAX_C = __helpers.L_SUFFIX;
+pub const __UINTMAX_TYPE__ = c_ulong;
+pub const __UINTMAX_C_SUFFIX__ = @compileError("unable to translate macro: undefined identifier `UL`"); // <builtin>:179:9
+pub const __UINTMAX_C = __helpers.UL_SUFFIX;
+pub const __PTRDIFF_TYPE__ = c_long;
+pub const __SIZE_TYPE__ = c_ulong;
+pub const __WCHAR_TYPE__ = c_int;
+pub const __WINT_TYPE__ = c_uint;
+pub const __CHAR16_TYPE__ = c_ushort;
+pub const __CHAR32_TYPE__ = c_uint;
+pub const __INT8_TYPE__ = i8;
+pub const __INT8_FMTd__ = "hhd";
+pub const __INT8_FMTi__ = "hhi";
+pub const __INT8_C_SUFFIX__ = "";
+pub inline fn __INT8_C(c: anytype) @TypeOf(c) {
+    _ = &c;
+    return c;
+}
+pub const __INT16_TYPE__ = c_short;
+pub const __INT16_FMTd__ = "hd";
+pub const __INT16_FMTi__ = "hi";
+pub const __INT16_C_SUFFIX__ = "";
+pub inline fn __INT16_C(c: anytype) @TypeOf(c) {
+    _ = &c;
+    return c;
+}
+pub const __INT32_TYPE__ = c_int;
+pub const __INT32_FMTd__ = "d";
+pub const __INT32_FMTi__ = "i";
+pub const __INT32_C_SUFFIX__ = "";
+pub inline fn __INT32_C(c: anytype) @TypeOf(c) {
+    _ = &c;
+    return c;
+}
+pub const __INT64_TYPE__ = c_long;
+pub const __INT64_FMTd__ = "ld";
+pub const __INT64_FMTi__ = "li";
+pub const __INT64_C_SUFFIX__ = @compileError("unable to translate macro: undefined identifier `L`"); // <builtin>:205:9
+pub const __INT64_C = __helpers.L_SUFFIX;
+pub const __UINT8_TYPE__ = u8;
+pub const __UINT8_FMTo__ = "hho";
+pub const __UINT8_FMTu__ = "hhu";
+pub const __UINT8_FMTx__ = "hhx";
+pub const __UINT8_FMTX__ = "hhX";
+pub const __UINT8_C_SUFFIX__ = "";
+pub inline fn __UINT8_C(c: anytype) @TypeOf(c) {
+    _ = &c;
+    return c;
+}
+pub const __UINT8_MAX__ = @as(c_int, 255);
+pub const __INT8_MAX__ = @as(c_int, 127);
+pub const __UINT16_TYPE__ = c_ushort;
+pub const __UINT16_FMTo__ = "ho";
+pub const __UINT16_FMTu__ = "hu";
+pub const __UINT16_FMTx__ = "hx";
+pub const __UINT16_FMTX__ = "hX";
+pub const __UINT16_C_SUFFIX__ = "";
+pub inline fn __UINT16_C(c: anytype) @TypeOf(c) {
+    _ = &c;
+    return c;
+}
+pub const __UINT16_MAX__ = __helpers.promoteIntLiteral(c_int, 65535, .decimal);
+pub const __INT16_MAX__ = @as(c_int, 32767);
+pub const __UINT32_TYPE__ = c_uint;
+pub const __UINT32_FMTo__ = "o";
+pub const __UINT32_FMTu__ = "u";
+pub const __UINT32_FMTx__ = "x";
+pub const __UINT32_FMTX__ = "X";
+pub const __UINT32_C_SUFFIX__ = @compileError("unable to translate macro: undefined identifier `U`"); // <builtin>:230:9
+pub const __UINT32_C = __helpers.U_SUFFIX;
+pub const __UINT32_MAX__ = __helpers.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const __INT32_MAX__ = __helpers.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const __UINT64_TYPE__ = c_ulong;
+pub const __UINT64_FMTo__ = "lo";
+pub const __UINT64_FMTu__ = "lu";
+pub const __UINT64_FMTx__ = "lx";
+pub const __UINT64_FMTX__ = "lX";
+pub const __UINT64_C_SUFFIX__ = @compileError("unable to translate macro: undefined identifier `UL`"); // <builtin>:239:9
+pub const __UINT64_C = __helpers.UL_SUFFIX;
+pub const __UINT64_MAX__ = __helpers.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const __INT64_MAX__ = __helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __INT_LEAST8_TYPE__ = i8;
+pub const __INT_LEAST8_MAX__ = @as(c_int, 127);
+pub const __INT_LEAST8_WIDTH__ = @as(c_int, 8);
+pub const INT_LEAST8_FMTd__ = "hhd";
+pub const INT_LEAST8_FMTi__ = "hhi";
+pub const __UINT_LEAST8_TYPE__ = u8;
+pub const __UINT_LEAST8_MAX__ = @as(c_int, 255);
+pub const UINT_LEAST8_FMTo__ = "hho";
+pub const UINT_LEAST8_FMTu__ = "hhu";
+pub const UINT_LEAST8_FMTx__ = "hhx";
+pub const UINT_LEAST8_FMTX__ = "hhX";
+pub const __INT_FAST8_TYPE__ = i8;
+pub const __INT_FAST8_MAX__ = @as(c_int, 127);
+pub const __INT_FAST8_WIDTH__ = @as(c_int, 8);
+pub const INT_FAST8_FMTd__ = "hhd";
+pub const INT_FAST8_FMTi__ = "hhi";
+pub const __UINT_FAST8_TYPE__ = u8;
+pub const __UINT_FAST8_MAX__ = @as(c_int, 255);
+pub const UINT_FAST8_FMTo__ = "hho";
+pub const UINT_FAST8_FMTu__ = "hhu";
+pub const UINT_FAST8_FMTx__ = "hhx";
+pub const UINT_FAST8_FMTX__ = "hhX";
+pub const __INT_LEAST16_TYPE__ = c_short;
+pub const __INT_LEAST16_MAX__ = @as(c_int, 32767);
+pub const __INT_LEAST16_WIDTH__ = @as(c_int, 16);
+pub const INT_LEAST16_FMTd__ = "hd";
+pub const INT_LEAST16_FMTi__ = "hi";
+pub const __UINT_LEAST16_TYPE__ = c_ushort;
+pub const __UINT_LEAST16_MAX__ = __helpers.promoteIntLiteral(c_int, 65535, .decimal);
+pub const UINT_LEAST16_FMTo__ = "ho";
+pub const UINT_LEAST16_FMTu__ = "hu";
+pub const UINT_LEAST16_FMTx__ = "hx";
+pub const UINT_LEAST16_FMTX__ = "hX";
+pub const __INT_FAST16_TYPE__ = c_short;
+pub const __INT_FAST16_MAX__ = @as(c_int, 32767);
+pub const __INT_FAST16_WIDTH__ = @as(c_int, 16);
+pub const INT_FAST16_FMTd__ = "hd";
+pub const INT_FAST16_FMTi__ = "hi";
+pub const __UINT_FAST16_TYPE__ = c_ushort;
+pub const __UINT_FAST16_MAX__ = __helpers.promoteIntLiteral(c_int, 65535, .decimal);
+pub const UINT_FAST16_FMTo__ = "ho";
+pub const UINT_FAST16_FMTu__ = "hu";
+pub const UINT_FAST16_FMTx__ = "hx";
+pub const UINT_FAST16_FMTX__ = "hX";
+pub const __INT_LEAST32_TYPE__ = c_int;
+pub const __INT_LEAST32_MAX__ = __helpers.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const __INT_LEAST32_WIDTH__ = @as(c_int, 32);
+pub const INT_LEAST32_FMTd__ = "d";
+pub const INT_LEAST32_FMTi__ = "i";
+pub const __UINT_LEAST32_TYPE__ = c_uint;
+pub const __UINT_LEAST32_MAX__ = __helpers.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const UINT_LEAST32_FMTo__ = "o";
+pub const UINT_LEAST32_FMTu__ = "u";
+pub const UINT_LEAST32_FMTx__ = "x";
+pub const UINT_LEAST32_FMTX__ = "X";
+pub const __INT_FAST32_TYPE__ = c_int;
+pub const __INT_FAST32_MAX__ = __helpers.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const __INT_FAST32_WIDTH__ = @as(c_int, 32);
+pub const INT_FAST32_FMTd__ = "d";
+pub const INT_FAST32_FMTi__ = "i";
+pub const __UINT_FAST32_TYPE__ = c_uint;
+pub const __UINT_FAST32_MAX__ = __helpers.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const UINT_FAST32_FMTo__ = "o";
+pub const UINT_FAST32_FMTu__ = "u";
+pub const UINT_FAST32_FMTx__ = "x";
+pub const UINT_FAST32_FMTX__ = "X";
+pub const __INT_LEAST64_TYPE__ = c_long;
+pub const __INT_LEAST64_MAX__ = __helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __INT_LEAST64_WIDTH__ = @as(c_int, 64);
+pub const INT_LEAST64_FMTd__ = "ld";
+pub const INT_LEAST64_FMTi__ = "li";
+pub const __UINT_LEAST64_TYPE__ = c_ulong;
+pub const __UINT_LEAST64_MAX__ = __helpers.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const UINT_LEAST64_FMTo__ = "lo";
+pub const UINT_LEAST64_FMTu__ = "lu";
+pub const UINT_LEAST64_FMTx__ = "lx";
+pub const UINT_LEAST64_FMTX__ = "lX";
+pub const __INT_FAST64_TYPE__ = c_long;
+pub const __INT_FAST64_MAX__ = __helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const __INT_FAST64_WIDTH__ = @as(c_int, 64);
+pub const INT_FAST64_FMTd__ = "ld";
+pub const INT_FAST64_FMTi__ = "li";
+pub const __UINT_FAST64_TYPE__ = c_ulong;
+pub const __UINT_FAST64_MAX__ = __helpers.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const UINT_FAST64_FMTo__ = "lo";
+pub const UINT_FAST64_FMTu__ = "lu";
+pub const UINT_FAST64_FMTx__ = "lx";
+pub const UINT_FAST64_FMTX__ = "lX";
+pub const __FLT16_DENORM_MIN__ = @as(f16, 5.9604644775390625e-8);
+pub const __FLT16_HAS_DENORM__ = "";
+pub const __FLT16_DIG__ = @as(c_int, 3);
+pub const __FLT16_DECIMAL_DIG__ = @as(c_int, 5);
+pub const __FLT16_EPSILON__ = @as(f16, 9.765625e-4);
+pub const __FLT16_HAS_INFINITY__ = "";
+pub const __FLT16_HAS_QUIET_NAN__ = "";
+pub const __FLT16_MANT_DIG__ = @as(c_int, 11);
+pub const __FLT16_MAX_10_EXP__ = @as(c_int, 4);
+pub const __FLT16_MAX_EXP__ = @as(c_int, 16);
+pub const __FLT16_MAX__ = @as(f16, 6.5504e+4);
+pub const __FLT16_MIN_10_EXP__ = -@as(c_int, 4);
+pub const __FLT16_MIN_EXP__ = -@as(c_int, 13);
+pub const __FLT16_MIN__ = @as(f16, 6.103515625e-5);
+pub const __FLT_DENORM_MIN__ = @as(f32, 1.40129846e-45);
+pub const __FLT_HAS_DENORM__ = "";
+pub const __FLT_DIG__ = @as(c_int, 6);
+pub const __FLT_DECIMAL_DIG__ = @as(c_int, 9);
+pub const __FLT_EPSILON__ = @as(f32, 1.19209290e-7);
+pub const __FLT_HAS_INFINITY__ = "";
+pub const __FLT_HAS_QUIET_NAN__ = "";
+pub const __FLT_MANT_DIG__ = @as(c_int, 24);
+pub const __FLT_MAX_10_EXP__ = @as(c_int, 38);
+pub const __FLT_MAX_EXP__ = @as(c_int, 128);
+pub const __FLT_MAX__ = @as(f32, 3.40282347e+38);
+pub const __FLT_MIN_10_EXP__ = -@as(c_int, 37);
+pub const __FLT_MIN_EXP__ = -@as(c_int, 125);
+pub const __FLT_MIN__ = @as(f32, 1.17549435e-38);
+pub const __DBL_DENORM_MIN__ = @as(f64, 4.9406564584124654e-324);
+pub const __DBL_HAS_DENORM__ = "";
+pub const __DBL_DIG__ = @as(c_int, 15);
+pub const __DBL_DECIMAL_DIG__ = @as(c_int, 17);
+pub const __DBL_EPSILON__ = @as(f64, 2.2204460492503131e-16);
+pub const __DBL_HAS_INFINITY__ = "";
+pub const __DBL_HAS_QUIET_NAN__ = "";
+pub const __DBL_MANT_DIG__ = @as(c_int, 53);
+pub const __DBL_MAX_10_EXP__ = @as(c_int, 308);
+pub const __DBL_MAX_EXP__ = @as(c_int, 1024);
+pub const __DBL_MAX__ = @as(f64, 1.7976931348623157e+308);
+pub const __DBL_MIN_10_EXP__ = -@as(c_int, 307);
+pub const __DBL_MIN_EXP__ = -@as(c_int, 1021);
+pub const __DBL_MIN__ = @as(f64, 2.2250738585072014e-308);
+pub const __LDBL_DENORM_MIN__ = @as(c_longdouble, 3.64519953188247460253e-4951);
+pub const __LDBL_HAS_DENORM__ = "";
+pub const __LDBL_DIG__ = @as(c_int, 18);
+pub const __LDBL_DECIMAL_DIG__ = @as(c_int, 21);
+pub const __LDBL_EPSILON__ = @as(c_longdouble, 1.08420217248550443401e-19);
+pub const __LDBL_HAS_INFINITY__ = "";
+pub const __LDBL_HAS_QUIET_NAN__ = "";
+pub const __LDBL_MANT_DIG__ = @as(c_int, 64);
+pub const __LDBL_MAX_10_EXP__ = @as(c_int, 4932);
+pub const __LDBL_MAX_EXP__ = @as(c_int, 16384);
+pub const __LDBL_MAX__ = @as(c_longdouble, 1.18973149535723176502e+4932);
+pub const __LDBL_MIN_10_EXP__ = -@as(c_int, 4931);
+pub const __LDBL_MIN_EXP__ = -@as(c_int, 16381);
+pub const __LDBL_MIN__ = @as(c_longdouble, 3.36210314311209350626e-4932);
+pub const __FLT_EVAL_METHOD__ = @as(c_int, 0);
+pub const __FLT_RADIX__ = @as(c_int, 2);
+pub const __DECIMAL_DIG__ = __LDBL_DECIMAL_DIG__;
+pub const __pic__ = @as(c_int, 2);
+pub const __PIC__ = @as(c_int, 2);
+pub const __GLIBC_MINOR__ = @as(c_int, 42);
+pub const _XOPEN_SOURCE = @as(c_int, 700);
+pub const NOTCURSES_NOTCURSES = "";
+pub const _TIME_H = @as(c_int, 1);
+pub const _FEATURES_H = @as(c_int, 1);
+pub const __KERNEL_STRICT_NAMES = "";
+pub inline fn __GNUC_PREREQ(maj: anytype, min: anytype) @TypeOf(((__GNUC__ << @as(c_int, 16)) + __GNUC_MINOR__) >= ((maj << @as(c_int, 16)) + min)) {
+    _ = &maj;
+    _ = &min;
+    return ((__GNUC__ << @as(c_int, 16)) + __GNUC_MINOR__) >= ((maj << @as(c_int, 16)) + min);
+}
+pub inline fn __glibc_clang_prereq(maj: anytype, min: anytype) @TypeOf(@as(c_int, 0)) {
+    _ = &maj;
+    _ = &min;
+    return @as(c_int, 0);
+}
+pub const __GLIBC_USE = @compileError("unable to translate macro: undefined identifier `__GLIBC_USE_`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/features.h:191:9
+pub const __GLIBC_USE_ISOC2Y = @as(c_int, 0);
+pub const __GLIBC_USE_ISOC23 = @as(c_int, 0);
+pub const __USE_ISOC11 = @as(c_int, 1);
+pub const _POSIX_SOURCE = @as(c_int, 1);
+pub const _POSIX_C_SOURCE = @as(c_long, 200809);
+pub const __USE_POSIX_IMPLICITLY = @as(c_int, 1);
+pub const __USE_POSIX = @as(c_int, 1);
+pub const __USE_POSIX2 = @as(c_int, 1);
+pub const __USE_POSIX199309 = @as(c_int, 1);
+pub const __USE_POSIX199506 = @as(c_int, 1);
+pub const __USE_XOPEN2K = @as(c_int, 1);
+pub const __USE_XOPEN2K8 = @as(c_int, 1);
+pub const _ATFILE_SOURCE = @as(c_int, 1);
+pub const __USE_XOPEN = @as(c_int, 1);
+pub const __USE_XOPEN_EXTENDED = @as(c_int, 1);
+pub const __USE_UNIX98 = @as(c_int, 1);
+pub const _LARGEFILE_SOURCE = @as(c_int, 1);
+pub const __USE_XOPEN2K8XSI = @as(c_int, 1);
+pub const __USE_XOPEN2KXSI = @as(c_int, 1);
+pub const __USE_ISOC95 = @as(c_int, 1);
+pub const __USE_ISOC99 = @as(c_int, 1);
+pub const __USE_LARGEFILE = @as(c_int, 1);
+pub const __WORDSIZE = @as(c_int, 64);
+pub const __WORDSIZE_TIME64_COMPAT32 = @as(c_int, 1);
+pub const __SYSCALL_WORDSIZE = @as(c_int, 64);
+pub const __TIMESIZE = __WORDSIZE;
+pub const __USE_TIME_BITS64 = @as(c_int, 1);
+pub const __USE_ATFILE = @as(c_int, 1);
+pub const __USE_FORTIFY_LEVEL = @as(c_int, 0);
+pub const __GLIBC_USE_DEPRECATED_GETS = @as(c_int, 0);
+pub const __GLIBC_USE_DEPRECATED_SCANF = @as(c_int, 0);
+pub const __GLIBC_USE_C23_STRTOL = @as(c_int, 0);
+pub const _STDC_PREDEF_H = @as(c_int, 1);
+pub const __STDC_IEC_559__ = @as(c_int, 1);
+pub const __STDC_IEC_60559_BFP__ = @as(c_long, 201404);
+pub const __STDC_IEC_559_COMPLEX__ = @as(c_int, 1);
+pub const __STDC_IEC_60559_COMPLEX__ = @as(c_long, 201404);
+pub const __STDC_ISO_10646__ = @as(c_long, 201706);
+pub const __GNU_LIBRARY__ = @as(c_int, 6);
+pub const __GLIBC__ = @as(c_int, 2);
+pub inline fn __GLIBC_PREREQ(maj: anytype, min: anytype) @TypeOf(((__GLIBC__ << @as(c_int, 16)) + __GLIBC_MINOR__) >= ((maj << @as(c_int, 16)) + min)) {
+    _ = &maj;
+    _ = &min;
+    return ((__GLIBC__ << @as(c_int, 16)) + __GLIBC_MINOR__) >= ((maj << @as(c_int, 16)) + min);
+}
+pub const _SYS_CDEFS_H = @as(c_int, 1);
+pub const __glibc_has_attribute = @compileError("unable to translate macro: undefined identifier `__has_attribute`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:45:10
+pub inline fn __glibc_has_builtin(name: anytype) @TypeOf(__builtin.has_builtin(name)) {
+    _ = &name;
+    return __builtin.has_builtin(name);
+}
+pub const __glibc_has_extension = @compileError("unable to translate macro: undefined identifier `__has_extension`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:55:10
+pub const __LEAF = @compileError("unable to translate macro: undefined identifier `__leaf__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:65:11
+pub const __LEAF_ATTR = @compileError("unable to translate macro: undefined identifier `__leaf__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:66:11
+pub const __THROW = @compileError("unable to translate macro: undefined identifier `__nothrow__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:79:11
+pub const __THROWNL = @compileError("unable to translate macro: undefined identifier `__nothrow__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:80:11
+pub const __NTH = @compileError("unable to translate macro: undefined identifier `__nothrow__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:81:11
+pub const __NTHNL = @compileError("unable to translate macro: undefined identifier `__nothrow__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:82:11
+pub const __COLD = @compileError("unable to translate macro: undefined identifier `__cold__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:102:11
+pub inline fn __P(args: anytype) @TypeOf(args) {
+    _ = &args;
+    return args;
+}
+pub inline fn __PMT(args: anytype) @TypeOf(args) {
+    _ = &args;
+    return args;
+}
+pub const __CONCAT = @compileError("unable to translate C expr: unexpected token '##'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:131:9
+pub const __STRING = @compileError("unable to translate C expr: unexpected token ''"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:132:9
+pub const __ptr_t = ?*anyopaque;
+pub const __BEGIN_DECLS = "";
+pub const __END_DECLS = "";
+pub const __attribute_overloadable__ = "";
+pub inline fn __bos(ptr: anytype) @TypeOf(__builtin.object_size(ptr, __USE_FORTIFY_LEVEL > @as(c_int, 1))) {
+    _ = &ptr;
+    return __builtin.object_size(ptr, __USE_FORTIFY_LEVEL > @as(c_int, 1));
+}
+pub inline fn __bos0(ptr: anytype) @TypeOf(__builtin.object_size(ptr, @as(c_int, 0))) {
+    _ = &ptr;
+    return __builtin.object_size(ptr, @as(c_int, 0));
+}
+pub inline fn __glibc_objsize0(__o: anytype) @TypeOf(__bos0(__o)) {
+    _ = &__o;
+    return __bos0(__o);
+}
+pub inline fn __glibc_objsize(__o: anytype) @TypeOf(__bos(__o)) {
+    _ = &__o;
+    return __bos(__o);
+}
+pub const __warnattr = @compileError("unable to translate macro: undefined identifier `__warning__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:366:10
+pub const __errordecl = @compileError("unable to translate macro: undefined identifier `__error__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:367:10
+pub const __flexarr = @compileError("unable to translate C expr: unexpected token '['"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:379:10
+pub const __glibc_c99_flexarr_available = @as(c_int, 1);
+pub const __REDIRECT = @compileError("unable to translate C expr: unexpected token '__asm__'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:410:10
+pub const __REDIRECT_NTH = @compileError("unable to translate C expr: unexpected token '__asm__'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:417:11
+pub const __REDIRECT_NTHNL = @compileError("unable to translate C expr: unexpected token '__asm__'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:419:11
+pub const __ASMNAME = @compileError("unable to translate macro: undefined identifier `__USER_LABEL_PREFIX__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:422:10
+pub inline fn __ASMNAME2(prefix: anytype, cname: anytype) @TypeOf(__STRING(prefix) ++ cname) {
+    _ = &prefix;
+    _ = &cname;
+    return __STRING(prefix) ++ cname;
+}
+pub const __REDIRECT_FORTIFY = __REDIRECT;
+pub const __REDIRECT_FORTIFY_NTH = __REDIRECT_NTH;
+pub const __attribute_malloc__ = @compileError("unable to translate macro: undefined identifier `__malloc__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:452:10
+pub const __attribute_alloc_size__ = @compileError("unable to translate macro: undefined identifier `__alloc_size__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:460:10
+pub const __attribute_alloc_align__ = @compileError("unable to translate macro: undefined identifier `__alloc_align__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:469:10
+pub const __attribute_pure__ = @compileError("unable to translate macro: undefined identifier `__pure__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:479:10
+pub const __attribute_const__ = @compileError("unable to translate C expr: unexpected token '__attribute__'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:486:10
+pub const __attribute_maybe_unused__ = @compileError("unable to translate macro: undefined identifier `__unused__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:492:10
+pub const __attribute_used__ = @compileError("unable to translate macro: undefined identifier `__used__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:501:10
+pub const __attribute_noinline__ = @compileError("unable to translate macro: undefined identifier `__noinline__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:502:10
+pub const __attribute_deprecated__ = @compileError("unable to translate macro: undefined identifier `__deprecated__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:510:10
+pub const __attribute_deprecated_msg__ = @compileError("unable to translate macro: undefined identifier `__deprecated__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:520:10
+pub const __attribute_format_arg__ = @compileError("unable to translate macro: undefined identifier `__format_arg__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:533:10
+pub const __attribute_format_strfmon__ = @compileError("unable to translate macro: undefined identifier `__format__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:543:10
+pub const __attribute_nonnull__ = @compileError("unable to translate macro: undefined identifier `__nonnull__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:555:11
+pub inline fn __nonnull(params: anytype) @TypeOf(__attribute_nonnull__(params)) {
+    _ = &params;
+    return __attribute_nonnull__(params);
+}
+pub const __returns_nonnull = @compileError("unable to translate macro: undefined identifier `__returns_nonnull__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:568:10
+pub const __attribute_warn_unused_result__ = @compileError("unable to translate macro: undefined identifier `__warn_unused_result__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:577:10
+pub const __wur = "";
+pub const __always_inline = @compileError("unable to translate macro: undefined identifier `__always_inline__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:595:10
+pub const __attribute_artificial__ = @compileError("unable to translate macro: undefined identifier `__artificial__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:604:10
+pub const __extern_inline = @compileError("unable to translate C expr: unexpected token 'extern'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:626:11
+pub const __extern_always_inline = @compileError("unable to translate C expr: unexpected token 'extern'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:627:11
+pub const __fortify_function = __extern_always_inline ++ __attribute_artificial__;
+pub const __va_arg_pack = @compileError("unable to translate macro: undefined identifier `__builtin_va_arg_pack`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:638:10
+pub const __va_arg_pack_len = @compileError("unable to translate macro: undefined identifier `__builtin_va_arg_pack_len`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:639:10
+pub const __restrict_arr = @compileError("unable to translate C expr: unexpected token '__restrict'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:666:10
+pub inline fn __glibc_unlikely(cond: anytype) @TypeOf(__builtin.expect(cond, @as(c_int, 0))) {
+    _ = &cond;
+    return __builtin.expect(cond, @as(c_int, 0));
+}
+pub inline fn __glibc_likely(cond: anytype) @TypeOf(__builtin.expect(cond, @as(c_int, 1))) {
+    _ = &cond;
+    return __builtin.expect(cond, @as(c_int, 1));
+}
+pub const __attribute_nonstring__ = "";
+pub inline fn __attribute_copy__(arg: anytype) void {
+    _ = &arg;
+    return;
+}
+pub const __LDOUBLE_REDIRECTS_TO_FLOAT128_ABI = @as(c_int, 0);
+pub inline fn __LDBL_REDIR1(name: anytype, proto: anytype, alias: anytype) @TypeOf(name ++ proto) {
+    _ = &name;
+    _ = &proto;
+    _ = &alias;
+    return name ++ proto;
+}
+pub inline fn __LDBL_REDIR(name: anytype, proto: anytype) @TypeOf(name ++ proto) {
+    _ = &name;
+    _ = &proto;
+    return name ++ proto;
+}
+pub inline fn __LDBL_REDIR1_NTH(name: anytype, proto: anytype, alias: anytype) @TypeOf(name ++ proto ++ __THROW) {
+    _ = &name;
+    _ = &proto;
+    _ = &alias;
+    return name ++ proto ++ __THROW;
+}
+pub inline fn __LDBL_REDIR_NTH(name: anytype, proto: anytype) @TypeOf(name ++ proto ++ __THROW) {
+    _ = &name;
+    _ = &proto;
+    return name ++ proto ++ __THROW;
+}
+pub inline fn __LDBL_REDIR2_DECL(name: anytype) void {
+    _ = &name;
+    return;
+}
+pub inline fn __LDBL_REDIR_DECL(name: anytype) void {
+    _ = &name;
+    return;
+}
+pub inline fn __REDIRECT_LDBL(name: anytype, proto: anytype, alias: anytype) @TypeOf(__REDIRECT(name, proto, alias)) {
+    _ = &name;
+    _ = &proto;
+    _ = &alias;
+    return __REDIRECT(name, proto, alias);
+}
+pub inline fn __REDIRECT_NTH_LDBL(name: anytype, proto: anytype, alias: anytype) @TypeOf(__REDIRECT_NTH(name, proto, alias)) {
+    _ = &name;
+    _ = &proto;
+    _ = &alias;
+    return __REDIRECT_NTH(name, proto, alias);
+}
+pub const __glibc_macro_warning1 = @compileError("unable to translate macro: undefined identifier `_Pragma`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:807:10
+pub const __glibc_macro_warning = @compileError("unable to translate macro: undefined identifier `GCC`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:808:10
+pub const __HAVE_GENERIC_SELECTION = @as(c_int, 1);
+pub inline fn __fortified_attr_access(a: anytype, o: anytype, s: anytype) void {
+    _ = &a;
+    _ = &o;
+    _ = &s;
+    return;
+}
+pub inline fn __attr_access(x: anytype) void {
+    _ = &x;
+    return;
+}
+pub inline fn __attr_access_none(argno: anytype) void {
+    _ = &argno;
+    return;
+}
+pub inline fn __attr_dealloc(dealloc: anytype, argno: anytype) void {
+    _ = &dealloc;
+    _ = &argno;
+    return;
+}
+pub const __attr_dealloc_free = "";
+pub const __attribute_returns_twice__ = @compileError("unable to translate macro: undefined identifier `__returns_twice__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:872:10
+pub const __attribute_struct_may_alias__ = @compileError("unable to translate macro: undefined identifier `__may_alias__`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/cdefs.h:881:10
+pub const __stub___compat_bdflush = "";
+pub const __stub_chflags = "";
+pub const __stub_fchflags = "";
+pub const __stub_gtty = "";
+pub const __stub_revoke = "";
+pub const __stub_setlogin = "";
+pub const __stub_sigreturn = "";
+pub const __stub_stty = "";
+pub const __need_size_t = "";
+pub const __need_NULL = "";
+pub const __STDC_VERSION_STDDEF_H__ = @as(c_long, 202311);
+pub const NULL = __helpers.cast(?*anyopaque, @as(c_int, 0));
+pub const offsetof = @compileError("unable to translate macro: undefined identifier `__builtin_offsetof`"); // /nix/store/9zyky24fffkbhnkmjcnrjcl3dmvx6w9x-zig-0.16.0/lib/compiler/aro/include/stddef.h:18:9
+pub const _BITS_TIME_H = @as(c_int, 1);
+pub const _BITS_TYPES_H = @as(c_int, 1);
+pub const __S16_TYPE = c_short;
+pub const __U16_TYPE = c_ushort;
+pub const __S32_TYPE = c_int;
+pub const __U32_TYPE = c_uint;
+pub const __SLONGWORD_TYPE = c_long;
+pub const __ULONGWORD_TYPE = c_ulong;
+pub const __SQUAD_TYPE = c_long;
+pub const __UQUAD_TYPE = c_ulong;
+pub const __SWORD_TYPE = c_long;
+pub const __UWORD_TYPE = c_ulong;
+pub const __SLONG32_TYPE = c_int;
+pub const __ULONG32_TYPE = c_uint;
+pub const __S64_TYPE = c_long;
+pub const __U64_TYPE = c_ulong;
+pub const _BITS_TYPESIZES_H = @as(c_int, 1);
+pub const __SYSCALL_SLONG_TYPE = __SLONGWORD_TYPE;
+pub const __SYSCALL_ULONG_TYPE = __ULONGWORD_TYPE;
+pub const __DEV_T_TYPE = __UQUAD_TYPE;
+pub const __UID_T_TYPE = __U32_TYPE;
+pub const __GID_T_TYPE = __U32_TYPE;
+pub const __INO_T_TYPE = __SYSCALL_ULONG_TYPE;
+pub const __INO64_T_TYPE = __UQUAD_TYPE;
+pub const __MODE_T_TYPE = __U32_TYPE;
+pub const __NLINK_T_TYPE = __SYSCALL_ULONG_TYPE;
+pub const __FSWORD_T_TYPE = __SYSCALL_SLONG_TYPE;
+pub const __OFF_T_TYPE = __SYSCALL_SLONG_TYPE;
+pub const __OFF64_T_TYPE = __SQUAD_TYPE;
+pub const __PID_T_TYPE = __S32_TYPE;
+pub const __RLIM_T_TYPE = __SYSCALL_ULONG_TYPE;
+pub const __RLIM64_T_TYPE = __UQUAD_TYPE;
+pub const __BLKCNT_T_TYPE = __SYSCALL_SLONG_TYPE;
+pub const __BLKCNT64_T_TYPE = __SQUAD_TYPE;
+pub const __FSBLKCNT_T_TYPE = __SYSCALL_ULONG_TYPE;
+pub const __FSBLKCNT64_T_TYPE = __UQUAD_TYPE;
+pub const __FSFILCNT_T_TYPE = __SYSCALL_ULONG_TYPE;
+pub const __FSFILCNT64_T_TYPE = __UQUAD_TYPE;
+pub const __ID_T_TYPE = __U32_TYPE;
+pub const __CLOCK_T_TYPE = __SYSCALL_SLONG_TYPE;
+pub const __TIME_T_TYPE = __SYSCALL_SLONG_TYPE;
+pub const __USECONDS_T_TYPE = __U32_TYPE;
+pub const __SUSECONDS_T_TYPE = __SYSCALL_SLONG_TYPE;
+pub const __SUSECONDS64_T_TYPE = __SQUAD_TYPE;
+pub const __DADDR_T_TYPE = __S32_TYPE;
+pub const __KEY_T_TYPE = __S32_TYPE;
+pub const __CLOCKID_T_TYPE = __S32_TYPE;
+pub const __TIMER_T_TYPE = ?*anyopaque;
+pub const __BLKSIZE_T_TYPE = __SYSCALL_SLONG_TYPE;
+pub const __FSID_T_TYPE = @compileError("unable to translate macro: undefined identifier `__val`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/typesizes.h:73:9
+pub const __SSIZE_T_TYPE = __SWORD_TYPE;
+pub const __CPU_MASK_TYPE = __SYSCALL_ULONG_TYPE;
+pub const __OFF_T_MATCHES_OFF64_T = @as(c_int, 1);
+pub const __INO_T_MATCHES_INO64_T = @as(c_int, 1);
+pub const __RLIM_T_MATCHES_RLIM64_T = @as(c_int, 1);
+pub const __STATFS_MATCHES_STATFS64 = @as(c_int, 1);
+pub const __KERNEL_OLD_TIMEVAL_MATCHES_TIMEVAL64 = @as(c_int, 1);
+pub const __FD_SETSIZE = @as(c_int, 1024);
+pub const _BITS_TIME64_H = @as(c_int, 1);
+pub const __TIME64_T_TYPE = __TIME_T_TYPE;
+pub const CLOCKS_PER_SEC = __helpers.cast(__clock_t, __helpers.promoteIntLiteral(c_int, 1000000, .decimal));
+pub const CLOCK_REALTIME = @as(c_int, 0);
+pub const CLOCK_MONOTONIC = @as(c_int, 1);
+pub const CLOCK_PROCESS_CPUTIME_ID = @as(c_int, 2);
+pub const CLOCK_THREAD_CPUTIME_ID = @as(c_int, 3);
+pub const CLOCK_MONOTONIC_RAW = @as(c_int, 4);
+pub const CLOCK_REALTIME_COARSE = @as(c_int, 5);
+pub const CLOCK_MONOTONIC_COARSE = @as(c_int, 6);
+pub const CLOCK_BOOTTIME = @as(c_int, 7);
+pub const CLOCK_REALTIME_ALARM = @as(c_int, 8);
+pub const CLOCK_BOOTTIME_ALARM = @as(c_int, 9);
+pub const CLOCK_TAI = @as(c_int, 11);
+pub const TIMER_ABSTIME = @as(c_int, 1);
+pub const __clock_t_defined = @as(c_int, 1);
+pub const __time_t_defined = @as(c_int, 1);
+pub const __struct_tm_defined = @as(c_int, 1);
+pub const _STRUCT_TIMESPEC = @as(c_int, 1);
+pub const _BITS_ENDIAN_H = @as(c_int, 1);
+pub const __LITTLE_ENDIAN = @as(c_int, 1234);
+pub const __BIG_ENDIAN = @as(c_int, 4321);
+pub const __PDP_ENDIAN = @as(c_int, 3412);
+pub const _BITS_ENDIANNESS_H = @as(c_int, 1);
+pub const __BYTE_ORDER = __LITTLE_ENDIAN;
+pub const __FLOAT_WORD_ORDER = __BYTE_ORDER;
+pub inline fn __LONG_LONG_PAIR(HI: anytype, LO: anytype) @TypeOf(HI) {
+    _ = &HI;
+    _ = &LO;
+    return blk: {
+        _ = &LO;
+        break :blk HI;
+    };
+}
+pub const __clockid_t_defined = @as(c_int, 1);
+pub const __timer_t_defined = @as(c_int, 1);
+pub const __itimerspec_defined = @as(c_int, 1);
+pub const __pid_t_defined = "";
+pub const _BITS_TYPES_LOCALE_T_H = @as(c_int, 1);
+pub const _BITS_TYPES___LOCALE_T_H = @as(c_int, 1);
+pub const TIME_UTC = @as(c_int, 1);
+pub inline fn __isleap(year: anytype) @TypeOf((__helpers.rem(year, @as(c_int, 4)) == @as(c_int, 0)) and ((__helpers.rem(year, @as(c_int, 100)) != @as(c_int, 0)) or (__helpers.rem(year, @as(c_int, 400)) == @as(c_int, 0)))) {
+    _ = &year;
+    return (__helpers.rem(year, @as(c_int, 4)) == @as(c_int, 0)) and ((__helpers.rem(year, @as(c_int, 100)) != @as(c_int, 0)) or (__helpers.rem(year, @as(c_int, 400)) == @as(c_int, 0)));
+}
+pub const _CTYPE_H = @as(c_int, 1);
+pub inline fn _ISbit(bit: anytype) @TypeOf(if (__helpers.cast(bool, bit < @as(c_int, 8))) (@as(c_int, 1) << bit) << @as(c_int, 8) else (@as(c_int, 1) << bit) >> @as(c_int, 8)) {
+    _ = &bit;
+    return if (__helpers.cast(bool, bit < @as(c_int, 8))) (@as(c_int, 1) << bit) << @as(c_int, 8) else (@as(c_int, 1) << bit) >> @as(c_int, 8);
+}
+pub inline fn __isctype(c: anytype, @"type": anytype) @TypeOf(__ctype_b_loc().*[@as(usize, @intCast(__helpers.cast(c_int, c)))] & __helpers.cast(c_ushort, @"type")) {
+    _ = &c;
+    _ = &@"type";
+    return __ctype_b_loc().*[@as(usize, @intCast(__helpers.cast(c_int, c)))] & __helpers.cast(c_ushort, @"type");
+}
+pub inline fn __isascii(c: anytype) @TypeOf((c & ~@as(c_int, 0x7f)) == @as(c_int, 0)) {
+    _ = &c;
+    return (c & ~@as(c_int, 0x7f)) == @as(c_int, 0);
+}
+pub inline fn __toascii(c: anytype) @TypeOf(c & @as(c_int, 0x7f)) {
+    _ = &c;
+    return c & @as(c_int, 0x7f);
+}
+pub const __exctype = @compileError("unable to translate C expr: unexpected token 'extern'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/ctype.h:102:9
+pub const __tobody = @compileError("unable to translate macro: undefined identifier `__res`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/ctype.h:155:9
+pub inline fn __isctype_l(c: anytype, @"type": anytype, locale: anytype) @TypeOf(locale.*.__ctype_b[@as(usize, @intCast(__helpers.cast(c_int, c)))] & __helpers.cast(c_ushort, @"type")) {
+    _ = &c;
+    _ = &@"type";
+    _ = &locale;
+    return locale.*.__ctype_b[@as(usize, @intCast(__helpers.cast(c_int, c)))] & __helpers.cast(c_ushort, @"type");
+}
+pub const __exctype_l = @compileError("unable to translate C expr: unexpected token 'extern'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/ctype.h:244:10
+pub inline fn __isalnum_l(c: anytype, l: anytype) @TypeOf(__isctype_l(c, _ISalnum, l)) {
+    _ = &c;
+    _ = &l;
+    return __isctype_l(c, _ISalnum, l);
+}
+pub inline fn __isalpha_l(c: anytype, l: anytype) @TypeOf(__isctype_l(c, _ISalpha, l)) {
+    _ = &c;
+    _ = &l;
+    return __isctype_l(c, _ISalpha, l);
+}
+pub inline fn __iscntrl_l(c: anytype, l: anytype) @TypeOf(__isctype_l(c, _IScntrl, l)) {
+    _ = &c;
+    _ = &l;
+    return __isctype_l(c, _IScntrl, l);
+}
+pub inline fn __isdigit_l(c: anytype, l: anytype) @TypeOf(__isctype_l(c, _ISdigit, l)) {
+    _ = &c;
+    _ = &l;
+    return __isctype_l(c, _ISdigit, l);
+}
+pub inline fn __islower_l(c: anytype, l: anytype) @TypeOf(__isctype_l(c, _ISlower, l)) {
+    _ = &c;
+    _ = &l;
+    return __isctype_l(c, _ISlower, l);
+}
+pub inline fn __isgraph_l(c: anytype, l: anytype) @TypeOf(__isctype_l(c, _ISgraph, l)) {
+    _ = &c;
+    _ = &l;
+    return __isctype_l(c, _ISgraph, l);
+}
+pub inline fn __isprint_l(c: anytype, l: anytype) @TypeOf(__isctype_l(c, _ISprint, l)) {
+    _ = &c;
+    _ = &l;
+    return __isctype_l(c, _ISprint, l);
+}
+pub inline fn __ispunct_l(c: anytype, l: anytype) @TypeOf(__isctype_l(c, _ISpunct, l)) {
+    _ = &c;
+    _ = &l;
+    return __isctype_l(c, _ISpunct, l);
+}
+pub inline fn __isspace_l(c: anytype, l: anytype) @TypeOf(__isctype_l(c, _ISspace, l)) {
+    _ = &c;
+    _ = &l;
+    return __isctype_l(c, _ISspace, l);
+}
+pub inline fn __isupper_l(c: anytype, l: anytype) @TypeOf(__isctype_l(c, _ISupper, l)) {
+    _ = &c;
+    _ = &l;
+    return __isctype_l(c, _ISupper, l);
+}
+pub inline fn __isxdigit_l(c: anytype, l: anytype) @TypeOf(__isctype_l(c, _ISxdigit, l)) {
+    _ = &c;
+    _ = &l;
+    return __isctype_l(c, _ISxdigit, l);
+}
+pub inline fn __isblank_l(c: anytype, l: anytype) @TypeOf(__isctype_l(c, _ISblank, l)) {
+    _ = &c;
+    _ = &l;
+    return __isctype_l(c, _ISblank, l);
+}
+pub const _WCHAR_H = @as(c_int, 1);
+pub const _BITS_FLOATN_H = "";
+pub const __HAVE_FLOAT128 = @as(c_int, 1);
+pub const __HAVE_DISTINCT_FLOAT128 = @as(c_int, 1);
+pub const __HAVE_FLOAT64X = @as(c_int, 1);
+pub const __HAVE_FLOAT64X_LONG_DOUBLE = @as(c_int, 1);
+pub const __f128 = @compileError("unable to translate macro: undefined identifier `f128`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/floatn.h:72:12
+pub const __CFLOAT128 = @compileError("unable to translate: invalid numeric type"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/floatn.h:86:12
+pub const _BITS_FLOATN_COMMON_H = "";
+pub const __HAVE_FLOAT16 = @as(c_int, 0);
+pub const __HAVE_FLOAT32 = @as(c_int, 1);
+pub const __HAVE_FLOAT64 = @as(c_int, 1);
+pub const __HAVE_FLOAT32X = @as(c_int, 1);
+pub const __HAVE_FLOAT128X = @as(c_int, 0);
+pub const __HAVE_DISTINCT_FLOAT16 = __HAVE_FLOAT16;
+pub const __HAVE_DISTINCT_FLOAT32 = @as(c_int, 0);
+pub const __HAVE_DISTINCT_FLOAT64 = @as(c_int, 0);
+pub const __HAVE_DISTINCT_FLOAT32X = @as(c_int, 0);
+pub const __HAVE_DISTINCT_FLOAT64X = @as(c_int, 0);
+pub const __HAVE_DISTINCT_FLOAT128X = __HAVE_FLOAT128X;
+pub const __HAVE_FLOAT128_UNLIKE_LDBL = (__HAVE_DISTINCT_FLOAT128 != 0) and (__LDBL_MANT_DIG__ != @as(c_int, 113));
+pub const __HAVE_FLOATN_NOT_TYPEDEF = @as(c_int, 1);
+pub const __f32 = @compileError("unable to translate macro: undefined identifier `f32`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/floatn-common.h:93:12
+pub const __f64 = @compileError("unable to translate macro: undefined identifier `f64`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/floatn-common.h:105:12
+pub const __f32x = @compileError("unable to translate macro: undefined identifier `f32x`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/floatn-common.h:113:12
+pub const __f64x = @compileError("unable to translate macro: undefined identifier `f64x`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/floatn-common.h:125:12
+pub const __CFLOAT32 = @compileError("unable to translate: invalid numeric type"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/floatn-common.h:151:12
+pub const __CFLOAT64 = @compileError("unable to translate: invalid numeric type"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/floatn-common.h:163:12
+pub const __CFLOAT32X = @compileError("unable to translate: invalid numeric type"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/floatn-common.h:171:12
+pub const __CFLOAT64X = @compileError("unable to translate: invalid numeric type"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/floatn-common.h:183:12
+pub const __need_wchar_t = "";
+pub const __need___va_list = "";
+pub const __STDC_VERSION_STDARG_H__ = @as(c_int, 0);
+pub const va_start = @compileError("unable to translate macro: undefined identifier `__builtin_va_start`"); // /nix/store/9zyky24fffkbhnkmjcnrjcl3dmvx6w9x-zig-0.16.0/lib/compiler/aro/include/stdarg.h:12:9
+pub const va_end = @compileError("unable to translate macro: undefined identifier `__builtin_va_end`"); // /nix/store/9zyky24fffkbhnkmjcnrjcl3dmvx6w9x-zig-0.16.0/lib/compiler/aro/include/stdarg.h:14:9
+pub const va_arg = @compileError("unable to translate macro: undefined identifier `__builtin_va_arg`"); // /nix/store/9zyky24fffkbhnkmjcnrjcl3dmvx6w9x-zig-0.16.0/lib/compiler/aro/include/stdarg.h:15:9
+pub const __va_copy = @compileError("unable to translate macro: undefined identifier `__builtin_va_copy`"); // /nix/store/9zyky24fffkbhnkmjcnrjcl3dmvx6w9x-zig-0.16.0/lib/compiler/aro/include/stdarg.h:18:9
+pub const va_copy = @compileError("unable to translate macro: undefined identifier `__builtin_va_copy`"); // /nix/store/9zyky24fffkbhnkmjcnrjcl3dmvx6w9x-zig-0.16.0/lib/compiler/aro/include/stdarg.h:22:9
+pub const __GNUC_VA_LIST = @as(c_int, 1);
+pub const _VA_LIST_DEFINED = "";
+pub const _BITS_WCHAR_H = @as(c_int, 1);
+pub const __WCHAR_MAX = __WCHAR_MAX__;
+pub const __WCHAR_MIN = -__WCHAR_MAX - @as(c_int, 1);
+pub const __wint_t_defined = @as(c_int, 1);
+pub const _WINT_T = @as(c_int, 1);
+pub const __mbstate_t_defined = @as(c_int, 1);
+pub const ____mbstate_t_defined = @as(c_int, 1);
+pub const ____FILE_defined = @as(c_int, 1);
+pub const __FILE_defined = @as(c_int, 1);
+pub const WCHAR_MIN = __WCHAR_MIN;
+pub const WCHAR_MAX = __WCHAR_MAX;
+pub const WEOF = __helpers.promoteIntLiteral(c_uint, 0xffffffff, .hex);
+pub const _BITS_WCTYPE_WCHAR_H = @as(c_int, 1);
+pub inline fn _ISwbit(bit: anytype) @TypeOf(if (__helpers.cast(bool, bit < @as(c_int, 8))) __helpers.cast(c_int, (@as(c_ulong, 1) << bit) << @as(c_int, 24)) else if (__helpers.cast(bool, bit < @as(c_int, 16))) __helpers.cast(c_int, (@as(c_ulong, 1) << bit) << @as(c_int, 8)) else if (__helpers.cast(bool, bit < @as(c_int, 24))) __helpers.cast(c_int, (@as(c_ulong, 1) << bit) >> @as(c_int, 8)) else __helpers.cast(c_int, (@as(c_ulong, 1) << bit) >> @as(c_int, 24))) {
+    _ = &bit;
+    return if (__helpers.cast(bool, bit < @as(c_int, 8))) __helpers.cast(c_int, (@as(c_ulong, 1) << bit) << @as(c_int, 24)) else if (__helpers.cast(bool, bit < @as(c_int, 16))) __helpers.cast(c_int, (@as(c_ulong, 1) << bit) << @as(c_int, 8)) else if (__helpers.cast(bool, bit < @as(c_int, 24))) __helpers.cast(c_int, (@as(c_ulong, 1) << bit) >> @as(c_int, 8)) else __helpers.cast(c_int, (@as(c_ulong, 1) << bit) >> @as(c_int, 24));
+}
+pub const _STDIO_H = @as(c_int, 1);
+pub const _____fpos_t_defined = @as(c_int, 1);
+pub const _____fpos64_t_defined = @as(c_int, 1);
+pub const __struct_FILE_defined = @as(c_int, 1);
+pub const __getc_unlocked_body = @compileError("TODO postfix inc/dec expr"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/struct_FILE.h:113:9
+pub const __putc_unlocked_body = @compileError("TODO postfix inc/dec expr"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/struct_FILE.h:117:9
+pub const _IO_EOF_SEEN = @as(c_int, 0x0010);
+pub inline fn __feof_unlocked_body(_fp: anytype) @TypeOf((_fp.*._flags & _IO_EOF_SEEN) != @as(c_int, 0)) {
+    _ = &_fp;
+    return (_fp.*._flags & _IO_EOF_SEEN) != @as(c_int, 0);
+}
+pub const _IO_ERR_SEEN = @as(c_int, 0x0020);
+pub inline fn __ferror_unlocked_body(_fp: anytype) @TypeOf((_fp.*._flags & _IO_ERR_SEEN) != @as(c_int, 0)) {
+    _ = &_fp;
+    return (_fp.*._flags & _IO_ERR_SEEN) != @as(c_int, 0);
+}
+pub const _IO_USER_LOCK = __helpers.promoteIntLiteral(c_int, 0x8000, .hex);
+pub const __off_t_defined = "";
+pub const __ssize_t_defined = "";
+pub const _IOFBF = @as(c_int, 0);
+pub const _IOLBF = @as(c_int, 1);
+pub const _IONBF = @as(c_int, 2);
+pub const BUFSIZ = @as(c_int, 8192);
+pub const EOF = -@as(c_int, 1);
+pub const SEEK_SET = @as(c_int, 0);
+pub const SEEK_CUR = @as(c_int, 1);
+pub const SEEK_END = @as(c_int, 2);
+pub const P_tmpdir = "/tmp";
+pub const L_tmpnam = @as(c_int, 20);
+pub const TMP_MAX = __helpers.promoteIntLiteral(c_int, 238328, .decimal);
+pub const _BITS_STDIO_LIM_H = @as(c_int, 1);
+pub const FILENAME_MAX = @as(c_int, 4096);
+pub const L_ctermid = @as(c_int, 9);
+pub const FOPEN_MAX = @as(c_int, 16);
+pub const __attr_dealloc_fclose = __attr_dealloc(fclose, @as(c_int, 1));
+pub const __CLANG_STDINT_H = "";
+pub const _STDINT_H = @as(c_int, 1);
+pub const _BITS_STDINT_INTN_H = @as(c_int, 1);
+pub const _BITS_STDINT_UINTN_H = @as(c_int, 1);
+pub const _BITS_STDINT_LEAST_H = @as(c_int, 1);
+pub const __intptr_t_defined = "";
+pub const INT8_MIN = -@as(c_int, 128);
+pub const INT16_MIN = -@as(c_int, 32767) - @as(c_int, 1);
+pub const INT32_MIN = -__helpers.promoteIntLiteral(c_int, 2147483647, .decimal) - @as(c_int, 1);
+pub const INT64_MIN = -__INT64_C(__helpers.promoteIntLiteral(c_int, 9223372036854775807, .decimal)) - @as(c_int, 1);
+pub const INT8_MAX = @as(c_int, 127);
+pub const INT16_MAX = @as(c_int, 32767);
+pub const INT32_MAX = __helpers.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const INT64_MAX = __INT64_C(__helpers.promoteIntLiteral(c_int, 9223372036854775807, .decimal));
+pub const UINT8_MAX = @as(c_int, 255);
+pub const UINT16_MAX = __helpers.promoteIntLiteral(c_int, 65535, .decimal);
+pub const UINT32_MAX = __helpers.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const UINT64_MAX = __UINT64_C(__helpers.promoteIntLiteral(c_int, 18446744073709551615, .decimal));
+pub const INT_LEAST8_MIN = -@as(c_int, 128);
+pub const INT_LEAST16_MIN = -@as(c_int, 32767) - @as(c_int, 1);
+pub const INT_LEAST32_MIN = -__helpers.promoteIntLiteral(c_int, 2147483647, .decimal) - @as(c_int, 1);
+pub const INT_LEAST64_MIN = -__INT64_C(__helpers.promoteIntLiteral(c_int, 9223372036854775807, .decimal)) - @as(c_int, 1);
+pub const INT_LEAST8_MAX = @as(c_int, 127);
+pub const INT_LEAST16_MAX = @as(c_int, 32767);
+pub const INT_LEAST32_MAX = __helpers.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const INT_LEAST64_MAX = __INT64_C(__helpers.promoteIntLiteral(c_int, 9223372036854775807, .decimal));
+pub const UINT_LEAST8_MAX = @as(c_int, 255);
+pub const UINT_LEAST16_MAX = __helpers.promoteIntLiteral(c_int, 65535, .decimal);
+pub const UINT_LEAST32_MAX = __helpers.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub const UINT_LEAST64_MAX = __UINT64_C(__helpers.promoteIntLiteral(c_int, 18446744073709551615, .decimal));
+pub const INT_FAST8_MIN = -@as(c_int, 128);
+pub const INT_FAST16_MIN = -__helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal) - @as(c_int, 1);
+pub const INT_FAST32_MIN = -__helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal) - @as(c_int, 1);
+pub const INT_FAST64_MIN = -__INT64_C(__helpers.promoteIntLiteral(c_int, 9223372036854775807, .decimal)) - @as(c_int, 1);
+pub const INT_FAST8_MAX = @as(c_int, 127);
+pub const INT_FAST16_MAX = __helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const INT_FAST32_MAX = __helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const INT_FAST64_MAX = __INT64_C(__helpers.promoteIntLiteral(c_int, 9223372036854775807, .decimal));
+pub const UINT_FAST8_MAX = @as(c_int, 255);
+pub const UINT_FAST16_MAX = __helpers.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const UINT_FAST32_MAX = __helpers.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const UINT_FAST64_MAX = __UINT64_C(__helpers.promoteIntLiteral(c_int, 18446744073709551615, .decimal));
+pub const INTPTR_MIN = -__helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal) - @as(c_int, 1);
+pub const INTPTR_MAX = __helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const UINTPTR_MAX = __helpers.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const INTMAX_MIN = -__INT64_C(__helpers.promoteIntLiteral(c_int, 9223372036854775807, .decimal)) - @as(c_int, 1);
+pub const INTMAX_MAX = __INT64_C(__helpers.promoteIntLiteral(c_int, 9223372036854775807, .decimal));
+pub const UINTMAX_MAX = __UINT64_C(__helpers.promoteIntLiteral(c_int, 18446744073709551615, .decimal));
+pub const PTRDIFF_MIN = -__helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal) - @as(c_int, 1);
+pub const PTRDIFF_MAX = __helpers.promoteIntLiteral(c_long, 9223372036854775807, .decimal);
+pub const SIG_ATOMIC_MIN = -__helpers.promoteIntLiteral(c_int, 2147483647, .decimal) - @as(c_int, 1);
+pub const SIG_ATOMIC_MAX = __helpers.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const SIZE_MAX = __helpers.promoteIntLiteral(c_ulong, 18446744073709551615, .decimal);
+pub const WINT_MIN = @as(c_uint, 0);
+pub const WINT_MAX = __helpers.promoteIntLiteral(c_uint, 4294967295, .decimal);
+pub inline fn INT8_C(c: anytype) @TypeOf(c) {
+    _ = &c;
+    return c;
+}
+pub inline fn INT16_C(c: anytype) @TypeOf(c) {
+    _ = &c;
+    return c;
+}
+pub inline fn INT32_C(c: anytype) @TypeOf(c) {
+    _ = &c;
+    return c;
+}
+pub const INT64_C = __helpers.L_SUFFIX;
+pub inline fn UINT8_C(c: anytype) @TypeOf(c) {
+    _ = &c;
+    return c;
+}
+pub inline fn UINT16_C(c: anytype) @TypeOf(c) {
+    _ = &c;
+    return c;
+}
+pub const UINT32_C = __helpers.U_SUFFIX;
+pub const UINT64_C = __helpers.UL_SUFFIX;
+pub const INTMAX_C = __helpers.L_SUFFIX;
+pub const UINTMAX_C = __helpers.UL_SUFFIX;
+pub const _STDLIB_H = @as(c_int, 1);
+pub const WNOHANG = @as(c_int, 1);
+pub const WUNTRACED = @as(c_int, 2);
+pub const WSTOPPED = @as(c_int, 2);
+pub const WEXITED = @as(c_int, 4);
+pub const WCONTINUED = @as(c_int, 8);
+pub const WNOWAIT = __helpers.promoteIntLiteral(c_int, 0x01000000, .hex);
+pub const __WNOTHREAD = __helpers.promoteIntLiteral(c_int, 0x20000000, .hex);
+pub const __WALL = __helpers.promoteIntLiteral(c_int, 0x40000000, .hex);
+pub const __WCLONE = __helpers.promoteIntLiteral(c_int, 0x80000000, .hex);
+pub inline fn __WEXITSTATUS(status: anytype) @TypeOf((status & __helpers.promoteIntLiteral(c_int, 0xff00, .hex)) >> @as(c_int, 8)) {
+    _ = &status;
+    return (status & __helpers.promoteIntLiteral(c_int, 0xff00, .hex)) >> @as(c_int, 8);
+}
+pub inline fn __WTERMSIG(status: anytype) @TypeOf(status & @as(c_int, 0x7f)) {
+    _ = &status;
+    return status & @as(c_int, 0x7f);
+}
+pub inline fn __WSTOPSIG(status: anytype) @TypeOf(__WEXITSTATUS(status)) {
+    _ = &status;
+    return __WEXITSTATUS(status);
+}
+pub inline fn __WIFEXITED(status: anytype) @TypeOf(__WTERMSIG(status) == @as(c_int, 0)) {
+    _ = &status;
+    return __WTERMSIG(status) == @as(c_int, 0);
+}
+pub inline fn __WIFSIGNALED(status: anytype) @TypeOf((__helpers.cast(i8, (status & @as(c_int, 0x7f)) + @as(c_int, 1)) >> @as(c_int, 1)) > @as(c_int, 0)) {
+    _ = &status;
+    return (__helpers.cast(i8, (status & @as(c_int, 0x7f)) + @as(c_int, 1)) >> @as(c_int, 1)) > @as(c_int, 0);
+}
+pub inline fn __WIFSTOPPED(status: anytype) @TypeOf((status & @as(c_int, 0xff)) == @as(c_int, 0x7f)) {
+    _ = &status;
+    return (status & @as(c_int, 0xff)) == @as(c_int, 0x7f);
+}
+pub inline fn __WIFCONTINUED(status: anytype) @TypeOf(status == __W_CONTINUED) {
+    _ = &status;
+    return status == __W_CONTINUED;
+}
+pub inline fn __WCOREDUMP(status: anytype) @TypeOf(status & __WCOREFLAG) {
+    _ = &status;
+    return status & __WCOREFLAG;
+}
+pub inline fn __W_EXITCODE(ret: anytype, sig: anytype) @TypeOf((ret << @as(c_int, 8)) | sig) {
+    _ = &ret;
+    _ = &sig;
+    return (ret << @as(c_int, 8)) | sig;
+}
+pub inline fn __W_STOPCODE(sig: anytype) @TypeOf((sig << @as(c_int, 8)) | @as(c_int, 0x7f)) {
+    _ = &sig;
+    return (sig << @as(c_int, 8)) | @as(c_int, 0x7f);
+}
+pub const __W_CONTINUED = __helpers.promoteIntLiteral(c_int, 0xffff, .hex);
+pub const __WCOREFLAG = @as(c_int, 0x80);
+pub inline fn WEXITSTATUS(status: anytype) @TypeOf(__WEXITSTATUS(status)) {
+    _ = &status;
+    return __WEXITSTATUS(status);
+}
+pub inline fn WTERMSIG(status: anytype) @TypeOf(__WTERMSIG(status)) {
+    _ = &status;
+    return __WTERMSIG(status);
+}
+pub inline fn WSTOPSIG(status: anytype) @TypeOf(__WSTOPSIG(status)) {
+    _ = &status;
+    return __WSTOPSIG(status);
+}
+pub inline fn WIFEXITED(status: anytype) @TypeOf(__WIFEXITED(status)) {
+    _ = &status;
+    return __WIFEXITED(status);
+}
+pub inline fn WIFSIGNALED(status: anytype) @TypeOf(__WIFSIGNALED(status)) {
+    _ = &status;
+    return __WIFSIGNALED(status);
+}
+pub inline fn WIFSTOPPED(status: anytype) @TypeOf(__WIFSTOPPED(status)) {
+    _ = &status;
+    return __WIFSTOPPED(status);
+}
+pub inline fn WIFCONTINUED(status: anytype) @TypeOf(__WIFCONTINUED(status)) {
+    _ = &status;
+    return __WIFCONTINUED(status);
+}
+pub const __ldiv_t_defined = @as(c_int, 1);
+pub const __lldiv_t_defined = @as(c_int, 1);
+pub const RAND_MAX = __helpers.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const EXIT_FAILURE = @as(c_int, 1);
+pub const EXIT_SUCCESS = @as(c_int, 0);
+pub const MB_CUR_MAX = __ctype_get_mb_cur_max();
+pub const _SYS_TYPES_H = @as(c_int, 1);
+pub const __ino_t_defined = "";
+pub const __dev_t_defined = "";
+pub const __gid_t_defined = "";
+pub const __mode_t_defined = "";
+pub const __nlink_t_defined = "";
+pub const __uid_t_defined = "";
+pub const __id_t_defined = "";
+pub const __key_t_defined = "";
+pub const __useconds_t_defined = "";
+pub const __suseconds_t_defined = "";
+pub const __BIT_TYPES_DEFINED__ = @as(c_int, 1);
+pub const __blksize_t_defined = "";
+pub const __blkcnt_t_defined = "";
+pub const __fsblkcnt_t_defined = "";
+pub const __fsfilcnt_t_defined = "";
+pub const _BITS_PTHREADTYPES_COMMON_H = @as(c_int, 1);
+pub const _THREAD_SHARED_TYPES_H = @as(c_int, 1);
+pub const _BITS_PTHREADTYPES_ARCH_H = @as(c_int, 1);
+pub const __SIZEOF_PTHREAD_MUTEX_T = @as(c_int, 40);
+pub const __SIZEOF_PTHREAD_ATTR_T = @as(c_int, 56);
+pub const __SIZEOF_PTHREAD_RWLOCK_T = @as(c_int, 56);
+pub const __SIZEOF_PTHREAD_BARRIER_T = @as(c_int, 32);
+pub const __SIZEOF_PTHREAD_MUTEXATTR_T = @as(c_int, 4);
+pub const __SIZEOF_PTHREAD_COND_T = @as(c_int, 48);
+pub const __SIZEOF_PTHREAD_CONDATTR_T = @as(c_int, 4);
+pub const __SIZEOF_PTHREAD_RWLOCKATTR_T = @as(c_int, 8);
+pub const __SIZEOF_PTHREAD_BARRIERATTR_T = @as(c_int, 4);
+pub const __LOCK_ALIGNMENT = "";
+pub const __ONCE_ALIGNMENT = "";
+pub const _BITS_ATOMIC_WIDE_COUNTER_H = "";
+pub const _THREAD_MUTEX_INTERNAL_H = @as(c_int, 1);
+pub const __PTHREAD_MUTEX_HAVE_PREV = @as(c_int, 1);
+pub const __PTHREAD_MUTEX_INITIALIZER = @compileError("unable to translate C expr: unexpected token '{'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/struct_mutex.h:56:10
+pub const _RWLOCK_INTERNAL_H = "";
+pub const __PTHREAD_RWLOCK_ELISION_EXTRA = @compileError("unable to translate C expr: unexpected token '{'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/struct_rwlock.h:40:11
+pub inline fn __PTHREAD_RWLOCK_INITIALIZER(__flags: anytype) @TypeOf(__flags) {
+    _ = &__flags;
+    return blk: {
+        _ = @as(c_int, 0);
+        _ = @as(c_int, 0);
+        _ = @as(c_int, 0);
+        _ = @as(c_int, 0);
+        _ = @as(c_int, 0);
+        _ = @as(c_int, 0);
+        _ = @as(c_int, 0);
+        _ = @as(c_int, 0);
+        _ = &__PTHREAD_RWLOCK_ELISION_EXTRA;
+        _ = @as(c_int, 0);
+        break :blk __flags;
+    };
+}
+pub const __ONCE_FLAG_INIT = @compileError("unable to translate C expr: unexpected token '{'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/thread-shared-types.h:114:9
+pub const __have_pthread_attr_t = @as(c_int, 1);
+pub const __COMPAR_FN_T = "";
+pub const _STRING_H = @as(c_int, 1);
+pub const _SIGNAL_H = "";
+pub const _BITS_SIGNUM_GENERIC_H = @as(c_int, 1);
+pub const SIG_ERR = __helpers.cast(__sighandler_t, -@as(c_int, 1));
+pub const SIG_DFL = __helpers.cast(__sighandler_t, @as(c_int, 0));
+pub const SIG_IGN = __helpers.cast(__sighandler_t, @as(c_int, 1));
+pub const SIG_HOLD = __helpers.cast(__sighandler_t, @as(c_int, 2));
+pub const SIGINT = @as(c_int, 2);
+pub const SIGILL = @as(c_int, 4);
+pub const SIGABRT = @as(c_int, 6);
+pub const SIGFPE = @as(c_int, 8);
+pub const SIGSEGV = @as(c_int, 11);
+pub const SIGTERM = @as(c_int, 15);
+pub const SIGHUP = @as(c_int, 1);
+pub const SIGQUIT = @as(c_int, 3);
+pub const SIGTRAP = @as(c_int, 5);
+pub const SIGKILL = @as(c_int, 9);
+pub const SIGPIPE = @as(c_int, 13);
+pub const SIGALRM = @as(c_int, 14);
+pub const SIGIO = SIGPOLL;
+pub const SIGIOT = SIGABRT;
+pub const SIGCLD = SIGCHLD;
+pub const _BITS_SIGNUM_ARCH_H = @as(c_int, 1);
+pub const SIGSTKFLT = @as(c_int, 16);
+pub const SIGPWR = @as(c_int, 30);
+pub const SIGBUS = @as(c_int, 7);
+pub const SIGSYS = @as(c_int, 31);
+pub const SIGURG = @as(c_int, 23);
+pub const SIGSTOP = @as(c_int, 19);
+pub const SIGTSTP = @as(c_int, 20);
+pub const SIGCONT = @as(c_int, 18);
+pub const SIGCHLD = @as(c_int, 17);
+pub const SIGTTIN = @as(c_int, 21);
+pub const SIGTTOU = @as(c_int, 22);
+pub const SIGPOLL = @as(c_int, 29);
+pub const SIGXFSZ = @as(c_int, 25);
+pub const SIGXCPU = @as(c_int, 24);
+pub const SIGVTALRM = @as(c_int, 26);
+pub const SIGPROF = @as(c_int, 27);
+pub const SIGUSR1 = @as(c_int, 10);
+pub const SIGUSR2 = @as(c_int, 12);
+pub const SIGWINCH = @as(c_int, 28);
+pub const __SIGRTMIN = @as(c_int, 32);
+pub const __SIGRTMAX = @as(c_int, 64);
+pub const _NSIG = __SIGRTMAX + @as(c_int, 1);
+pub const __sig_atomic_t_defined = @as(c_int, 1);
+pub const __sigset_t_defined = @as(c_int, 1);
+pub const ____sigset_t_defined = "";
+pub const _SIGSET_NWORDS = __helpers.div(@as(c_int, 1024), @as(c_int, 8) * __helpers.sizeof(c_ulong));
+pub const __siginfo_t_defined = @as(c_int, 1);
+pub const ____sigval_t_defined = "";
+pub const __SI_MAX_SIZE = @as(c_int, 128);
+pub const __SI_PAD_SIZE = __helpers.div(__SI_MAX_SIZE, __helpers.sizeof(c_int)) - @as(c_int, 4);
+pub const _BITS_SIGINFO_ARCH_H = @as(c_int, 1);
+pub const __SI_ALIGNMENT = "";
+pub const __SI_BAND_TYPE = c_long;
+pub const __SI_CLOCK_T = __clock_t;
+pub const __SI_ERRNO_THEN_CODE = @as(c_int, 1);
+pub const __SI_HAVE_SIGSYS = @as(c_int, 1);
+pub const __SI_SIGFAULT_ADDL = "";
+pub const si_pid = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:128:9
+pub const si_uid = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:129:9
+pub const si_timerid = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:130:9
+pub const si_overrun = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:131:9
+pub const si_status = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:132:9
+pub const si_utime = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:133:9
+pub const si_stime = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:134:9
+pub const si_value = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:135:9
+pub const si_int = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:136:9
+pub const si_ptr = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:137:9
+pub const si_addr = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:138:9
+pub const si_addr_lsb = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:139:9
+pub const si_lower = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:140:9
+pub const si_upper = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:141:9
+pub const si_pkey = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:142:9
+pub const si_band = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:143:9
+pub const si_fd = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:144:9
+pub const si_call_addr = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:146:10
+pub const si_syscall = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:147:10
+pub const si_arch = @compileError("unable to translate macro: undefined identifier `_sifields`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/siginfo_t.h:148:10
+pub const _BITS_SIGINFO_CONSTS_H = @as(c_int, 1);
+pub const __SI_ASYNCIO_AFTER_SIGIO = @as(c_int, 1);
+pub const __sigevent_t_defined = @as(c_int, 1);
+pub const __SIGEV_MAX_SIZE = @as(c_int, 64);
+pub const __SIGEV_PAD_SIZE = __helpers.div(__SIGEV_MAX_SIZE, __helpers.sizeof(c_int)) - @as(c_int, 4);
+pub const sigev_notify_function = @compileError("unable to translate macro: undefined identifier `_sigev_un`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/sigevent_t.h:45:9
+pub const sigev_notify_attributes = @compileError("unable to translate macro: undefined identifier `_sigev_un`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/types/sigevent_t.h:46:9
+pub const _BITS_SIGEVENT_CONSTS_H = @as(c_int, 1);
+pub const _BITS_SIGACTION_H = @as(c_int, 1);
+pub const sa_handler = @compileError("unable to translate macro: undefined identifier `__sigaction_handler`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/sigaction.h:39:10
+pub const sa_sigaction = @compileError("unable to translate macro: undefined identifier `__sigaction_handler`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/sigaction.h:40:10
+pub const SA_NOCLDSTOP = @as(c_int, 1);
+pub const SA_NOCLDWAIT = @as(c_int, 2);
+pub const SA_SIGINFO = @as(c_int, 4);
+pub const SA_ONSTACK = __helpers.promoteIntLiteral(c_int, 0x08000000, .hex);
+pub const SA_RESTART = __helpers.promoteIntLiteral(c_int, 0x10000000, .hex);
+pub const SA_NODEFER = __helpers.promoteIntLiteral(c_int, 0x40000000, .hex);
+pub const SA_RESETHAND = __helpers.promoteIntLiteral(c_int, 0x80000000, .hex);
+pub const SIG_BLOCK = @as(c_int, 0);
+pub const SIG_UNBLOCK = @as(c_int, 1);
+pub const SIG_SETMASK = @as(c_int, 2);
+pub const __stack_t_defined = @as(c_int, 1);
+pub const _SYS_UCONTEXT_H = @as(c_int, 1);
+pub const __NGREG = @as(c_int, 23);
+pub const _BITS_SIGSTACK_H = @as(c_int, 1);
+pub const MINSIGSTKSZ = @as(c_int, 2048);
+pub const SIGSTKSZ = @as(c_int, 8192);
+pub const _BITS_SS_FLAGS_H = @as(c_int, 1);
+pub const _BITS_SIGTHREAD_H = @as(c_int, 1);
+pub const SIGRTMIN = __libc_current_sigrtmin();
+pub const SIGRTMAX = __libc_current_sigrtmax();
+pub const _GCC_LIMITS_H_ = "";
+pub const __CLANG_LIMITS_H = "";
+pub const _LIBC_LIMITS_H_ = @as(c_int, 1);
+pub const __GLIBC_USE_LIB_EXT2 = @as(c_int, 0);
+pub const __GLIBC_USE_IEC_60559_BFP_EXT = @as(c_int, 0);
+pub const __GLIBC_USE_IEC_60559_BFP_EXT_C23 = @as(c_int, 0);
+pub const __GLIBC_USE_IEC_60559_EXT = @as(c_int, 0);
+pub const __GLIBC_USE_IEC_60559_FUNCS_EXT = @as(c_int, 0);
+pub const __GLIBC_USE_IEC_60559_FUNCS_EXT_C23 = @as(c_int, 0);
+pub const __GLIBC_USE_IEC_60559_TYPES_EXT = @as(c_int, 0);
+pub const MB_LEN_MAX = @as(c_int, 16);
+pub const _BITS_POSIX1_LIM_H = @as(c_int, 1);
+pub const _POSIX_AIO_LISTIO_MAX = @as(c_int, 2);
+pub const _POSIX_AIO_MAX = @as(c_int, 1);
+pub const _POSIX_ARG_MAX = @as(c_int, 4096);
+pub const _POSIX_CHILD_MAX = @as(c_int, 25);
+pub const _POSIX_DELAYTIMER_MAX = @as(c_int, 32);
+pub const _POSIX_HOST_NAME_MAX = @as(c_int, 255);
+pub const _POSIX_LINK_MAX = @as(c_int, 8);
+pub const _POSIX_LOGIN_NAME_MAX = @as(c_int, 9);
+pub const _POSIX_MAX_CANON = @as(c_int, 255);
+pub const _POSIX_MAX_INPUT = @as(c_int, 255);
+pub const _POSIX_MQ_OPEN_MAX = @as(c_int, 8);
+pub const _POSIX_MQ_PRIO_MAX = @as(c_int, 32);
+pub const _POSIX_NAME_MAX = @as(c_int, 14);
+pub const _POSIX_NGROUPS_MAX = @as(c_int, 8);
+pub const _POSIX_OPEN_MAX = @as(c_int, 20);
+pub const _POSIX_PATH_MAX = @as(c_int, 256);
+pub const _POSIX_PIPE_BUF = @as(c_int, 512);
+pub const _POSIX_RE_DUP_MAX = @as(c_int, 255);
+pub const _POSIX_RTSIG_MAX = @as(c_int, 8);
+pub const _POSIX_SEM_NSEMS_MAX = @as(c_int, 256);
+pub const _POSIX_SEM_VALUE_MAX = @as(c_int, 32767);
+pub const _POSIX_SIGQUEUE_MAX = @as(c_int, 32);
+pub const _POSIX_SSIZE_MAX = @as(c_int, 32767);
+pub const _POSIX_STREAM_MAX = @as(c_int, 8);
+pub const _POSIX_SYMLINK_MAX = @as(c_int, 255);
+pub const _POSIX_SYMLOOP_MAX = @as(c_int, 8);
+pub const _POSIX_TIMER_MAX = @as(c_int, 32);
+pub const _POSIX_TTY_NAME_MAX = @as(c_int, 9);
+pub const _POSIX_TZNAME_MAX = @as(c_int, 6);
+pub const _POSIX_CLOCKRES_MIN = __helpers.promoteIntLiteral(c_int, 20000000, .decimal);
+pub const _LINUX_LIMITS_H = "";
+pub const NGROUPS_MAX = __helpers.promoteIntLiteral(c_int, 65536, .decimal);
+pub const MAX_CANON = @as(c_int, 255);
+pub const MAX_INPUT = @as(c_int, 255);
+pub const NAME_MAX = @as(c_int, 255);
+pub const PATH_MAX = @as(c_int, 4096);
+pub const PIPE_BUF = @as(c_int, 4096);
+pub const XATTR_NAME_MAX = @as(c_int, 255);
+pub const XATTR_SIZE_MAX = __helpers.promoteIntLiteral(c_int, 65536, .decimal);
+pub const XATTR_LIST_MAX = __helpers.promoteIntLiteral(c_int, 65536, .decimal);
+pub const RTSIG_MAX = @as(c_int, 32);
+pub const _POSIX_THREAD_KEYS_MAX = @as(c_int, 128);
+pub const PTHREAD_KEYS_MAX = @as(c_int, 1024);
+pub const _POSIX_THREAD_DESTRUCTOR_ITERATIONS = @as(c_int, 4);
+pub const PTHREAD_DESTRUCTOR_ITERATIONS = _POSIX_THREAD_DESTRUCTOR_ITERATIONS;
+pub const _POSIX_THREAD_THREADS_MAX = @as(c_int, 64);
+pub const AIO_PRIO_DELTA_MAX = @as(c_int, 20);
+pub const PTHREAD_STACK_MIN = @as(c_int, 16384);
+pub const DELAYTIMER_MAX = __helpers.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const TTY_NAME_MAX = @as(c_int, 32);
+pub const LOGIN_NAME_MAX = @as(c_int, 256);
+pub const HOST_NAME_MAX = @as(c_int, 64);
+pub const MQ_PRIO_MAX = __helpers.promoteIntLiteral(c_int, 32768, .decimal);
+pub const SEM_VALUE_MAX = __helpers.promoteIntLiteral(c_int, 2147483647, .decimal);
+pub const SSIZE_MAX = LONG_MAX;
+pub const _BITS_POSIX2_LIM_H = @as(c_int, 1);
+pub const _POSIX2_BC_BASE_MAX = @as(c_int, 99);
+pub const _POSIX2_BC_DIM_MAX = @as(c_int, 2048);
+pub const _POSIX2_BC_SCALE_MAX = @as(c_int, 99);
+pub const _POSIX2_BC_STRING_MAX = @as(c_int, 1000);
+pub const _POSIX2_COLL_WEIGHTS_MAX = @as(c_int, 2);
+pub const _POSIX2_EXPR_NEST_MAX = @as(c_int, 32);
+pub const _POSIX2_LINE_MAX = @as(c_int, 2048);
+pub const _POSIX2_RE_DUP_MAX = @as(c_int, 255);
+pub const _POSIX2_CHARCLASS_NAME_MAX = @as(c_int, 14);
+pub const BC_BASE_MAX = _POSIX2_BC_BASE_MAX;
+pub const BC_DIM_MAX = _POSIX2_BC_DIM_MAX;
+pub const BC_SCALE_MAX = _POSIX2_BC_SCALE_MAX;
+pub const BC_STRING_MAX = _POSIX2_BC_STRING_MAX;
+pub const COLL_WEIGHTS_MAX = @as(c_int, 255);
+pub const EXPR_NEST_MAX = _POSIX2_EXPR_NEST_MAX;
+pub const LINE_MAX = _POSIX2_LINE_MAX;
+pub const CHARCLASS_NAME_MAX = @as(c_int, 2048);
+pub const RE_DUP_MAX = @as(c_int, 0x7fff);
+pub const _XOPEN_LIM_H = @as(c_int, 1);
+pub const _XOPEN_IOV_MAX = @compileError("unable to translate macro: undefined identifier `_POSIX_UIO_MAXIOV`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/xopen_lim.h:62:9
+pub const _BITS_UIO_LIM_H = @as(c_int, 1);
+pub const __IOV_MAX = @as(c_int, 1024);
+pub const IOV_MAX = __IOV_MAX;
+pub const NL_ARGMAX = _POSIX_ARG_MAX;
+pub const NL_LANGMAX = _POSIX2_LINE_MAX;
+pub const NL_MSGMAX = INT_MAX;
+pub const NL_SETMAX = INT_MAX;
+pub const NL_TEXTMAX = INT_MAX;
+pub const NZERO = @as(c_int, 20);
+pub const WORD_BIT = @as(c_int, 32);
+pub const LONG_BIT = @as(c_int, 64);
+pub const SCHAR_MAX = __SCHAR_MAX__;
+pub const SHRT_MAX = __SHRT_MAX__;
+pub const INT_MAX = __INT_MAX__;
+pub const LONG_MAX = __LONG_MAX__;
+pub const SCHAR_MIN = -__SCHAR_MAX__ - @as(c_int, 1);
+pub const SHRT_MIN = -__SHRT_MAX__ - @as(c_int, 1);
+pub const INT_MIN = -__INT_MAX__ - @as(c_int, 1);
+pub const LONG_MIN = -__LONG_MAX__ - @as(c_long, 1);
+pub const UCHAR_MAX = (__SCHAR_MAX__ * @as(c_int, 2)) + @as(c_int, 1);
+pub const USHRT_MAX = (__SHRT_MAX__ * @as(c_int, 2)) + @as(c_int, 1);
+pub const UINT_MAX = (__INT_MAX__ * @as(c_uint, 2)) + @as(c_uint, 1);
+pub const ULONG_MAX = (__LONG_MAX__ * @as(c_ulong, 2)) + @as(c_ulong, 1);
+pub const CHAR_BIT = __CHAR_BIT__;
+pub const CHAR_MIN = SCHAR_MIN;
+pub const CHAR_MAX = __SCHAR_MAX__;
+pub const LLONG_MIN = -__LONG_LONG_MAX__ - @as(c_longlong, 1);
+pub const LLONG_MAX = __LONG_LONG_MAX__;
+pub const ULLONG_MAX = (__LONG_LONG_MAX__ * @as(c_ulonglong, 2)) + @as(c_ulonglong, 1);
+pub const @"bool" = bool;
+pub const @"true" = @as(c_int, 1);
+pub const @"false" = @as(c_int, 0);
+pub const __bool_true_false_are_defined = @as(c_int, 1);
+pub const NOTCURSES_NCPORT = "";
+pub const _NETINET_IN_H = @as(c_int, 1);
+pub const _SYS_SOCKET_H = @as(c_int, 1);
+pub const __iovec_defined = @as(c_int, 1);
+pub const __BITS_SOCKET_H = "";
+pub const __socklen_t_defined = "";
+pub const PF_UNSPEC = @as(c_int, 0);
+pub const PF_LOCAL = @as(c_int, 1);
+pub const PF_UNIX = PF_LOCAL;
+pub const PF_FILE = PF_LOCAL;
+pub const PF_INET = @as(c_int, 2);
+pub const PF_AX25 = @as(c_int, 3);
+pub const PF_IPX = @as(c_int, 4);
+pub const PF_APPLETALK = @as(c_int, 5);
+pub const PF_NETROM = @as(c_int, 6);
+pub const PF_BRIDGE = @as(c_int, 7);
+pub const PF_ATMPVC = @as(c_int, 8);
+pub const PF_X25 = @as(c_int, 9);
+pub const PF_INET6 = @as(c_int, 10);
+pub const PF_ROSE = @as(c_int, 11);
+pub const PF_DECnet = @as(c_int, 12);
+pub const PF_NETBEUI = @as(c_int, 13);
+pub const PF_SECURITY = @as(c_int, 14);
+pub const PF_KEY = @as(c_int, 15);
+pub const PF_NETLINK = @as(c_int, 16);
+pub const PF_ROUTE = PF_NETLINK;
+pub const PF_PACKET = @as(c_int, 17);
+pub const PF_ASH = @as(c_int, 18);
+pub const PF_ECONET = @as(c_int, 19);
+pub const PF_ATMSVC = @as(c_int, 20);
+pub const PF_RDS = @as(c_int, 21);
+pub const PF_SNA = @as(c_int, 22);
+pub const PF_IRDA = @as(c_int, 23);
+pub const PF_PPPOX = @as(c_int, 24);
+pub const PF_WANPIPE = @as(c_int, 25);
+pub const PF_LLC = @as(c_int, 26);
+pub const PF_IB = @as(c_int, 27);
+pub const PF_MPLS = @as(c_int, 28);
+pub const PF_CAN = @as(c_int, 29);
+pub const PF_TIPC = @as(c_int, 30);
+pub const PF_BLUETOOTH = @as(c_int, 31);
+pub const PF_IUCV = @as(c_int, 32);
+pub const PF_RXRPC = @as(c_int, 33);
+pub const PF_ISDN = @as(c_int, 34);
+pub const PF_PHONET = @as(c_int, 35);
+pub const PF_IEEE802154 = @as(c_int, 36);
+pub const PF_CAIF = @as(c_int, 37);
+pub const PF_ALG = @as(c_int, 38);
+pub const PF_NFC = @as(c_int, 39);
+pub const PF_VSOCK = @as(c_int, 40);
+pub const PF_KCM = @as(c_int, 41);
+pub const PF_QIPCRTR = @as(c_int, 42);
+pub const PF_SMC = @as(c_int, 43);
+pub const PF_XDP = @as(c_int, 44);
+pub const PF_MCTP = @as(c_int, 45);
+pub const PF_MAX = @as(c_int, 46);
+pub const AF_UNSPEC = PF_UNSPEC;
+pub const AF_LOCAL = PF_LOCAL;
+pub const AF_UNIX = PF_UNIX;
+pub const AF_FILE = PF_FILE;
+pub const AF_INET = PF_INET;
+pub const AF_AX25 = PF_AX25;
+pub const AF_IPX = PF_IPX;
+pub const AF_APPLETALK = PF_APPLETALK;
+pub const AF_NETROM = PF_NETROM;
+pub const AF_BRIDGE = PF_BRIDGE;
+pub const AF_ATMPVC = PF_ATMPVC;
+pub const AF_X25 = PF_X25;
+pub const AF_INET6 = PF_INET6;
+pub const AF_ROSE = PF_ROSE;
+pub const AF_DECnet = PF_DECnet;
+pub const AF_NETBEUI = PF_NETBEUI;
+pub const AF_SECURITY = PF_SECURITY;
+pub const AF_KEY = PF_KEY;
+pub const AF_NETLINK = PF_NETLINK;
+pub const AF_ROUTE = PF_ROUTE;
+pub const AF_PACKET = PF_PACKET;
+pub const AF_ASH = PF_ASH;
+pub const AF_ECONET = PF_ECONET;
+pub const AF_ATMSVC = PF_ATMSVC;
+pub const AF_RDS = PF_RDS;
+pub const AF_SNA = PF_SNA;
+pub const AF_IRDA = PF_IRDA;
+pub const AF_PPPOX = PF_PPPOX;
+pub const AF_WANPIPE = PF_WANPIPE;
+pub const AF_LLC = PF_LLC;
+pub const AF_IB = PF_IB;
+pub const AF_MPLS = PF_MPLS;
+pub const AF_CAN = PF_CAN;
+pub const AF_TIPC = PF_TIPC;
+pub const AF_BLUETOOTH = PF_BLUETOOTH;
+pub const AF_IUCV = PF_IUCV;
+pub const AF_RXRPC = PF_RXRPC;
+pub const AF_ISDN = PF_ISDN;
+pub const AF_PHONET = PF_PHONET;
+pub const AF_IEEE802154 = PF_IEEE802154;
+pub const AF_CAIF = PF_CAIF;
+pub const AF_ALG = PF_ALG;
+pub const AF_NFC = PF_NFC;
+pub const AF_VSOCK = PF_VSOCK;
+pub const AF_KCM = PF_KCM;
+pub const AF_QIPCRTR = PF_QIPCRTR;
+pub const AF_SMC = PF_SMC;
+pub const AF_XDP = PF_XDP;
+pub const AF_MCTP = PF_MCTP;
+pub const AF_MAX = PF_MAX;
+pub const SOL_RAW = @as(c_int, 255);
+pub const SOL_DECNET = @as(c_int, 261);
+pub const SOL_X25 = @as(c_int, 262);
+pub const SOL_PACKET = @as(c_int, 263);
+pub const SOL_ATM = @as(c_int, 264);
+pub const SOL_AAL = @as(c_int, 265);
+pub const SOL_IRDA = @as(c_int, 266);
+pub const SOL_NETBEUI = @as(c_int, 267);
+pub const SOL_LLC = @as(c_int, 268);
+pub const SOL_DCCP = @as(c_int, 269);
+pub const SOL_NETLINK = @as(c_int, 270);
+pub const SOL_TIPC = @as(c_int, 271);
+pub const SOL_RXRPC = @as(c_int, 272);
+pub const SOL_PPPOL2TP = @as(c_int, 273);
+pub const SOL_BLUETOOTH = @as(c_int, 274);
+pub const SOL_PNPIPE = @as(c_int, 275);
+pub const SOL_RDS = @as(c_int, 276);
+pub const SOL_IUCV = @as(c_int, 277);
+pub const SOL_CAIF = @as(c_int, 278);
+pub const SOL_ALG = @as(c_int, 279);
+pub const SOL_NFC = @as(c_int, 280);
+pub const SOL_KCM = @as(c_int, 281);
+pub const SOL_TLS = @as(c_int, 282);
+pub const SOL_XDP = @as(c_int, 283);
+pub const SOL_MPTCP = @as(c_int, 284);
+pub const SOL_MCTP = @as(c_int, 285);
+pub const SOL_SMC = @as(c_int, 286);
+pub const SOL_VSOCK = @as(c_int, 287);
+pub const SOMAXCONN = @as(c_int, 4096);
+pub const _BITS_SOCKADDR_H = @as(c_int, 1);
+pub const __SOCKADDR_COMMON = @compileError("unable to translate macro: undefined identifier `family`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/sockaddr.h:34:9
+pub const __SOCKADDR_COMMON_SIZE = __helpers.sizeof(c_ushort);
+pub const _SS_SIZE = @as(c_int, 128);
+pub const __ss_aligntype = c_ulong;
+pub const _SS_PADSIZE = (_SS_SIZE - __SOCKADDR_COMMON_SIZE) - __helpers.sizeof(__ss_aligntype);
+pub inline fn CMSG_DATA(cmsg: anytype) @TypeOf(cmsg.*.__cmsg_data) {
+    _ = &cmsg;
+    return cmsg.*.__cmsg_data;
+}
+pub inline fn CMSG_NXTHDR(mhdr: anytype, cmsg: anytype) @TypeOf(__cmsg_nxthdr(mhdr, cmsg)) {
+    _ = &mhdr;
+    _ = &cmsg;
+    return __cmsg_nxthdr(mhdr, cmsg);
+}
+pub inline fn CMSG_FIRSTHDR(mhdr: anytype) @TypeOf(if (__helpers.cast(bool, __helpers.cast(usize, mhdr.*.msg_controllen) >= __helpers.sizeof(struct_cmsghdr))) __helpers.cast([*c]struct_cmsghdr, mhdr.*.msg_control) else __helpers.cast([*c]struct_cmsghdr, @as(c_int, 0))) {
+    _ = &mhdr;
+    return if (__helpers.cast(bool, __helpers.cast(usize, mhdr.*.msg_controllen) >= __helpers.sizeof(struct_cmsghdr))) __helpers.cast([*c]struct_cmsghdr, mhdr.*.msg_control) else __helpers.cast([*c]struct_cmsghdr, @as(c_int, 0));
+}
+pub inline fn CMSG_ALIGN(len: anytype) @TypeOf(((len + __helpers.sizeof(usize)) - @as(c_int, 1)) & __helpers.cast(usize, ~(__helpers.sizeof(usize) - @as(c_int, 1)))) {
+    _ = &len;
+    return ((len + __helpers.sizeof(usize)) - @as(c_int, 1)) & __helpers.cast(usize, ~(__helpers.sizeof(usize) - @as(c_int, 1)));
+}
+pub inline fn CMSG_SPACE(len: anytype) @TypeOf(CMSG_ALIGN(len) + CMSG_ALIGN(__helpers.sizeof(struct_cmsghdr))) {
+    _ = &len;
+    return CMSG_ALIGN(len) + CMSG_ALIGN(__helpers.sizeof(struct_cmsghdr));
+}
+pub inline fn CMSG_LEN(len: anytype) @TypeOf(CMSG_ALIGN(__helpers.sizeof(struct_cmsghdr)) + len) {
+    _ = &len;
+    return CMSG_ALIGN(__helpers.sizeof(struct_cmsghdr)) + len;
+}
+pub inline fn __CMSG_PADDING(len: anytype) @TypeOf((__helpers.sizeof(usize) - (len & (__helpers.sizeof(usize) - @as(c_int, 1)))) & (__helpers.sizeof(usize) - @as(c_int, 1))) {
+    _ = &len;
+    return (__helpers.sizeof(usize) - (len & (__helpers.sizeof(usize) - @as(c_int, 1)))) & (__helpers.sizeof(usize) - @as(c_int, 1));
+}
+pub const SO_DEBUG = @as(c_int, 1);
+pub const SOL_SOCKET = @as(c_int, 1);
+pub const SO_ACCEPTCONN = @as(c_int, 30);
+pub const SO_BROADCAST = @as(c_int, 6);
+pub const SO_DONTROUTE = @as(c_int, 5);
+pub const SO_ERROR = @as(c_int, 4);
+pub const SO_KEEPALIVE = @as(c_int, 9);
+pub const SO_LINGER = @as(c_int, 13);
+pub const SO_OOBINLINE = @as(c_int, 10);
+pub const SO_RCVBUF = @as(c_int, 8);
+pub const SO_RCVLOWAT = @as(c_int, 18);
+pub const SO_REUSEADDR = @as(c_int, 2);
+pub const SO_SNDBUF = @as(c_int, 7);
+pub const SO_SNDLOWAT = @as(c_int, 19);
+pub const SO_TYPE = @as(c_int, 3);
+pub const SO_RCVTIMEO = @as(c_int, 20);
+pub const SO_SNDTIMEO = @as(c_int, 21);
+pub const SO_TIMESTAMP = @as(c_int, 29);
+pub const SO_TIMESTAMPNS = @as(c_int, 35);
+pub const SO_TIMESTAMPING = @as(c_int, 37);
+pub const __SOCKADDR_ARG = @compileError("unable to translate C expr: unexpected token '__restrict'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/socket.h:58:10
+pub const __CONST_SOCKADDR_ARG = @compileError("unable to translate C expr: unexpected token 'const'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/sys/socket.h:59:10
+pub const __USE_KERNEL_IPV6_DEFS = @as(c_int, 0);
+pub const IP_OPTIONS = @as(c_int, 4);
+pub const IP_HDRINCL = @as(c_int, 3);
+pub const IP_TOS = @as(c_int, 1);
+pub const IP_TTL = @as(c_int, 2);
+pub const IP_RECVOPTS = @as(c_int, 6);
+pub const IP_RECVRETOPTS = IP_RETOPTS;
+pub const IP_RETOPTS = @as(c_int, 7);
+pub const IP_MULTICAST_IF = @as(c_int, 32);
+pub const IP_MULTICAST_TTL = @as(c_int, 33);
+pub const IP_MULTICAST_LOOP = @as(c_int, 34);
+pub const IP_ADD_MEMBERSHIP = @as(c_int, 35);
+pub const IP_DROP_MEMBERSHIP = @as(c_int, 36);
+pub const IP_UNBLOCK_SOURCE = @as(c_int, 37);
+pub const IP_BLOCK_SOURCE = @as(c_int, 38);
+pub const IP_ADD_SOURCE_MEMBERSHIP = @as(c_int, 39);
+pub const IP_DROP_SOURCE_MEMBERSHIP = @as(c_int, 40);
+pub const IP_MSFILTER = @as(c_int, 41);
+pub const IP_ROUTER_ALERT = @as(c_int, 5);
+pub const IP_PKTINFO = @as(c_int, 8);
+pub const IP_PKTOPTIONS = @as(c_int, 9);
+pub const IP_PMTUDISC = @as(c_int, 10);
+pub const IP_MTU_DISCOVER = @as(c_int, 10);
+pub const IP_RECVERR = @as(c_int, 11);
+pub const IP_RECVTTL = @as(c_int, 12);
+pub const IP_RECVTOS = @as(c_int, 13);
+pub const IP_MTU = @as(c_int, 14);
+pub const IP_FREEBIND = @as(c_int, 15);
+pub const IP_IPSEC_POLICY = @as(c_int, 16);
+pub const IP_XFRM_POLICY = @as(c_int, 17);
+pub const IP_PASSSEC = @as(c_int, 18);
+pub const IP_TRANSPARENT = @as(c_int, 19);
+pub const IP_MULTICAST_ALL = @as(c_int, 49);
+pub const IP_ORIGDSTADDR = @as(c_int, 20);
+pub const IP_RECVORIGDSTADDR = IP_ORIGDSTADDR;
+pub const IP_MINTTL = @as(c_int, 21);
+pub const IP_NODEFRAG = @as(c_int, 22);
+pub const IP_CHECKSUM = @as(c_int, 23);
+pub const IP_BIND_ADDRESS_NO_PORT = @as(c_int, 24);
+pub const IP_RECVFRAGSIZE = @as(c_int, 25);
+pub const IP_RECVERR_RFC4884 = @as(c_int, 26);
+pub const IP_PMTUDISC_DONT = @as(c_int, 0);
+pub const IP_PMTUDISC_WANT = @as(c_int, 1);
+pub const IP_PMTUDISC_DO = @as(c_int, 2);
+pub const IP_PMTUDISC_PROBE = @as(c_int, 3);
+pub const IP_PMTUDISC_INTERFACE = @as(c_int, 4);
+pub const IP_PMTUDISC_OMIT = @as(c_int, 5);
+pub const IP_UNICAST_IF = @as(c_int, 50);
+pub const IP_LOCAL_PORT_RANGE = @as(c_int, 51);
+pub const IP_PROTOCOL = @as(c_int, 52);
+pub const SOL_IP = @as(c_int, 0);
+pub const IP_DEFAULT_MULTICAST_TTL = @as(c_int, 1);
+pub const IP_DEFAULT_MULTICAST_LOOP = @as(c_int, 1);
+pub const IP_MAX_MEMBERSHIPS = @as(c_int, 20);
+pub const IPV6_ADDRFORM = @as(c_int, 1);
+pub const IPV6_2292PKTINFO = @as(c_int, 2);
+pub const IPV6_2292HOPOPTS = @as(c_int, 3);
+pub const IPV6_2292DSTOPTS = @as(c_int, 4);
+pub const IPV6_2292RTHDR = @as(c_int, 5);
+pub const IPV6_2292PKTOPTIONS = @as(c_int, 6);
+pub const IPV6_CHECKSUM = @as(c_int, 7);
+pub const IPV6_2292HOPLIMIT = @as(c_int, 8);
+pub const SCM_SRCRT = @compileError("unable to translate macro: undefined identifier `IPV6_RXSRCRT`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/bits/in.h:172:9
+pub const IPV6_NEXTHOP = @as(c_int, 9);
+pub const IPV6_AUTHHDR = @as(c_int, 10);
+pub const IPV6_UNICAST_HOPS = @as(c_int, 16);
+pub const IPV6_MULTICAST_IF = @as(c_int, 17);
+pub const IPV6_MULTICAST_HOPS = @as(c_int, 18);
+pub const IPV6_MULTICAST_LOOP = @as(c_int, 19);
+pub const IPV6_JOIN_GROUP = @as(c_int, 20);
+pub const IPV6_LEAVE_GROUP = @as(c_int, 21);
+pub const IPV6_ROUTER_ALERT = @as(c_int, 22);
+pub const IPV6_MTU_DISCOVER = @as(c_int, 23);
+pub const IPV6_MTU = @as(c_int, 24);
+pub const IPV6_RECVERR = @as(c_int, 25);
+pub const IPV6_V6ONLY = @as(c_int, 26);
+pub const IPV6_JOIN_ANYCAST = @as(c_int, 27);
+pub const IPV6_LEAVE_ANYCAST = @as(c_int, 28);
+pub const IPV6_MULTICAST_ALL = @as(c_int, 29);
+pub const IPV6_ROUTER_ALERT_ISOLATE = @as(c_int, 30);
+pub const IPV6_RECVERR_RFC4884 = @as(c_int, 31);
+pub const IPV6_IPSEC_POLICY = @as(c_int, 34);
+pub const IPV6_XFRM_POLICY = @as(c_int, 35);
+pub const IPV6_HDRINCL = @as(c_int, 36);
+pub const IPV6_RECVPKTINFO = @as(c_int, 49);
+pub const IPV6_PKTINFO = @as(c_int, 50);
+pub const IPV6_RECVHOPLIMIT = @as(c_int, 51);
+pub const IPV6_HOPLIMIT = @as(c_int, 52);
+pub const IPV6_RECVHOPOPTS = @as(c_int, 53);
+pub const IPV6_HOPOPTS = @as(c_int, 54);
+pub const IPV6_RTHDRDSTOPTS = @as(c_int, 55);
+pub const IPV6_RECVRTHDR = @as(c_int, 56);
+pub const IPV6_RTHDR = @as(c_int, 57);
+pub const IPV6_RECVDSTOPTS = @as(c_int, 58);
+pub const IPV6_DSTOPTS = @as(c_int, 59);
+pub const IPV6_RECVPATHMTU = @as(c_int, 60);
+pub const IPV6_PATHMTU = @as(c_int, 61);
+pub const IPV6_DONTFRAG = @as(c_int, 62);
+pub const IPV6_RECVTCLASS = @as(c_int, 66);
+pub const IPV6_TCLASS = @as(c_int, 67);
+pub const IPV6_AUTOFLOWLABEL = @as(c_int, 70);
+pub const IPV6_ADDR_PREFERENCES = @as(c_int, 72);
+pub const IPV6_MINHOPCOUNT = @as(c_int, 73);
+pub const IPV6_ORIGDSTADDR = @as(c_int, 74);
+pub const IPV6_RECVORIGDSTADDR = IPV6_ORIGDSTADDR;
+pub const IPV6_TRANSPARENT = @as(c_int, 75);
+pub const IPV6_UNICAST_IF = @as(c_int, 76);
+pub const IPV6_RECVFRAGSIZE = @as(c_int, 77);
+pub const IPV6_FREEBIND = @as(c_int, 78);
+pub const IPV6_ADD_MEMBERSHIP = IPV6_JOIN_GROUP;
+pub const IPV6_DROP_MEMBERSHIP = IPV6_LEAVE_GROUP;
+pub const IPV6_RXHOPOPTS = IPV6_HOPOPTS;
+pub const IPV6_RXDSTOPTS = IPV6_DSTOPTS;
+pub const IPV6_PMTUDISC_DONT = @as(c_int, 0);
+pub const IPV6_PMTUDISC_WANT = @as(c_int, 1);
+pub const IPV6_PMTUDISC_DO = @as(c_int, 2);
+pub const IPV6_PMTUDISC_PROBE = @as(c_int, 3);
+pub const IPV6_PMTUDISC_INTERFACE = @as(c_int, 4);
+pub const IPV6_PMTUDISC_OMIT = @as(c_int, 5);
+pub const SOL_IPV6 = @as(c_int, 41);
+pub const SOL_ICMPV6 = @as(c_int, 58);
+pub const IPV6_RTHDR_LOOSE = @as(c_int, 0);
+pub const IPV6_RTHDR_STRICT = @as(c_int, 1);
+pub const IPV6_RTHDR_TYPE_0 = @as(c_int, 0);
+pub inline fn IN_CLASSA(a: anytype) @TypeOf((__helpers.cast(in_addr_t, a) & __helpers.promoteIntLiteral(c_int, 0x80000000, .hex)) == @as(c_int, 0)) {
+    _ = &a;
+    return (__helpers.cast(in_addr_t, a) & __helpers.promoteIntLiteral(c_int, 0x80000000, .hex)) == @as(c_int, 0);
+}
+pub const IN_CLASSA_NET = __helpers.promoteIntLiteral(c_int, 0xff000000, .hex);
+pub const IN_CLASSA_NSHIFT = @as(c_int, 24);
+pub const IN_CLASSA_HOST = __helpers.promoteIntLiteral(c_int, 0xffffffff, .hex) & ~IN_CLASSA_NET;
+pub const IN_CLASSA_MAX = @as(c_int, 128);
+pub inline fn IN_CLASSB(a: anytype) @TypeOf((__helpers.cast(in_addr_t, a) & __helpers.promoteIntLiteral(c_int, 0xc0000000, .hex)) == __helpers.promoteIntLiteral(c_int, 0x80000000, .hex)) {
+    _ = &a;
+    return (__helpers.cast(in_addr_t, a) & __helpers.promoteIntLiteral(c_int, 0xc0000000, .hex)) == __helpers.promoteIntLiteral(c_int, 0x80000000, .hex);
+}
+pub const IN_CLASSB_NET = __helpers.promoteIntLiteral(c_int, 0xffff0000, .hex);
+pub const IN_CLASSB_NSHIFT = @as(c_int, 16);
+pub const IN_CLASSB_HOST = __helpers.promoteIntLiteral(c_int, 0xffffffff, .hex) & ~IN_CLASSB_NET;
+pub const IN_CLASSB_MAX = __helpers.promoteIntLiteral(c_int, 65536, .decimal);
+pub inline fn IN_CLASSC(a: anytype) @TypeOf((__helpers.cast(in_addr_t, a) & __helpers.promoteIntLiteral(c_int, 0xe0000000, .hex)) == __helpers.promoteIntLiteral(c_int, 0xc0000000, .hex)) {
+    _ = &a;
+    return (__helpers.cast(in_addr_t, a) & __helpers.promoteIntLiteral(c_int, 0xe0000000, .hex)) == __helpers.promoteIntLiteral(c_int, 0xc0000000, .hex);
+}
+pub const IN_CLASSC_NET = __helpers.promoteIntLiteral(c_int, 0xffffff00, .hex);
+pub const IN_CLASSC_NSHIFT = @as(c_int, 8);
+pub const IN_CLASSC_HOST = __helpers.promoteIntLiteral(c_int, 0xffffffff, .hex) & ~IN_CLASSC_NET;
+pub inline fn IN_CLASSD(a: anytype) @TypeOf((__helpers.cast(in_addr_t, a) & __helpers.promoteIntLiteral(c_int, 0xf0000000, .hex)) == __helpers.promoteIntLiteral(c_int, 0xe0000000, .hex)) {
+    _ = &a;
+    return (__helpers.cast(in_addr_t, a) & __helpers.promoteIntLiteral(c_int, 0xf0000000, .hex)) == __helpers.promoteIntLiteral(c_int, 0xe0000000, .hex);
+}
+pub inline fn IN_MULTICAST(a: anytype) @TypeOf(IN_CLASSD(a)) {
+    _ = &a;
+    return IN_CLASSD(a);
+}
+pub inline fn IN_EXPERIMENTAL(a: anytype) @TypeOf((__helpers.cast(in_addr_t, a) & __helpers.promoteIntLiteral(c_int, 0xe0000000, .hex)) == __helpers.promoteIntLiteral(c_int, 0xe0000000, .hex)) {
+    _ = &a;
+    return (__helpers.cast(in_addr_t, a) & __helpers.promoteIntLiteral(c_int, 0xe0000000, .hex)) == __helpers.promoteIntLiteral(c_int, 0xe0000000, .hex);
+}
+pub inline fn IN_BADCLASS(a: anytype) @TypeOf((__helpers.cast(in_addr_t, a) & __helpers.promoteIntLiteral(c_int, 0xf0000000, .hex)) == __helpers.promoteIntLiteral(c_int, 0xf0000000, .hex)) {
+    _ = &a;
+    return (__helpers.cast(in_addr_t, a) & __helpers.promoteIntLiteral(c_int, 0xf0000000, .hex)) == __helpers.promoteIntLiteral(c_int, 0xf0000000, .hex);
+}
+pub const INADDR_ANY = __helpers.cast(in_addr_t, @as(c_int, 0x00000000));
+pub const INADDR_BROADCAST = __helpers.cast(in_addr_t, __helpers.promoteIntLiteral(c_int, 0xffffffff, .hex));
+pub const INADDR_NONE = __helpers.cast(in_addr_t, __helpers.promoteIntLiteral(c_int, 0xffffffff, .hex));
+pub const INADDR_DUMMY = __helpers.cast(in_addr_t, __helpers.promoteIntLiteral(c_int, 0xc0000008, .hex));
+pub const IN_LOOPBACKNET = @as(c_int, 127);
+pub const INADDR_LOOPBACK = __helpers.cast(in_addr_t, __helpers.promoteIntLiteral(c_int, 0x7f000001, .hex));
+pub const INADDR_UNSPEC_GROUP = __helpers.cast(in_addr_t, __helpers.promoteIntLiteral(c_int, 0xe0000000, .hex));
+pub const INADDR_ALLHOSTS_GROUP = __helpers.cast(in_addr_t, __helpers.promoteIntLiteral(c_int, 0xe0000001, .hex));
+pub const INADDR_ALLRTRS_GROUP = __helpers.cast(in_addr_t, __helpers.promoteIntLiteral(c_int, 0xe0000002, .hex));
+pub const INADDR_ALLSNOOPERS_GROUP = __helpers.cast(in_addr_t, __helpers.promoteIntLiteral(c_int, 0xe000006a, .hex));
+pub const INADDR_MAX_LOCAL_GROUP = __helpers.cast(in_addr_t, __helpers.promoteIntLiteral(c_int, 0xe00000ff, .hex));
+pub const s6_addr = @compileError("unable to translate macro: undefined identifier `__in6_u`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:231:9
+pub const IN6ADDR_ANY_INIT = @compileError("unable to translate C expr: unexpected token '{'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:241:9
+pub const IN6ADDR_LOOPBACK_INIT = @compileError("unable to translate C expr: unexpected token '{'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:242:9
+pub const INET_ADDRSTRLEN = @as(c_int, 16);
+pub const INET6_ADDRSTRLEN = @as(c_int, 46);
+pub const _ENDIAN_H = @as(c_int, 1);
+pub const _BITS_BYTESWAP_H = @as(c_int, 1);
+pub inline fn __bswap_constant_16(x: anytype) __uint16_t {
+    _ = &x;
+    return __helpers.cast(__uint16_t, ((x >> @as(c_int, 8)) & @as(c_int, 0xff)) | ((x & @as(c_int, 0xff)) << @as(c_int, 8)));
+}
+pub inline fn __bswap_constant_32(x: anytype) @TypeOf(((((x & __helpers.promoteIntLiteral(c_uint, 0xff000000, .hex)) >> @as(c_int, 24)) | ((x & __helpers.promoteIntLiteral(c_uint, 0x00ff0000, .hex)) >> @as(c_int, 8))) | ((x & @as(c_uint, 0x0000ff00)) << @as(c_int, 8))) | ((x & @as(c_uint, 0x000000ff)) << @as(c_int, 24))) {
+    _ = &x;
+    return ((((x & __helpers.promoteIntLiteral(c_uint, 0xff000000, .hex)) >> @as(c_int, 24)) | ((x & __helpers.promoteIntLiteral(c_uint, 0x00ff0000, .hex)) >> @as(c_int, 8))) | ((x & @as(c_uint, 0x0000ff00)) << @as(c_int, 8))) | ((x & @as(c_uint, 0x000000ff)) << @as(c_int, 24));
+}
+pub inline fn __bswap_constant_64(x: anytype) @TypeOf(((((((((x & @as(c_ulonglong, 0xff00000000000000)) >> @as(c_int, 56)) | ((x & @as(c_ulonglong, 0x00ff000000000000)) >> @as(c_int, 40))) | ((x & @as(c_ulonglong, 0x0000ff0000000000)) >> @as(c_int, 24))) | ((x & @as(c_ulonglong, 0x000000ff00000000)) >> @as(c_int, 8))) | ((x & @as(c_ulonglong, 0x00000000ff000000)) << @as(c_int, 8))) | ((x & @as(c_ulonglong, 0x0000000000ff0000)) << @as(c_int, 24))) | ((x & @as(c_ulonglong, 0x000000000000ff00)) << @as(c_int, 40))) | ((x & @as(c_ulonglong, 0x00000000000000ff)) << @as(c_int, 56))) {
+    _ = &x;
+    return ((((((((x & @as(c_ulonglong, 0xff00000000000000)) >> @as(c_int, 56)) | ((x & @as(c_ulonglong, 0x00ff000000000000)) >> @as(c_int, 40))) | ((x & @as(c_ulonglong, 0x0000ff0000000000)) >> @as(c_int, 24))) | ((x & @as(c_ulonglong, 0x000000ff00000000)) >> @as(c_int, 8))) | ((x & @as(c_ulonglong, 0x00000000ff000000)) << @as(c_int, 8))) | ((x & @as(c_ulonglong, 0x0000000000ff0000)) << @as(c_int, 24))) | ((x & @as(c_ulonglong, 0x000000000000ff00)) << @as(c_int, 40))) | ((x & @as(c_ulonglong, 0x00000000000000ff)) << @as(c_int, 56));
+}
+pub const _BITS_UINTN_IDENTITY_H = @as(c_int, 1);
+pub const IN6_IS_ADDR_UNSPECIFIED = @compileError("unable to translate macro: undefined identifier `__a`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:437:10
+pub const IN6_IS_ADDR_LOOPBACK = @compileError("unable to translate macro: undefined identifier `__a`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:445:10
+pub const IN6_IS_ADDR_LINKLOCAL = @compileError("unable to translate macro: undefined identifier `__a`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:453:10
+pub const IN6_IS_ADDR_SITELOCAL = @compileError("unable to translate macro: undefined identifier `__a`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:458:10
+pub const IN6_IS_ADDR_V4MAPPED = @compileError("unable to translate macro: undefined identifier `__a`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:463:10
+pub const IN6_IS_ADDR_V4COMPAT = @compileError("unable to translate macro: undefined identifier `__a`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:470:10
+pub const IN6_ARE_ADDR_EQUAL = @compileError("unable to translate macro: undefined identifier `__a`"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:478:10
+pub const IN6_IS_ADDR_MULTICAST = @compileError("unable to translate C expr: unexpected token 'const'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:525:9
+pub const IN6_IS_ADDR_MC_NODELOCAL = @compileError("unable to translate C expr: unexpected token 'const'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:537:9
+pub const IN6_IS_ADDR_MC_LINKLOCAL = @compileError("unable to translate C expr: unexpected token 'const'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:541:9
+pub const IN6_IS_ADDR_MC_SITELOCAL = @compileError("unable to translate C expr: unexpected token 'const'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:545:9
+pub const IN6_IS_ADDR_MC_ORGLOCAL = @compileError("unable to translate C expr: unexpected token 'const'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:549:9
+pub const IN6_IS_ADDR_MC_GLOBAL = @compileError("unable to translate C expr: unexpected token 'const'"); // /nix/store/fbbw928argckfii0j322346ihmllg7a7-glibc-2.42-61-dev/include/netinet/in.h:553:9
+pub const _BYTESWAP_H = @as(c_int, 1);
+pub inline fn bswap_16(x: anytype) @TypeOf(__bswap_16(x)) {
+    _ = &x;
+    return __bswap_16(x);
+}
+pub inline fn bswap_32(x: anytype) @TypeOf(__bswap_32(x)) {
+    _ = &x;
+    return __bswap_32(x);
+}
+pub inline fn bswap_64(x: anytype) @TypeOf(__bswap_64(x)) {
+    _ = &x;
+    return __bswap_64(x);
+}
+pub inline fn htole(x: anytype) @TypeOf(__bswap_32(htonl(x))) {
+    _ = &x;
+    return __bswap_32(htonl(x));
+}
+pub const NOTCURSES_NCKEYS = "";
+pub const PRETERUNICODEBASE = __helpers.promoteIntLiteral(c_int, 1115000, .decimal);
+pub inline fn preterunicode(w: anytype) @TypeOf(w + PRETERUNICODEBASE) {
+    _ = &w;
+    return w + PRETERUNICODEBASE;
+}
+pub const NCKEY_INVALID = preterunicode(@as(c_int, 0));
+pub const NCKEY_RESIZE = preterunicode(@as(c_int, 1));
+pub const NCKEY_UP = preterunicode(@as(c_int, 2));
+pub const NCKEY_RIGHT = preterunicode(@as(c_int, 3));
+pub const NCKEY_DOWN = preterunicode(@as(c_int, 4));
+pub const NCKEY_LEFT = preterunicode(@as(c_int, 5));
+pub const NCKEY_INS = preterunicode(@as(c_int, 6));
+pub const NCKEY_DEL = preterunicode(@as(c_int, 7));
+pub const NCKEY_BACKSPACE = preterunicode(@as(c_int, 8));
+pub const NCKEY_PGDOWN = preterunicode(@as(c_int, 9));
+pub const NCKEY_PGUP = preterunicode(@as(c_int, 10));
+pub const NCKEY_HOME = preterunicode(@as(c_int, 11));
+pub const NCKEY_END = preterunicode(@as(c_int, 12));
+pub const NCKEY_F00 = preterunicode(@as(c_int, 20));
+pub const NCKEY_F01 = preterunicode(@as(c_int, 21));
+pub const NCKEY_F02 = preterunicode(@as(c_int, 22));
+pub const NCKEY_F03 = preterunicode(@as(c_int, 23));
+pub const NCKEY_F04 = preterunicode(@as(c_int, 24));
+pub const NCKEY_F05 = preterunicode(@as(c_int, 25));
+pub const NCKEY_F06 = preterunicode(@as(c_int, 26));
+pub const NCKEY_F07 = preterunicode(@as(c_int, 27));
+pub const NCKEY_F08 = preterunicode(@as(c_int, 28));
+pub const NCKEY_F09 = preterunicode(@as(c_int, 29));
+pub const NCKEY_F10 = preterunicode(@as(c_int, 30));
+pub const NCKEY_F11 = preterunicode(@as(c_int, 31));
+pub const NCKEY_F12 = preterunicode(@as(c_int, 32));
+pub const NCKEY_F13 = preterunicode(@as(c_int, 33));
+pub const NCKEY_F14 = preterunicode(@as(c_int, 34));
+pub const NCKEY_F15 = preterunicode(@as(c_int, 35));
+pub const NCKEY_F16 = preterunicode(@as(c_int, 36));
+pub const NCKEY_F17 = preterunicode(@as(c_int, 37));
+pub const NCKEY_F18 = preterunicode(@as(c_int, 38));
+pub const NCKEY_F19 = preterunicode(@as(c_int, 39));
+pub const NCKEY_F20 = preterunicode(@as(c_int, 40));
+pub const NCKEY_F21 = preterunicode(@as(c_int, 41));
+pub const NCKEY_F22 = preterunicode(@as(c_int, 42));
+pub const NCKEY_F23 = preterunicode(@as(c_int, 43));
+pub const NCKEY_F24 = preterunicode(@as(c_int, 44));
+pub const NCKEY_F25 = preterunicode(@as(c_int, 45));
+pub const NCKEY_F26 = preterunicode(@as(c_int, 46));
+pub const NCKEY_F27 = preterunicode(@as(c_int, 47));
+pub const NCKEY_F28 = preterunicode(@as(c_int, 48));
+pub const NCKEY_F29 = preterunicode(@as(c_int, 49));
+pub const NCKEY_F30 = preterunicode(@as(c_int, 50));
+pub const NCKEY_F31 = preterunicode(@as(c_int, 51));
+pub const NCKEY_F32 = preterunicode(@as(c_int, 52));
+pub const NCKEY_F33 = preterunicode(@as(c_int, 53));
+pub const NCKEY_F34 = preterunicode(@as(c_int, 54));
+pub const NCKEY_F35 = preterunicode(@as(c_int, 55));
+pub const NCKEY_F36 = preterunicode(@as(c_int, 56));
+pub const NCKEY_F37 = preterunicode(@as(c_int, 57));
+pub const NCKEY_F38 = preterunicode(@as(c_int, 58));
+pub const NCKEY_F39 = preterunicode(@as(c_int, 59));
+pub const NCKEY_F40 = preterunicode(@as(c_int, 60));
+pub const NCKEY_F41 = preterunicode(@as(c_int, 61));
+pub const NCKEY_F42 = preterunicode(@as(c_int, 62));
+pub const NCKEY_F43 = preterunicode(@as(c_int, 63));
+pub const NCKEY_F44 = preterunicode(@as(c_int, 64));
+pub const NCKEY_F45 = preterunicode(@as(c_int, 65));
+pub const NCKEY_F46 = preterunicode(@as(c_int, 66));
+pub const NCKEY_F47 = preterunicode(@as(c_int, 67));
+pub const NCKEY_F48 = preterunicode(@as(c_int, 68));
+pub const NCKEY_F49 = preterunicode(@as(c_int, 69));
+pub const NCKEY_F50 = preterunicode(@as(c_int, 70));
+pub const NCKEY_F51 = preterunicode(@as(c_int, 71));
+pub const NCKEY_F52 = preterunicode(@as(c_int, 72));
+pub const NCKEY_F53 = preterunicode(@as(c_int, 73));
+pub const NCKEY_F54 = preterunicode(@as(c_int, 74));
+pub const NCKEY_F55 = preterunicode(@as(c_int, 75));
+pub const NCKEY_F56 = preterunicode(@as(c_int, 76));
+pub const NCKEY_F57 = preterunicode(@as(c_int, 77));
+pub const NCKEY_F58 = preterunicode(@as(c_int, 78));
+pub const NCKEY_F59 = preterunicode(@as(c_int, 79));
+pub const NCKEY_F60 = preterunicode(@as(c_int, 80));
+pub const NCKEY_ENTER = preterunicode(@as(c_int, 121));
+pub const NCKEY_CLS = preterunicode(@as(c_int, 122));
+pub const NCKEY_DLEFT = preterunicode(@as(c_int, 123));
+pub const NCKEY_DRIGHT = preterunicode(@as(c_int, 124));
+pub const NCKEY_ULEFT = preterunicode(@as(c_int, 125));
+pub const NCKEY_URIGHT = preterunicode(@as(c_int, 126));
+pub const NCKEY_CENTER = preterunicode(@as(c_int, 127));
+pub const NCKEY_BEGIN = preterunicode(@as(c_int, 128));
+pub const NCKEY_CANCEL = preterunicode(@as(c_int, 129));
+pub const NCKEY_CLOSE = preterunicode(@as(c_int, 130));
+pub const NCKEY_COMMAND = preterunicode(@as(c_int, 131));
+pub const NCKEY_COPY = preterunicode(@as(c_int, 132));
+pub const NCKEY_EXIT = preterunicode(@as(c_int, 133));
+pub const NCKEY_PRINT = preterunicode(@as(c_int, 134));
+pub const NCKEY_REFRESH = preterunicode(@as(c_int, 135));
+pub const NCKEY_SEPARATOR = preterunicode(@as(c_int, 136));
+pub const NCKEY_CAPS_LOCK = preterunicode(@as(c_int, 150));
+pub const NCKEY_SCROLL_LOCK = preterunicode(@as(c_int, 151));
+pub const NCKEY_NUM_LOCK = preterunicode(@as(c_int, 152));
+pub const NCKEY_PRINT_SCREEN = preterunicode(@as(c_int, 153));
+pub const NCKEY_PAUSE = preterunicode(@as(c_int, 154));
+pub const NCKEY_MENU = preterunicode(@as(c_int, 155));
+pub const NCKEY_MEDIA_PLAY = preterunicode(@as(c_int, 158));
+pub const NCKEY_MEDIA_PAUSE = preterunicode(@as(c_int, 159));
+pub const NCKEY_MEDIA_PPAUSE = preterunicode(@as(c_int, 160));
+pub const NCKEY_MEDIA_REV = preterunicode(@as(c_int, 161));
+pub const NCKEY_MEDIA_STOP = preterunicode(@as(c_int, 162));
+pub const NCKEY_MEDIA_FF = preterunicode(@as(c_int, 163));
+pub const NCKEY_MEDIA_REWIND = preterunicode(@as(c_int, 164));
+pub const NCKEY_MEDIA_NEXT = preterunicode(@as(c_int, 165));
+pub const NCKEY_MEDIA_PREV = preterunicode(@as(c_int, 166));
+pub const NCKEY_MEDIA_RECORD = preterunicode(@as(c_int, 167));
+pub const NCKEY_MEDIA_LVOL = preterunicode(@as(c_int, 168));
+pub const NCKEY_MEDIA_RVOL = preterunicode(@as(c_int, 169));
+pub const NCKEY_MEDIA_MUTE = preterunicode(@as(c_int, 170));
+pub const NCKEY_LSHIFT = preterunicode(@as(c_int, 171));
+pub const NCKEY_LCTRL = preterunicode(@as(c_int, 172));
+pub const NCKEY_LALT = preterunicode(@as(c_int, 173));
+pub const NCKEY_LSUPER = preterunicode(@as(c_int, 174));
+pub const NCKEY_LHYPER = preterunicode(@as(c_int, 175));
+pub const NCKEY_LMETA = preterunicode(@as(c_int, 176));
+pub const NCKEY_RSHIFT = preterunicode(@as(c_int, 177));
+pub const NCKEY_RCTRL = preterunicode(@as(c_int, 178));
+pub const NCKEY_RALT = preterunicode(@as(c_int, 179));
+pub const NCKEY_RSUPER = preterunicode(@as(c_int, 180));
+pub const NCKEY_RHYPER = preterunicode(@as(c_int, 181));
+pub const NCKEY_RMETA = preterunicode(@as(c_int, 182));
+pub const NCKEY_L3SHIFT = preterunicode(@as(c_int, 183));
+pub const NCKEY_L5SHIFT = preterunicode(@as(c_int, 184));
+pub const NCKEY_MOTION = preterunicode(@as(c_int, 200));
+pub const NCKEY_BUTTON1 = preterunicode(@as(c_int, 201));
+pub const NCKEY_BUTTON2 = preterunicode(@as(c_int, 202));
+pub const NCKEY_BUTTON3 = preterunicode(@as(c_int, 203));
+pub const NCKEY_BUTTON4 = preterunicode(@as(c_int, 204));
+pub const NCKEY_BUTTON5 = preterunicode(@as(c_int, 205));
+pub const NCKEY_BUTTON6 = preterunicode(@as(c_int, 206));
+pub const NCKEY_BUTTON7 = preterunicode(@as(c_int, 207));
+pub const NCKEY_BUTTON8 = preterunicode(@as(c_int, 208));
+pub const NCKEY_BUTTON9 = preterunicode(@as(c_int, 209));
+pub const NCKEY_BUTTON10 = preterunicode(@as(c_int, 210));
+pub const NCKEY_BUTTON11 = preterunicode(@as(c_int, 211));
+pub const NCKEY_SIGNAL = preterunicode(@as(c_int, 400));
+pub const NCKEY_EOF = preterunicode(@as(c_int, 500));
+pub const NCKEY_SCROLL_UP = NCKEY_BUTTON4;
+pub const NCKEY_SCROLL_DOWN = NCKEY_BUTTON5;
+pub const NCKEY_RETURN = NCKEY_ENTER;
+pub const NCKEY_TAB = @as(c_int, 0x09);
+pub const NCKEY_ESC = @as(c_int, 0x1b);
+pub const NCKEY_SPACE = @as(c_int, 0x20);
+pub const NCKEY_MOD_SHIFT = @as(c_int, 1);
+pub const NCKEY_MOD_ALT = @as(c_int, 2);
+pub const NCKEY_MOD_CTRL = @as(c_int, 4);
+pub const NCKEY_MOD_SUPER = @as(c_int, 8);
+pub const NCKEY_MOD_HYPER = @as(c_int, 16);
+pub const NCKEY_MOD_META = @as(c_int, 32);
+pub const NCKEY_MOD_CAPSLOCK = @as(c_int, 64);
+pub const NCKEY_MOD_NUMLOCK = @as(c_int, 128);
+pub const NOTCURSES_NCSEQS = "";
+pub const NCBOXLIGHTW = "┌┐└┘─│";
+pub const NCBOXHEAVYW = "┏┓┗┛━┃";
+pub const NCBOXROUNDW = "╭╮╰╯─│";
+pub const NCBOXDOUBLEW = "╔╗╚╝═║";
+pub const NCBOXASCIIW = "/\\\\/-|";
+pub const NCBOXOUTERW = "🭽🭾🭼🭿▁🭵🭶🭰";
+pub const NCWHITESQUARESW = "◲◱◳◰";
+pub const NCWHITECIRCLESW = "◶◵◷◴";
+pub const NCCIRCULARARCSW = "◜◝◟◞";
+pub const NCWHITETRIANGLESW = "◿◺◹◸";
+pub const NCBLACKTRIANGLESW = "◢◣◥◤";
+pub const NCSHADETRIANGLESW = "🮞🮟🮝🮜";
+pub const NCBLACKARROWHEADSW = "⮝⮟⮜⮞";
+pub const NCLIGHTARROWHEADSW = "⮙⮛⮘⮚";
+pub const NCARROWDOUBLEW = "⮅⮇⮄⮆";
+pub const NCARROWDASHEDW = "⭫⭭⭪⭬";
+pub const NCARROWCIRCLEDW = "⮉⮋⮈⮊";
+pub const NCARROWANTICLOCKW = "⮏⮍⮎⮌";
+pub const NCBOXDRAWW = "╵╷╴╶";
+pub const NCBOXDRAWHEAVYW = "╹╻╸╺";
+pub const NCARROWW = "⭡⭣⭠⭢⭧⭩⭦⭨";
+pub const NCDIAGONALSW = "🮣🮠🮡🮢🮤🮥🮦🮧";
+pub const NCDIGITSSUPERW = "⁰¹²³⁴⁵⁶⁷⁸⁹";
+pub const NCDIGITSSUBW = "₀₁₂₃₄₅₆₇₈₉";
+pub const NCASTERISKS5 = "🞯🞰🞱🞲🞳🞴";
+pub const NCASTERISKS6 = "🞵🞶🞷🞸🞹🞺";
+pub const NCASTERISKS8 = "🞻🞼✳🞽🞾🞿";
+pub const NCANGLESBR = "🭁🭂🭃🭄🭅🭆🭇🭈🭉🭊🭋";
+pub const NCANGLESTR = "🭒🭓🭔🭕🭖🭧🭢🭣🭤🭥🭦";
+pub const NCANGLESBL = "🭌🭍🭎🭏🭐🭑🬼🬽🬾🬿🭀";
+pub const NCANGLESTL = "🭝🭞🭟🭠🭡🭜🭗🭘🭙🭚🭛";
+pub const NCEIGHTHSB = " ▁▂▃▄▅▆▇█";
+pub const NCEIGHTHST = " ▔🮂🮃▀🮄🮅🮆█";
+pub const NCEIGHTHSL = "▏▎▍▌▋▊▉█";
+pub const NCEIGHTHSR = "▕🮇🮈▐🮉🮊🮋█";
+pub const NCHALFBLOCKS = " ▀▄█";
+pub const NCQUADBLOCKS = " ▘▝▀▖▌▞▛▗▚▐▜▄▙▟█";
+pub const NCSEXBLOCKS = " 🬀🬁🬂🬃🬄🬅🬆🬇🬈🬊🬋🬌🬍🬎🬏🬐🬑🬒🬓▌🬔🬕🬖🬗🬘🬙🬚🬛🬜🬝🬞🬟🬠🬡🬢🬣🬤🬥🬦🬧▐🬨🬩🬪🬫🬬🬭🬮🬯🬰🬱🬲🬳🬴🬵🬶🬷🬸🬹🬺🬻█";
+pub const NCOCTBLOCKS = @compileError("macro tokenizing failed: TODO unicode escape sequences"); // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/ncseqs.h:59:9
+pub const NCBRAILLEEGCS = @compileError("macro tokenizing failed: TODO unicode escape sequences"); // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/ncseqs.h:92:9
+pub const NCSEGDIGITS = @compileError("macro tokenizing failed: TODO unicode escape sequences"); // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/ncseqs.h:109:9
+pub const NCSUITSBLACK = @compileError("macro tokenizing failed: TODO unicode escape sequences"); // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/ncseqs.h:112:9
+pub const NCSUITSWHITE = @compileError("macro tokenizing failed: TODO unicode escape sequences"); // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/ncseqs.h:113:9
+pub const NCCHESSBLACK = @compileError("macro tokenizing failed: TODO unicode escape sequences"); // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/ncseqs.h:114:9
+pub const NCCHESSWHITE = @compileError("macro tokenizing failed: TODO unicode escape sequences"); // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/ncseqs.h:115:9
+pub const NCDICE = @compileError("macro tokenizing failed: TODO unicode escape sequences"); // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/ncseqs.h:116:9
+pub const NCMUSICSYM = @compileError("macro tokenizing failed: TODO unicode escape sequences"); // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/ncseqs.h:117:9
+pub const NCBOXLIGHT = "┌┐└┘─│";
+pub const NCBOXHEAVY = "┏┓┗┛━┃";
+pub const NCBOXROUND = "╭╮╰╯─│";
+pub const NCBOXDOUBLE = "╔╗╚╝═║";
+pub const NCBOXASCII = "/\\\\/-|";
+pub const NCBOXOUTER = "🭽🭾🭼🭿▁🭵🭶🭰";
+pub const RESTRICT = @compileError("unable to translate C expr: unexpected token 'restrict'"); // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/notcurses.h:24:9
+pub const NCALIGN_TOP = NCALIGN_LEFT;
+pub const NCALIGN_BOTTOM = NCALIGN_RIGHT;
+pub const NCALPHA_HIGHCONTRAST = @as(c_ulonglong, 0x30000000);
+pub const NCALPHA_TRANSPARENT = @as(c_ulonglong, 0x20000000);
+pub const NCALPHA_BLEND = @as(c_ulonglong, 0x10000000);
+pub const NCALPHA_OPAQUE = @as(c_ulonglong, 0x00000000);
+pub const NCPALETTESIZE = @as(c_int, 256);
+pub const NC_NOBACKGROUND_MASK = @as(c_ulonglong, 0x8700000000000000);
+pub const NC_BGDEFAULT_MASK = @as(c_ulonglong, 0x0000000040000000);
+pub const NC_BG_RGB_MASK = @as(c_ulonglong, 0x0000000000ffffff);
+pub const NC_BG_PALETTE = @as(c_ulonglong, 0x0000000008000000);
+pub const NC_BG_ALPHA_MASK = @as(c_ulonglong, 0x30000000);
+pub inline fn NCCHANNEL_INITIALIZER(r: anytype, g: anytype, b: anytype) @TypeOf((((__helpers.cast(u32, r) << @as(c_uint, 16)) + (__helpers.cast(u32, g) << @as(c_uint, 8))) + b) + NC_BGDEFAULT_MASK) {
+    _ = &r;
+    _ = &g;
+    _ = &b;
+    return (((__helpers.cast(u32, r) << @as(c_uint, 16)) + (__helpers.cast(u32, g) << @as(c_uint, 8))) + b) + NC_BGDEFAULT_MASK;
+}
+pub inline fn NCCHANNELS_INITIALIZER(fr: anytype, fg: anytype, fb: anytype, br: anytype, bg: anytype, bb: anytype) @TypeOf((NCCHANNEL_INITIALIZER(fr, fg, fb) << @as(c_ulonglong, 32)) + NCCHANNEL_INITIALIZER(br, bg, bb)) {
+    _ = &fr;
+    _ = &fg;
+    _ = &fb;
+    _ = &br;
+    _ = &bg;
+    _ = &bb;
+    return (NCCHANNEL_INITIALIZER(fr, fg, fb) << @as(c_ulonglong, 32)) + NCCHANNEL_INITIALIZER(br, bg, bb);
+}
+pub const WCHAR_MAX_UTF8BYTES = @as(c_int, 4);
+pub const NCCELL_INITIALIZER = @compileError("unable to translate C expr: unexpected token '{'"); // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/notcurses.h:731:9
+pub const NCCELL_CHAR_INITIALIZER = @compileError("unable to translate C expr: unexpected token '{'"); // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/notcurses.h:734:9
+pub const NCCELL_TRIVIAL_INITIALIZER = @compileError("unable to translate C expr: unexpected token '{'"); // /nix/store/pzjvnrjn2z5srd3ha05wc14bw68hkdaj-notcurses-3.0.17-dev/include/notcurses/notcurses.h:737:9
+pub const NCSTYLE_MASK = @as(c_uint, 0xffff);
+pub const NCSTYLE_ITALIC = @as(c_uint, 0x0010);
+pub const NCSTYLE_UNDERLINE = @as(c_uint, 0x0008);
+pub const NCSTYLE_UNDERCURL = @as(c_uint, 0x0004);
+pub const NCSTYLE_BOLD = @as(c_uint, 0x0002);
+pub const NCSTYLE_STRUCK = @as(c_uint, 0x0001);
+pub const NCSTYLE_NONE = @as(c_int, 0);
+pub const NCOPTION_INHIBIT_SETLOCALE = @as(c_ulonglong, 0x0001);
+pub const NCOPTION_NO_CLEAR_BITMAPS = @as(c_ulonglong, 0x0002);
+pub const NCOPTION_NO_WINCH_SIGHANDLER = @as(c_ulonglong, 0x0004);
+pub const NCOPTION_NO_QUIT_SIGHANDLERS = @as(c_ulonglong, 0x0008);
+pub const NCOPTION_PRESERVE_CURSOR = @as(c_ulonglong, 0x0010);
+pub const NCOPTION_SUPPRESS_BANNERS = @as(c_ulonglong, 0x0020);
+pub const NCOPTION_NO_ALTERNATE_SCREEN = @as(c_ulonglong, 0x0040);
+pub const NCOPTION_NO_FONT_CHANGES = @as(c_ulonglong, 0x0080);
+pub const NCOPTION_DRAIN_INPUT = @as(c_ulonglong, 0x0100);
+pub const NCOPTION_SCROLLING = @as(c_ulonglong, 0x0200);
+pub const NCOPTION_CLI_MODE = ((NCOPTION_NO_ALTERNATE_SCREEN | NCOPTION_NO_CLEAR_BITMAPS) | NCOPTION_PRESERVE_CURSOR) | NCOPTION_SCROLLING;
+pub const NCINPUT_MAX_EFF_TEXT_CODEPOINTS = @as(c_int, 4);
+pub const NCMICE_NO_EVENTS = @as(c_int, 0);
+pub const NCMICE_MOVE_EVENT = @as(c_int, 0x1);
+pub const NCMICE_BUTTON_EVENT = @as(c_int, 0x2);
+pub const NCMICE_DRAG_EVENT = @as(c_int, 0x4);
+pub const NCMICE_ALL_EVENTS = @as(c_int, 0x7);
+pub const NCPLANE_OPTION_HORALIGNED = @as(c_ulonglong, 0x0001);
+pub const NCPLANE_OPTION_VERALIGNED = @as(c_ulonglong, 0x0002);
+pub const NCPLANE_OPTION_MARGINALIZED = @as(c_ulonglong, 0x0004);
+pub const NCPLANE_OPTION_FIXED = @as(c_ulonglong, 0x0008);
+pub const NCPLANE_OPTION_AUTOGROW = @as(c_ulonglong, 0x0010);
+pub const NCPLANE_OPTION_VSCROLL = @as(c_ulonglong, 0x0020);
+pub const NCBOXMASK_TOP = @as(c_int, 0x0001);
+pub const NCBOXMASK_RIGHT = @as(c_int, 0x0002);
+pub const NCBOXMASK_BOTTOM = @as(c_int, 0x0004);
+pub const NCBOXMASK_LEFT = @as(c_int, 0x0008);
+pub const NCBOXGRAD_TOP = @as(c_int, 0x0010);
+pub const NCBOXGRAD_RIGHT = @as(c_int, 0x0020);
+pub const NCBOXGRAD_BOTTOM = @as(c_int, 0x0040);
+pub const NCBOXGRAD_LEFT = @as(c_int, 0x0080);
+pub const NCBOXCORNER_MASK = @as(c_int, 0x0300);
+pub const NCBOXCORNER_SHIFT = @as(c_uint, 8);
+pub const NCVISUAL_OPTION_NODEGRADE = @as(c_ulonglong, 0x0001);
+pub const NCVISUAL_OPTION_BLEND = @as(c_ulonglong, 0x0002);
+pub const NCVISUAL_OPTION_HORALIGNED = @as(c_ulonglong, 0x0004);
+pub const NCVISUAL_OPTION_VERALIGNED = @as(c_ulonglong, 0x0008);
+pub const NCVISUAL_OPTION_ADDALPHA = @as(c_ulonglong, 0x0010);
+pub const NCVISUAL_OPTION_CHILDPLANE = @as(c_ulonglong, 0x0020);
+pub const NCVISUAL_OPTION_NOINTERPOLATE = @as(c_ulonglong, 0x0040);
+pub const NCREEL_OPTION_INFINITESCROLL = @as(c_ulonglong, 0x0001);
+pub const NCREEL_OPTION_CIRCULAR = @as(c_ulonglong, 0x0002);
+pub const NCPREFIXCOLUMNS = @as(c_int, 7);
+pub const NCIPREFIXCOLUMNS = @as(c_int, 8);
+pub const NCBPREFIXCOLUMNS = @as(c_int, 9);
+pub const NCPREFIXSTRLEN = NCPREFIXCOLUMNS + @as(c_int, 1);
+pub const NCIPREFIXSTRLEN = NCIPREFIXCOLUMNS + @as(c_int, 1);
+pub const NCBPREFIXSTRLEN = NCBPREFIXCOLUMNS + @as(c_int, 1);
+pub inline fn NCMETRICFWIDTH(x: anytype, cols: anytype) c_int {
+    _ = &x;
+    _ = &cols;
+    return __helpers.cast(c_int, (strlen(x) - ncstrwidth(x, NULL, NULL)) + cols);
+}
+pub inline fn NCPREFIXFMT(x: anytype) @TypeOf(x) {
+    _ = &x;
+    return blk: {
+        _ = NCMETRICFWIDTH(x, NCPREFIXCOLUMNS);
+        break :blk x;
+    };
+}
+pub inline fn NCIPREFIXFMT(x: anytype) @TypeOf(x) {
+    _ = &x;
+    return blk: {
+        _ = NCMETRICFWIDTH(x, NCIPREFIXCOLUMNS);
+        break :blk x;
+    };
+}
+pub inline fn NCBPREFIXFMT(x: anytype) @TypeOf(x) {
+    _ = &x;
+    return blk: {
+        _ = NCMETRICFWIDTH(x, NCBPREFIXCOLUMNS);
+        break :blk x;
+    };
+}
+pub const NCMENU_OPTION_BOTTOM = @as(c_ulonglong, 0x0001);
+pub const NCMENU_OPTION_HIDING = @as(c_ulonglong, 0x0002);
+pub const NCPROGBAR_OPTION_RETROGRADE = @as(c_uint, 0x0001);
+pub const NCTABBED_OPTION_BOTTOM = @as(c_ulonglong, 0x0001);
+pub const NCPLOT_OPTION_LABELTICKSD = @as(c_uint, 0x0001);
+pub const NCPLOT_OPTION_EXPONENTIALD = @as(c_uint, 0x0002);
+pub const NCPLOT_OPTION_VERTICALI = @as(c_uint, 0x0004);
+pub const NCPLOT_OPTION_NODEGRADE = @as(c_uint, 0x0008);
+pub const NCPLOT_OPTION_DETECTMAXONLY = @as(c_uint, 0x0010);
+pub const NCPLOT_OPTION_PRINTSAMPLE = @as(c_uint, 0x0020);
+pub const NCREADER_OPTION_HORSCROLL = @as(c_ulonglong, 0x0001);
+pub const NCREADER_OPTION_VERSCROLL = @as(c_ulonglong, 0x0002);
+pub const NCREADER_OPTION_NOCMDKEYS = @as(c_ulonglong, 0x0004);
+pub const NCREADER_OPTION_CURSOR = @as(c_ulonglong, 0x0008);
+pub const tm = struct_tm;
+pub const timespec = struct_timespec;
+pub const itimerspec = struct_itimerspec;
+pub const sigval = union_sigval;
+pub const sigevent = struct_sigevent;
+pub const __locale_struct = struct___locale_struct;
+pub const _IO_marker = struct__IO_marker;
+pub const _IO_FILE = struct__IO_FILE;
+pub const _G_fpos_t = struct__G_fpos_t;
+pub const _G_fpos64_t = struct__G_fpos64_t;
+pub const _IO_codecvt = struct__IO_codecvt;
+pub const _IO_wide_data = struct__IO_wide_data;
+pub const __pthread_internal_list = struct___pthread_internal_list;
+pub const __pthread_internal_slist = struct___pthread_internal_slist;
+pub const __pthread_mutex_s = struct___pthread_mutex_s;
+pub const __pthread_rwlock_arch_t = struct___pthread_rwlock_arch_t;
+pub const __pthread_cond_s = struct___pthread_cond_s;
+pub const _libc_fpxreg = struct__libc_fpxreg;
+pub const _libc_xmmreg = struct__libc_xmmreg;
+pub const _libc_fpstate = struct__libc_fpstate;
+pub const iovec = struct_iovec;
+pub const __socket_type = enum___socket_type;
+pub const sockaddr = struct_sockaddr;
+pub const sockaddr_storage = struct_sockaddr_storage;
+pub const msghdr = struct_msghdr;
+pub const cmsghdr = struct_cmsghdr;
+pub const linger = struct_linger;
+pub const in_addr = struct_in_addr;
+pub const in6_addr = struct_in6_addr;
+pub const sockaddr_in = struct_sockaddr_in;
+pub const sockaddr_in6 = struct_sockaddr_in6;
+pub const ipv6_mreq = struct_ipv6_mreq;
+pub const notcurses = struct_notcurses;
+pub const ncplane = struct_ncplane;
+pub const ncvisual = struct_ncvisual;
+pub const ncuplot = struct_ncuplot;
+pub const ncdplot = struct_ncdplot;
+pub const ncprogbar = struct_ncprogbar;
+pub const ncfdplane = struct_ncfdplane;
+pub const ncsubproc = struct_ncsubproc;
+pub const ncselector = struct_ncselector;
+pub const ncmultiselector = struct_ncmultiselector;
+pub const ncreader = struct_ncreader;
+pub const ncfadectx = struct_ncfadectx;
+pub const nctablet = struct_nctablet;
+pub const ncreel = struct_ncreel;
+pub const nctab = struct_nctab;
+pub const nctabbed = struct_nctabbed;
+pub const ncdirect = struct_ncdirect;
+pub const ncvisual_options = struct_ncvisual_options;
+pub const ncselector_item = struct_ncselector_item;
+pub const ncmselector_item = struct_ncmselector_item;
+pub const nctree_item = struct_nctree_item;
+pub const nctree = struct_nctree;
+pub const ncmenu_item = struct_ncmenu_item;
+pub const ncmenu_section = struct_ncmenu_section;
+pub const ncmenu = struct_ncmenu;

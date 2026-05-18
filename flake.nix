@@ -24,12 +24,44 @@
 
         zig = pkgs.zigpkgs."0.16.0";
         zls = pkgs.zls;
+        zigTarget =
+          if pkgs.stdenv.isLinux then "${pkgs.stdenv.hostPlatform.system}-gnu"
+          else pkgs.stdenv.hostPlatform.system;
       in
       {
         packages = {
-          default = pkgs.stdenvNoCC.mkDerivation {
+          default = pkgs.stdenv.mkDerivation {
             pname = "notcurses-min-example";
             version = "0.1.0";
+
+            src = ./.;
+
+            nativeBuildInputs = [
+              zig.hook
+              pkgs.pkg-config
+            ];
+
+            buildInputs = [
+              pkgs.notcurses
+            ];
+
+            zigBuildFlagsArray = [
+              "-Dtarget=${zigTarget}"
+            ];
+
+            postInstall = ''
+              mkdir -p $out/libexec
+              mv $out/bin/nc-min-ex $out/libexec/nc-min-ex
+
+              cat > $out/bin/nc-min-ex <<EOF
+              #!${pkgs.runtimeShell}
+              exec ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 \\
+                --library-path ${pkgs.lib.makeLibraryPath [ pkgs.glibc pkgs.notcurses pkgs.ncurses ]} \\
+                $out/libexec/nc-min-ex "\$@"
+              EOF
+
+              chmod +x $out/bin/nc-min-ex
+            '';
           };
         };
 
@@ -40,6 +72,7 @@
             zig
             zls
             notcurses
+            pkg-config
           ];
         };
       }
