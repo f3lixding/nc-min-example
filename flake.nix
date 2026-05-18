@@ -74,6 +74,18 @@
             notcurses
             pkg-config
           ];
+
+          shellHook = ''
+            export NC_DEV_LOADER=${pkgs.stdenv.cc.bintools.dynamicLinker}
+            export NC_DEV_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [ pkgs.glibc pkgs.notcurses pkgs.ncurses ]}
+
+            nc-run() {
+              "$NC_DEV_LOADER" \
+                --library-path "$NC_DEV_LIBRARY_PATH" \
+                ./zig-out/bin/nc-min-ex "$@"
+            }
+            export -f nc-run
+          '';
         };
       }
     );
