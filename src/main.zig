@@ -18,3 +18,5 @@ pub fn main(init: std.process.Init) !void {
     try writer.writeAll("\n");
     try writer.flush();
 }
+
+pub fn waitForKey() void {}

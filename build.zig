@@ -17,8 +17,10 @@ pub fn build(b: *std.Build) void {
     // Use the system linker instead of Zig's built-in ELF linker. This produces
     // ELF files that Nix/patchelf can reliably fix up.
     main_bin.use_lld = false;
+    main_bin.pie = true;
 
     linkNc(main_bin);
+    addNixRPath(b, main_bin);
 
     b.installArtifact(main_bin);
 }
@@ -31,4 +33,14 @@ fn linkNc(bin: *std.Build.Step.Compile) void {
     bin.root_module.linkSystemLibrary("notcurses", .{
         .use_pkg_config = .yes,
     });
+}
+
+fn addNixRPath(b: *std.Build, bin: *std.Build.Step.Compile) void {
+    const rpath = b.option([]const u8, "rpath", "rpath") orelse return;
+
+    var it = std.mem.splitScalar(u8, rpath, ':');
+    while (it.next()) |path| {
+        if (path.len == 0) return;
+        bin.root_module.addRPath(.{ .cwd_relative = path });
+    }
 }

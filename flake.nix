@@ -45,22 +45,22 @@
               pkgs.notcurses
             ];
 
-            zigBuildFlagsArray = [
+            zigBuildFlags = [
               "-Dtarget=${zigTarget}"
+              "-Drpath=${pkgs.lib.makeLibraryPath [
+                pkgs.notcurses
+                pkgs.ncurses
+                pkgs.libunistring
+                pkgs.libdeflate
+                pkgs.glibc
+                pkgs.stdenv.cc.cc.lib
+              ]}"
             ];
 
             postInstall = ''
-              mkdir -p $out/libexec
-              mv $out/bin/nc-min-ex $out/libexec/nc-min-ex
-
-              cat > $out/bin/nc-min-ex <<EOF
-              #!${pkgs.runtimeShell}
-              exec ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 \\
-                --library-path ${pkgs.lib.makeLibraryPath [ pkgs.glibc pkgs.notcurses pkgs.ncurses ]} \\
-                $out/libexec/nc-min-ex "\$@"
-              EOF
-
-              chmod +x $out/bin/nc-min-ex
+              ${pkgs.patchelfUnstable}/bin/patchelf \
+                --set-interpreter ${pkgs.stdenv.cc.bintools.dynamicLinker} \
+                $out/bin/nc-min-ex
             '';
           };
         };
