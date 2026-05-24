@@ -1,6 +1,8 @@
 #!/bin/sh 
-
-zig build -Drpath="$NC_DEV_RPATH"
+# A helper script for building with `zig build`
+# This is because in nix we would need to patche the rpath since nix is not FHS compliant
+# And running nix build everytime would be too slow
+zig build -Drpath="$NC_DEV_RPATH" "$@"
 patchelf \
   --set-interpreter "$NC_DEV_LOADER" \
   zig-out/bin/nc-min-ex
