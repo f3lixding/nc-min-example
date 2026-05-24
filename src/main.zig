@@ -1,22 +1,54 @@
 const std = @import("std");
-const nc = @cImport({
+const c = @cImport({
+    @cInclude("locale.h");
+    @cInclude("stdio.h");
     @cInclude("notcurses/notcurses.h");
 });
 
 pub fn main(init: std.process.Init) !void {
     const io = init.io;
-    const stdout = std.Io.File.stdout();
+    _ = io;
 
-    var buf: [1028]u8 = undefined;
-    var stdout_writer = stdout.writer(io, &buf);
-    const writer = &stdout_writer.interface;
+    if (c.setlocale(c.LC_ALL, "") == null) {
+        return error.SetLocaleFailed;
+    }
 
-    const nc_version = nc.notcurses_version();
-    const nc_ver_slice: []const u8 = std.mem.span(nc_version);
+    var opts: c.notcurses_options = std.mem.zeroes(c.notcurses_options);
 
-    try writer.writeAll(nc_ver_slice);
-    try writer.writeAll("\n");
-    try writer.flush();
+    const nc_ctx = c.notcurses_core_init(&opts, null) orelse {
+        return error.NotcursesInitFailed;
+    };
+    defer _ = c.notcurses_stop(nc_ctx);
+
+    const stdplane = c.notcurses_stdplane(nc_ctx) orelse {
+        return error.NotcursesInitFailed;
+    };
+
+    _ = c.ncplane_set_fg_rgb8(stdplane, 255, 255, 255);
+    _ = c.ncplane_set_bg_rgb8(stdplane, 0, 0, 128);
+
+    if (c.ncplane_putstr_yx(stdplane, 2, 4, "hello notcurses") < 0) {
+        return error.PutStrFailed;
+    }
+
+    if (c.ncplane_putstr_yx(stdplane, 4, 4, "press any key to exit") < 0) {
+        return error.PutStrFailed;
+    }
+
+    if (c.notcurses_render(nc_ctx) < 0) {
+        return error.RenderFailed;
+    }
+
+    while (true) {
+        var input: c.ncinput = std.mem.zeroes(c.ncinput);
+        const id = c.notcurses_get_blocking(nc_ctx, &input);
+
+        if (id == std.math.maxInt(u32)) {
+            return error.InputFailed;
+        }
+
+        if (id != 0) break;
+    }
 }
 
 pub fn waitForKey() void {}

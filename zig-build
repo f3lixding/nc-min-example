@@ -1,0 +1,7 @@
+#!/bin/sh 
+
+zig build -Drpath="$NC_DEV_RPATH"
+patchelf \
+  --set-interpreter "$NC_DEV_LOADER" \
+  zig-out/bin/nc-min-ex
+

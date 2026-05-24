@@ -37,7 +37,7 @@
             src = ./.;
 
             nativeBuildInputs = [
-              zig.hook
+              zig.hook # this is what tells nix build what to run
               pkgs.pkg-config
             ];
 
