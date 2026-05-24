@@ -47,7 +47,7 @@ pub fn main(init: std.process.Init) !void {
             return error.InputFailed;
         }
 
-        if (id != 0) break;
+        if (id == 'q' or id == c.NCKEY_ESC) break;
     }
 }
 

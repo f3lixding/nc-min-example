@@ -24,6 +24,14 @@
 
         zig = pkgs.zigpkgs."0.16.0";
         zls = pkgs.zls;
+        notcursesPatched = pkgs.notcurses.overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ [
+            (pkgs.fetchpatch {
+              url = "https://github.com/dankamongmen/notcurses/pull/2926.patch";
+              hash = "sha256-1EBbQZghAyvXks5KClStgZ1VXd4MGKm4NwkSXQOluXw=";
+            })
+          ];
+        });
         zigTarget =
           if pkgs.stdenv.isLinux then "${pkgs.stdenv.hostPlatform.system}-gnu"
           else pkgs.stdenv.hostPlatform.system;
@@ -42,13 +50,13 @@
             ];
 
             buildInputs = [
-              pkgs.notcurses
+              notcursesPatched
             ];
 
             zigBuildFlags = [
               "-Dtarget=${zigTarget}"
               "-Drpath=${pkgs.lib.makeLibraryPath [
-                pkgs.notcurses
+                notcursesPatched
                 pkgs.ncurses
                 pkgs.libunistring
                 pkgs.libdeflate
@@ -71,13 +79,21 @@
             gcc
             zig
             zls
-            notcurses
+            notcursesPatched
             pkg-config
           ];
 
           shellHook = ''
             export NC_DEV_LOADER=${pkgs.stdenv.cc.bintools.dynamicLinker}
-            export NC_DEV_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [ pkgs.glibc pkgs.notcurses pkgs.ncurses ]}
+            export NC_DEV_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [ pkgs.glibc notcursesPatched pkgs.ncurses ]}
+            export NC_DEV_RPATH=${pkgs.lib.makeLibraryPath [
+              notcursesPatched
+              pkgs.ncurses
+              pkgs.libunistring
+              pkgs.libdeflate
+              pkgs.glibc
+              pkgs.stdenv.cc.cc.lib
+            ]}
 
             nc-run() {
               "$NC_DEV_LOADER" \
