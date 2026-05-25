@@ -12,6 +12,8 @@ const Opts = struct {
 const Program = enum {
     SimplePrint,
 
+    const Self = @This();
+
     pub fn parseFromStr(input: []const u8) ?Program {
         // We'll deal with this later. For now we'll assume this is true
         std.debug.assert(input.len <= 1024);
@@ -27,6 +29,55 @@ const Program = enum {
         }
 
         return null;
+    }
+
+    pub fn execute(self: Self, input_opts: Opts) !void {
+        _ = input_opts;
+
+        switch (self) {
+            .SimplePrint => {
+                if (c.setlocale(c.LC_ALL, "") == null) {
+                    return error.SetLocaleFailed;
+                }
+
+                var opts: c.notcurses_options = std.mem.zeroes(c.notcurses_options);
+
+                const nc_ctx = c.notcurses_core_init(&opts, null) orelse {
+                    return error.NotcursesInitFailed;
+                };
+                defer _ = c.notcurses_stop(nc_ctx);
+
+                const stdplane = c.notcurses_stdplane(nc_ctx) orelse {
+                    return error.NotcursesInitFailed;
+                };
+
+                _ = c.ncplane_set_fg_rgb8(stdplane, 255, 255, 255);
+                _ = c.ncplane_set_bg_rgb8(stdplane, 0, 0, 128);
+
+                if (c.ncplane_putstr_yx(stdplane, 2, 4, "hello notcurses") < 0) {
+                    return error.PutStrFailed;
+                }
+
+                if (c.ncplane_putstr_yx(stdplane, 4, 4, "press any key to exit") < 0) {
+                    return error.PutStrFailed;
+                }
+
+                if (c.notcurses_render(nc_ctx) < 0) {
+                    return error.RenderFailed;
+                }
+
+                while (true) {
+                    var input: c.ncinput = std.mem.zeroes(c.ncinput);
+                    const id = c.notcurses_get_blocking(nc_ctx, &input);
+
+                    if (id == std.math.maxInt(u32)) {
+                        return error.InputFailed;
+                    }
+
+                    if (id == 'q' or id == c.NCKEY_ESC) break;
+                }
+            },
+        }
     }
 };
 
@@ -46,50 +97,7 @@ pub fn main(init: std.process.Init) !void {
         }
     }
 
-    switch (input_opts.program) {
-        .SimplePrint => {
-            if (c.setlocale(c.LC_ALL, "") == null) {
-                return error.SetLocaleFailed;
-            }
-
-            var opts: c.notcurses_options = std.mem.zeroes(c.notcurses_options);
-
-            const nc_ctx = c.notcurses_core_init(&opts, null) orelse {
-                return error.NotcursesInitFailed;
-            };
-            defer _ = c.notcurses_stop(nc_ctx);
-
-            const stdplane = c.notcurses_stdplane(nc_ctx) orelse {
-                return error.NotcursesInitFailed;
-            };
-
-            _ = c.ncplane_set_fg_rgb8(stdplane, 255, 255, 255);
-            _ = c.ncplane_set_bg_rgb8(stdplane, 0, 0, 128);
-
-            if (c.ncplane_putstr_yx(stdplane, 2, 4, "hello notcurses") < 0) {
-                return error.PutStrFailed;
-            }
-
-            if (c.ncplane_putstr_yx(stdplane, 4, 4, "press any key to exit") < 0) {
-                return error.PutStrFailed;
-            }
-
-            if (c.notcurses_render(nc_ctx) < 0) {
-                return error.RenderFailed;
-            }
-
-            while (true) {
-                var input: c.ncinput = std.mem.zeroes(c.ncinput);
-                const id = c.notcurses_get_blocking(nc_ctx, &input);
-
-                if (id == std.math.maxInt(u32)) {
-                    return error.InputFailed;
-                }
-
-                if (id == 'q' or id == c.NCKEY_ESC) break;
-            }
-        },
-    }
+    try input_opts.program.execute(input_opts);
 
     var buf: [1024]u8 = undefined;
     var stdout = std.Io.File.stdout();
@@ -99,5 +107,3 @@ pub fn main(init: std.process.Init) !void {
     try stdout_writer.writeAll("No matching program found\n");
     try stdout_writer.flush();
 }
-
-pub fn waitForKey() void {}
