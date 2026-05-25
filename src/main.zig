@@ -1,9 +1,6 @@
 const std = @import("std");
-const c = @cImport({
-    @cInclude("locale.h");
-    @cInclude("stdio.h");
-    @cInclude("notcurses/notcurses.h");
-});
+const util = @import("root.zig");
+const c = util.c;
 
 const Opts = struct {
     program: Program = .SimplePrint,
@@ -12,6 +9,7 @@ const Opts = struct {
 const Program = enum {
     SimplePrint,
     KeyReading,
+    Borders,
 
     const Self = @This();
 
@@ -29,6 +27,8 @@ const Program = enum {
             return .SimplePrint;
         } else if (std.mem.eql(u8, conv_buf, "keyreading")) {
             return .KeyReading;
+        } else if (std.mem.eql(u8, conv_buf, "borders")) {
+            return .Borders;
         }
 
         return null;
@@ -37,7 +37,7 @@ const Program = enum {
     pub fn execute(self: Self, input_opts: Opts) !void {
         _ = input_opts;
 
-        if (c.setlocale(c.LC_ALL, "") < 0) {
+        if (c.setlocale(c.LC_ALL, "") == null) {
             return error.SetLocaleFailed;
         }
 
@@ -151,6 +151,74 @@ const Program = enum {
                         len += 1;
                 }
             },
+            // move the border with j, k, h, l
+            // resize it with shft + j, k, j, l
+            .Borders => {
+                var top_left_y: c_uint = 5;
+                var top_left_x: c_uint = 10;
+                var height: c_uint = 20;
+                var width: c_uint = 40;
+
+                while (true) {
+                    var term_height: c_uint = 0;
+                    var term_width: c_uint = 0;
+                    c.ncplane_dim_yx(stdplane, &term_height, &term_width);
+
+                    c.ncplane_erase(stdplane);
+                    util.drawBorders(stdplane, top_left_y, top_left_x, height, width);
+                    if (c.notcurses_render(nc_ctx) < 0) return error.RenderFailed;
+
+                    var input = std.mem.zeroes(c.ncinput);
+                    const key = c.notcurses_get_blocking(nc_ctx, &input);
+
+                    const shifted = c.ncinput_shift_p(&input);
+
+                    switch (key) {
+                        'h', c.NCKEY_LEFT => {
+                            if (shifted) {
+                                if (width > 2) width -= 1;
+                            } else if (top_left_x > 0) {
+                                top_left_x -= 1;
+                            }
+                        },
+                        'l', c.NCKEY_RIGHT => {
+                            if (shifted) {
+                                width += 1;
+                            } else {
+                                top_left_x += 1;
+                            }
+                        },
+                        'k', c.NCKEY_UP => {
+                            if (shifted) {
+                                if (height > 2) height -= 1;
+                            } else if (top_left_y > 0) {
+                                top_left_y -= 1;
+                            }
+                        },
+                        'j', c.NCKEY_DOWN => {
+                            if (shifted) {
+                                height += 1;
+                            } else {
+                                top_left_y += 1;
+                            }
+                        },
+
+                        // Most terminals send Shift+h/j/k/l as uppercase letters,
+                        // not as lowercase letters with NCKEY_MOD_SHIFT set.
+                        'H' => if (width > 2) {
+                            width -= 1;
+                        },
+                        'L' => width += 1,
+                        'K' => if (height > 2) {
+                            height -= 1;
+                        },
+                        'J' => height += 1,
+
+                        'q' => break,
+                        else => continue,
+                    }
+                }
+            },
         }
     }
 };
@@ -160,14 +228,14 @@ pub fn main(init: std.process.Init) !void {
     var args_iter = try std.process.Args.iterateAllocator(args, init.gpa);
     _ = args_iter.next(); // program name
 
-    var input_opts: Opts = undefined;
+    var input_opts: Opts = .{};
     while (args_iter.next()) |arg| {
         if (std.mem.eql(u8, arg, "--program") or std.mem.eql(u8, arg, "-p")) {
-            if (args_iter.next()) |val| {
-                input_opts.program = Program.parseFromStr(val) orelse return error.ArgParseError;
-            } else {
-                return error.ArgParseError;
-            }
+            const val = args_iter.next() orelse return error.ArgParseError;
+            input_opts.program = Program.parseFromStr(val) orelse return error.ArgParseError;
+        } else if (arg.len > "--program=".len and std.mem.startsWith(u8, arg, "--program=")) {
+            const val = arg["--program=".len..];
+            input_opts.program = Program.parseFromStr(val) orelse return error.ArgParseError;
         }
     }
 
