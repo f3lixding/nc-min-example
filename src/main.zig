@@ -11,6 +11,7 @@ const Opts = struct {
 
 const Program = enum {
     SimplePrint,
+    KeyReading,
 
     const Self = @This();
 
@@ -26,6 +27,8 @@ const Program = enum {
 
         if (std.mem.eql(u8, conv_buf, "simpleprint")) {
             return .SimplePrint;
+        } else if (std.mem.eql(u8, conv_buf, "keyreading")) {
+            return .KeyReading;
         }
 
         return null;
@@ -34,31 +37,28 @@ const Program = enum {
     pub fn execute(self: Self, input_opts: Opts) !void {
         _ = input_opts;
 
+        if (c.setlocale(c.LC_ALL, "") < 0) {
+            return error.SetLocaleFailed;
+        }
+
+        var opts = std.mem.zeroes(c.notcurses_options);
+        const nc_ctx = c.notcurses_core_init(&opts, null) orelse {
+            return error.NotcursesInitFailed;
+        };
+        defer _ = c.notcurses_stop(nc_ctx);
+
+        // regardless of what program we are running we are going to need a plane
+        const stdplane = c.notcurses_stdplane(nc_ctx) orelse {
+            return error.NotcursesInitFailed;
+        };
+
         switch (self) {
             .SimplePrint => {
-                if (c.setlocale(c.LC_ALL, "") == null) {
-                    return error.SetLocaleFailed;
-                }
-
-                var opts: c.notcurses_options = std.mem.zeroes(c.notcurses_options);
-
-                const nc_ctx = c.notcurses_core_init(&opts, null) orelse {
-                    return error.NotcursesInitFailed;
-                };
-                defer _ = c.notcurses_stop(nc_ctx);
-
-                const stdplane = c.notcurses_stdplane(nc_ctx) orelse {
-                    return error.NotcursesInitFailed;
-                };
-
-                _ = c.ncplane_set_fg_rgb8(stdplane, 255, 255, 255);
-                _ = c.ncplane_set_bg_rgb8(stdplane, 0, 0, 128);
-
                 if (c.ncplane_putstr_yx(stdplane, 2, 4, "hello notcurses") < 0) {
                     return error.PutStrFailed;
                 }
 
-                if (c.ncplane_putstr_yx(stdplane, 4, 4, "press any key to exit") < 0) {
+                if (c.ncplane_putstr_yx(stdplane, 4, 4, "press 'q' to exit") < 0) {
                     return error.PutStrFailed;
                 }
 
@@ -75,6 +75,80 @@ const Program = enum {
                     }
 
                     if (id == 'q' or id == c.NCKEY_ESC) break;
+                }
+            },
+            .KeyReading => {
+                const Coord = struct {
+                    y: c_int,
+                    x: c_int,
+                };
+                const BUF_MAX_LEN: usize = 10;
+
+                var head: usize = 0;
+                var tail: usize = 0;
+                var len: usize = 0;
+
+                var pb: [BUF_MAX_LEN]Coord = undefined;
+                pb[0] = .{ .y = 5, .x = 10 };
+
+                while (true) {
+                    c.ncplane_erase(stdplane);
+
+                    if (c.ncplane_putstr_yx(stdplane, 0, 5, "move with arrows and vim motion; q quits") < 0) {
+                        return error.PutstrError;
+                    }
+
+                    const y = pb[head].y;
+                    const x = pb[head].x;
+                    const next_head = (head + 1) % BUF_MAX_LEN;
+                    const next_coord = &pb[next_head];
+
+                    const to_render = if (len < BUF_MAX_LEN) blk_one: {
+                        break :blk_one pb[tail .. head + 1];
+                    } else blk_two: {
+                        break :blk_two &pb;
+                    };
+                    for (to_render) |*coord| {
+                        if (c.ncplane_putstr_yx(stdplane, coord.y, coord.x, "@") < 0) {
+                            return error.PutstrError;
+                        }
+                    }
+
+                    if (c.notcurses_render(nc_ctx) < 0) {
+                        return error.RenderFailed;
+                    }
+
+                    var input = std.mem.zeroes(c.ncinput);
+                    const key = c.notcurses_get_blocking(nc_ctx, &input);
+
+                    switch (key) {
+                        c.NCKEY_UP, 'k' => {
+                            if (y <= 0) continue;
+                            next_coord.x = x;
+                            next_coord.y = y - 1;
+                        },
+                        c.NCKEY_DOWN, 'j' => {
+                            next_coord.x = x;
+                            next_coord.y = y + 1;
+                        },
+                        c.NCKEY_LEFT, 'h' => {
+                            if (x <= 0) continue;
+                            next_coord.x = x - 1;
+                            next_coord.y = y;
+                        },
+                        c.NCKEY_RIGHT, 'l' => {
+                            next_coord.x = x + 1;
+                            next_coord.y = y;
+                        },
+                        'q' => break,
+                        else => continue,
+                    }
+
+                    head = next_head;
+                    if (head == tail)
+                        tail = (tail + 1) % BUF_MAX_LEN;
+                    if (len < BUF_MAX_LEN)
+                        len += 1;
                 }
             },
         }

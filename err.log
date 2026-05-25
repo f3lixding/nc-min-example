@@ -1,0 +1,13 @@
+thread 1176591 panic: integer overflow
+/home/felix/doodle/notcurses_minimal_example/src/main.zig:105:48: 0x5555557258e9 in execute (main.zig)
+                    const to_render = if (head - tail >= 0) blk_one: {
+                                               ^
+/home/felix/doodle/notcurses_minimal_example/src/main.zig:171:35: 0x5555557265f2 in main (main.zig)
+    try input_opts.program.execute(input_opts);
+                                  ^
+/nix/store/9zyky24fffkbhnkmjcnrjcl3dmvx6w9x-zig-0.16.0/lib/std/start.zig:737:30: 0x5555557271c7 in callMain (std.zig)
+    return wrapMain(root.main(.{
+                             ^
+???:?:?: 0x7ffff7c2b284 in __libc_start_call_main (/nix/store/fjkx1l5cnskzrqacf08z7i8z17256w0j-glibc-2.42-61/lib/libc.so.6)
+???:?:?: 0x7ffff7c2b337 in __libc_start_main_alias_2 (/nix/store/fjkx1l5cnskzrqacf08z7i8z17256w0j-glibc-2.42-61/lib/libc.so.6)
+???:?:?: 0x55555575f874 in ??? (???)
