@@ -171,36 +171,22 @@ const Program = enum {
                     var input = std.mem.zeroes(c.ncinput);
                     const key = c.notcurses_get_blocking(nc_ctx, &input);
 
-                    const shifted = c.ncinput_shift_p(&input);
-
                     switch (key) {
                         'h', c.NCKEY_LEFT => {
-                            if (shifted) {
-                                if (width > 2) width -= 1;
-                            } else if (top_left_x > 0) {
+                            if (top_left_x > 0) {
                                 top_left_x -= 1;
                             }
                         },
                         'l', c.NCKEY_RIGHT => {
-                            if (shifted) {
-                                width += 1;
-                            } else {
-                                top_left_x += 1;
-                            }
+                            top_left_x += 1;
                         },
                         'k', c.NCKEY_UP => {
-                            if (shifted) {
-                                if (height > 2) height -= 1;
-                            } else if (top_left_y > 0) {
+                            if (top_left_y > 0) {
                                 top_left_y -= 1;
                             }
                         },
                         'j', c.NCKEY_DOWN => {
-                            if (shifted) {
-                                height += 1;
-                            } else {
-                                top_left_y += 1;
-                            }
+                            top_left_y += 1;
                         },
 
                         // Most terminals send Shift+h/j/k/l as uppercase letters,
