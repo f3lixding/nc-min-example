@@ -10,6 +10,7 @@ const Program = enum {
     SimplePrint,
     KeyReading,
     Borders,
+    Multilayer,
 
     const Self = @This();
 
@@ -29,6 +30,8 @@ const Program = enum {
             return .KeyReading;
         } else if (std.mem.eql(u8, conv_buf, "borders")) {
             return .Borders;
+        } else if (std.mem.eql(u8, conv_buf, "multilayer")) {
+            return .Multilayer;
         }
 
         return null;
@@ -165,6 +168,24 @@ const Program = enum {
                     c.ncplane_dim_yx(stdplane, &term_height, &term_width);
 
                     c.ncplane_erase(stdplane);
+
+                    if (c.ncplane_putstr_yx(
+                        stdplane,
+                        0,
+                        0,
+                        "Use j, k, h, l to move; Use shift to resize in those directions",
+                    ) < 0) {
+                        return error.PutstrError;
+                    }
+                    if (c.ncplane_putstr_yx(
+                        stdplane,
+                        1,
+                        0,
+                        "Use q to quit",
+                    ) < 0) {
+                        return error.PutstrError;
+                    }
+
                     util.drawBorders(stdplane, top_left_y, top_left_x, height, width);
                     if (c.notcurses_render(nc_ctx) < 0) return error.RenderFailed;
 
@@ -205,6 +226,59 @@ const Program = enum {
                     }
                 }
             },
+            .Multilayer => {
+                // This is more or less identical to moving what you draw around
+                // except this case it's moving the entire plane
+                var box_opts: c.ncplane_options = std.mem.zeroes(c.ncplane_options);
+                box_opts.name = "Box on plane";
+                box_opts.y = 5;
+                box_opts.x = 10;
+                box_opts.rows = 5;
+                box_opts.cols = 31;
+
+                const box = c.ncplane_create(stdplane, &box_opts) orelse {
+                    return error.CreatePlaneFailed;
+                };
+                defer if (c.ncplane_destroy(box) < 0) {
+                    // noop
+                };
+
+                // draw the box
+                // notice how we are using coords relative to the box plane
+                _ = c.ncplane_putstr_yx(box, 0, 0, "+----------------------------+");
+                _ = c.ncplane_putstr_yx(box, 1, 0, "| hello from a separate plane |");
+                _ = c.ncplane_putstr_yx(box, 2, 0, "| this plane can move         |");
+                _ = c.ncplane_putstr_yx(box, 3, 0, "+----------------------------+");
+
+                var box_top_left_y: c_uint = 5;
+                var box_top_left_x: c_uint = 10;
+                while (true) {
+                    c.ncplane_erase(stdplane);
+
+                    _ = c.ncplane_putstr_yx(stdplane, 1, 2, "background stdplane");
+                    _ = c.ncplane_putstr_yx(stdplane, 2, 2, "move box with arrows/h; q quits");
+
+                    _ = c.ncplane_move_yx(box, @intCast(box_top_left_y), @intCast(box_top_left_x));
+
+                    if (c.notcurses_render(nc_ctx) < 0) return error.RenderFailed;
+
+                    var input = std.mem.zeroes(c.ncinput);
+                    const key = c.notcurses_get_blocking(nc_ctx, &input);
+
+                    switch (key) {
+                        c.NCKEY_UP, 'k' => if (box_top_left_y > 0) {
+                            box_top_left_y -= 1;
+                        },
+                        c.NCKEY_DOWN, 'j' => box_top_left_y += 1,
+                        c.NCKEY_LEFT, 'h' => if (box_top_left_x > 0) {
+                            box_top_left_x -= 1;
+                        },
+                        c.NCKEY_RIGHT, 'l' => box_top_left_x += 1,
+                        'q' => break,
+                        else => {},
+                    }
+                }
+            },
         }
     }
 };
@@ -226,12 +300,4 @@ pub fn main(init: std.process.Init) !void {
     }
 
     try input_opts.program.execute(input_opts);
-
-    var buf: [1024]u8 = undefined;
-    var stdout = std.Io.File.stdout();
-    var stdout_writer_ = stdout.writer(init.io, &buf);
-    var stdout_writer = &stdout_writer_.interface;
-
-    try stdout_writer.writeAll("No matching program found\n");
-    try stdout_writer.flush();
 }
