@@ -343,7 +343,12 @@ const Program = enum {
                 }
 
                 var input = std.mem.zeroes(c.ncinput);
-                _ = c.notcurses_get_blocking(nc_ctx, &input);
+                while (true) {
+                    const key = c.notcurses_get_blocking(nc_ctx, &input);
+                    if (key == 'q') {
+                        break;
+                    }
+                }
             },
         }
     }
