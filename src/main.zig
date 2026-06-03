@@ -12,6 +12,7 @@ const Program = enum {
     Borders,
     Multilayer,
     Colors,
+    Resize,
 
     const Self = @This();
 
@@ -35,6 +36,8 @@ const Program = enum {
             return .Multilayer;
         } else if (std.mem.eql(u8, conv_buf, "colors")) {
             return .Colors;
+        } else if (std.mem.eql(u8, conv_buf, "resize")) {
+            return .Resize;
         }
 
         return null;
@@ -277,12 +280,42 @@ const Program = enum {
 
                 // draw the box
                 // notice how we are using coords relative to the box plane
-                _ = c.ncplane_putstr_yx(box, 0, 0, "+----------------------------+");
+                _ = c.ncplane_putstr_yx(box, 0, 0, "+-----------------------------+");
                 _ = c.ncplane_putstr_yx(box, 1, 0, "| hello from a separate plane |");
                 _ = c.ncplane_putstr_yx(box, 2, 0, "| this plane can move         |");
-                _ = c.ncplane_putstr_yx(box, 3, 0, "+----------------------------+");
+                _ = c.ncplane_putstr_yx(box, 3, 0, "+-----------------------------+");
 
                 try movingBoxOnPlane(nc_ctx, stdplane, box);
+            },
+            .Resize => {
+                // resize and adjust
+                // don't want to compilcate it too much for now though
+                // so i am just going to make it read the dimension and print it
+                var cur_width: c_uint = 0;
+                var cur_height: c_uint = 0;
+                var buf: [1024]u8 = undefined;
+                const template = "Height: {d}, Width: {d}";
+
+                while (true) {
+                    c.ncplane_erase(stdplane);
+                    c.ncplane_dim_yx(stdplane, &cur_height, &cur_width);
+
+                    const text = try std.fmt.bufPrintZ(&buf, template, .{ cur_height, cur_width });
+                    const mid_y = cur_height / 2;
+                    _ = c.ncplane_putstr_aligned(stdplane, @intCast(mid_y), c.NCALIGN_CENTER, text);
+
+                    if (c.notcurses_render(nc_ctx) < 0) {
+                        return error.RenderFailed;
+                    }
+
+                    var input = std.mem.zeroes(c.ncinput);
+                    const key = c.notcurses_get_blocking(nc_ctx, &input);
+
+                    switch (key) {
+                        'q' => break,
+                        else => {},
+                    }
+                }
             },
         }
     }
