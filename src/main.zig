@@ -13,6 +13,7 @@ const Program = enum {
     Multilayer,
     Colors,
     Resize,
+    RealBorders,
 
     const Self = @This();
 
@@ -38,6 +39,8 @@ const Program = enum {
             return .Colors;
         } else if (std.mem.eql(u8, conv_buf, "resize")) {
             return .Resize;
+        } else if (std.mem.eql(u8, conv_buf, "realborders")) {
+            return .RealBorders;
         }
 
         return null;
@@ -316,6 +319,31 @@ const Program = enum {
                         else => {},
                     }
                 }
+            },
+            .RealBorders => {
+                var cur_height: c_uint = 0;
+                var cur_width: c_uint = 0;
+
+                _ = c.ncplane_dim_yx(stdplane, &cur_height, &cur_width);
+                _ = c.ncplane_cursor_move_yx(stdplane, 0, 0);
+
+                if (c.ncplane_rounded_box_sized(
+                    stdplane,
+                    0,
+                    0,
+                    cur_height,
+                    cur_width,
+                    0,
+                ) < 0) {
+                    return error.BoxFailed;
+                }
+
+                if (c.notcurses_render(nc_ctx) < 0) {
+                    return error.RenderFailed;
+                }
+
+                var input = std.mem.zeroes(c.ncinput);
+                _ = c.notcurses_get_blocking(nc_ctx, &input);
             },
         }
     }
