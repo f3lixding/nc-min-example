@@ -4,6 +4,7 @@ pub const c = @cImport({
     @cInclude("locale.h");
     @cInclude("stdio.h");
     @cInclude("notcurses/notcurses.h");
+    @cInclude("notcurses/direct.h");
 });
 
 /// Draw a rectangular ASCII border.

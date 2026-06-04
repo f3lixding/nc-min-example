@@ -14,6 +14,7 @@ const Program = enum {
     Colors,
     Resize,
     RealBorders,
+    DirectMode,
 
     const Self = @This();
 
@@ -41,6 +42,8 @@ const Program = enum {
             return .Resize;
         } else if (std.mem.eql(u8, conv_buf, "realborders")) {
             return .RealBorders;
+        } else if (std.mem.eql(u8, conv_buf, "directmode")) {
+            return .DirectMode;
         }
 
         return null;
@@ -57,7 +60,12 @@ const Program = enum {
         const nc_ctx = c.notcurses_core_init(&opts, null) orelse {
             return error.NotcursesInitFailed;
         };
-        defer _ = c.notcurses_stop(nc_ctx);
+        var needs_deinit = true;
+        defer {
+            if (needs_deinit) {
+                _ = c.notcurses_stop(nc_ctx);
+            }
+        }
 
         // regardless of what program we are running we are going to need a plane
         const stdplane = c.notcurses_stdplane(nc_ctx) orelse {
@@ -349,6 +357,24 @@ const Program = enum {
                         break;
                     }
                 }
+            },
+            .DirectMode => {
+                _ = c.notcurses_stop(nc_ctx);
+                needs_deinit = false;
+
+                const ncd = c.ncdirect_init(null, null, 0) orelse {
+                    return error.DirectInitFailed;
+                };
+                defer _ = c.ncdirect_stop(ncd);
+
+                _ = c.ncdirect_set_fg_rgb(ncd, 0xff0000);
+                _ = c.ncdirect_putstr(ncd, 0, "red text from ncdirect\n");
+
+                _ = c.ncdirect_set_fg_rgb(ncd, 0x00ff00);
+                _ = c.ncdirect_putstr(ncd, 0, "green text from ncdirect\n");
+
+                _ = c.ncdirect_set_fg_default(ncd);
+                _ = c.ncdirect_putstr(ncd, 0, "back to default\n");
             },
         }
     }
