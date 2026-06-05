@@ -15,6 +15,7 @@ const Program = enum {
     Resize,
     RealBorders,
     DirectMode,
+    KeyInspect,
 
     const Self = @This();
 
@@ -44,6 +45,8 @@ const Program = enum {
             return .RealBorders;
         } else if (std.mem.eql(u8, conv_buf, "directmode")) {
             return .DirectMode;
+        } else if (std.mem.eql(u8, conv_buf, "keyinspect")) {
+            return .KeyInspect;
         }
 
         return null;
@@ -375,6 +378,55 @@ const Program = enum {
 
                 _ = c.ncdirect_set_fg_default(ncd);
                 _ = c.ncdirect_putstr(ncd, 0, "back to default\n");
+            },
+            .KeyInspect => {
+                while (true) {
+                    c.ncplane_erase(stdplane);
+
+                    _ = c.ncplane_putstr_yx(stdplane, 1, 2, "press keys; q quits");
+
+                    var input = std.mem.zeroes(c.ncinput);
+                    const key = c.notcurses_get_blocking(nc_ctx, &input);
+
+                    if (key == 'q') break;
+
+                    // erase to get rid tips
+                    c.ncplane_erase(stdplane);
+
+                    // reusable buff
+                    var buf: [256]u8 = undefined;
+
+                    const id_line = try std.fmt.bufPrintZ(
+                        &buf,
+                        "key id: {} / 0x{x}",
+                        .{ input.id, input.id },
+                    );
+                    _ = c.ncplane_putstr_yx(stdplane, 2, 2, id_line.ptr);
+
+                    const utf8_line = try std.fmt.bufPrintZ(
+                        &buf,
+                        "ut8: {s}",
+                        .{std.mem.sliceTo(&input.utf8, 0)},
+                    );
+                    _ = c.ncplane_putstr_yx(stdplane, 3, 2, utf8_line.ptr);
+
+                    const mod_line = try std.fmt.bufPrintZ(
+                        &buf,
+                        "modifiers: shift={}, ctrl={}, alt={}",
+                        .{
+                            c.ncinput_shift_p(&input),
+                            c.ncinput_ctrl_p(&input),
+                            c.ncinput_alt_p(&input),
+                        },
+                    );
+                    _ = c.ncplane_putstr_yx(stdplane, 4, 2, mod_line.ptr);
+
+                    _ = c.ncplane_putstr_yx(stdplane, 6, 2, "press another key; q quits");
+
+                    if (c.notcurses_render(nc_ctx) < 0) return error.RenderFailed;
+
+                    _ = c.notcurses_get_blocking(nc_ctx, null);
+                }
             },
         }
     }
