@@ -6,6 +6,128 @@ const Opts = struct {
     program: Program = .SimplePrint,
 };
 
+const CtrlOpts = struct {
+    pub const Command = enum {
+        BringToTop,
+        BringToBot,
+        MoveLeft,
+        MoveRight,
+        MoveUp,
+        MoveDown,
+    };
+
+    const Self = @This();
+
+    focus: usize = 0,
+    command: ?Command = null,
+
+    pub fn reset(self: *Self) void {
+        self.command = null;
+    }
+};
+
+const Plane = struct {
+    const Self = @This();
+
+    red: u8,
+    green: u8,
+    blue: u8,
+    plane: *c.ncplane,
+    y: c_int = 0,
+    x: c_int = 0,
+
+    pub fn init(
+        base_plane: *c.ncplane,
+        y: c_int,
+        x: c_int,
+        red: u8,
+        green: u8,
+        blue: u8,
+    ) !Self {
+        var box_opts: c.ncplane_options = std.mem.zeroes(c.ncplane_options);
+        box_opts.name = "Box on plane";
+        box_opts.y = y;
+        box_opts.x = x;
+        box_opts.rows = 5;
+        box_opts.cols = 31;
+
+        const plane = c.ncplane_create(base_plane, &box_opts) orelse {
+            return error.CreatePlaneFailed;
+        };
+
+        // fill in the plane
+        _ = c.ncplane_cursor_move_yx(plane, 0, 0);
+
+        const color = rgb(red, green, blue);
+        _ = c.ncplane_set_fg_rgb(plane, color);
+        var channels: u64 = 0;
+        if (c.ncchannels_set_fg_rgb(&channels, color) < 0) {
+            return error.ColorFailed;
+        }
+
+        if (c.ncplane_rounded_box_sized(
+            plane,
+            c.NCSTYLE_BOLD,
+            channels,
+            box_opts.rows,
+            box_opts.cols,
+            0,
+        ) < 0) {
+            return error.BoxFailed;
+        }
+
+        // Just display the color for now
+        var buf: [256]u8 = undefined;
+        const text = try std.fmt.bufPrintZ(&buf, "red={d} green={d} blue={d}", .{ red, green, blue });
+        const mid_y = box_opts.rows / 2;
+        _ = c.ncplane_putstr_aligned(plane, @intCast(mid_y), c.NCALIGN_CENTER, text);
+
+        return .{
+            .red = red,
+            .green = green,
+            .blue = blue,
+            .plane = plane,
+            .y = y,
+            .x = x,
+        };
+    }
+
+    pub fn deinit(self: Self) void {
+        _ = c.ncplane_destroy(self.plane);
+    }
+
+    pub fn processCommand(self: *Self, command: CtrlOpts.Command) void {
+        switch (command) {
+            .BringToTop => {
+                _ = c.ncplane_move_top(self.plane);
+            },
+            .BringToBot => {
+                _ = c.ncplane_move_bottom(self.plane);
+            },
+            .MoveLeft => {
+                if (self.x > 0) {
+                    self.x -= 1;
+                }
+                _ = c.ncplane_move_yx(self.plane, self.y, self.x);
+            },
+            .MoveRight => {
+                self.x += 1;
+                _ = c.ncplane_move_yx(self.plane, self.y, self.x);
+            },
+            .MoveUp => {
+                if (self.y > 0) {
+                    self.y -= 1;
+                }
+                _ = c.ncplane_move_yx(self.plane, self.y, self.x);
+            },
+            .MoveDown => {
+                self.y += 1;
+                _ = c.ncplane_move_yx(self.plane, self.y, self.x);
+            },
+        }
+    }
+};
+
 const Program = enum {
     SimplePrint,
     KeyReading,
@@ -16,6 +138,7 @@ const Program = enum {
     RealBorders,
     DirectMode,
     KeyInspect,
+    Planes,
 
     const Self = @This();
 
@@ -47,6 +170,8 @@ const Program = enum {
             return .DirectMode;
         } else if (std.mem.eql(u8, conv_buf, "keyinspect")) {
             return .KeyInspect;
+        } else if (std.mem.eql(u8, conv_buf, "planes")) {
+            return .Planes;
         }
 
         return null;
@@ -266,8 +391,8 @@ const Program = enum {
                 // draw the box
                 // notice how we are using coords relative to the box plane
                 _ = c.ncplane_putstr_yx(box, 0, 0, "+----------------------------+");
-                _ = c.ncplane_putstr_yx(box, 1, 0, "| hello from a separate plane |");
-                _ = c.ncplane_putstr_yx(box, 2, 0, "| this plane can move         |");
+                _ = c.ncplane_putstr_yx(box, 1, 0, "| hello from a separate plane|");
+                _ = c.ncplane_putstr_yx(box, 2, 0, "| this plane can move        |");
                 _ = c.ncplane_putstr_yx(box, 3, 0, "+----------------------------+");
                 try movingBoxOnPlane(nc_ctx, stdplane, box);
             },
@@ -428,6 +553,87 @@ const Program = enum {
                     _ = c.notcurses_get_blocking(nc_ctx, null);
                 }
             },
+            .Planes => {
+                var plane_one = try Plane.init(
+                    stdplane,
+                    5,
+                    10,
+                    0xff,
+                    0x10,
+                    0x10,
+                );
+                defer plane_one.deinit();
+                var plane_two = try Plane.init(
+                    stdplane,
+                    8,
+                    20,
+                    0x10,
+                    0xff,
+                    0x10,
+                );
+                defer plane_two.deinit();
+                var plane_three = try Plane.init(
+                    stdplane,
+                    11,
+                    30,
+                    0x10,
+                    0x10,
+                    0xff,
+                );
+                defer plane_three.deinit();
+                const planes: [3]*Plane = .{
+                    &plane_one,
+                    &plane_two,
+                    &plane_three,
+                };
+
+                var ctrlOpts: CtrlOpts = .{};
+
+                while (true) {
+                    var buf: [128]u8 = undefined;
+                    const selected_text = try std.fmt.bufPrintZ(&buf, "selected plane: {d}", .{ctrlOpts.focus + 1});
+
+                    _ = c.ncplane_putstr_yx(stdplane, 0, 0, "1, 2, 3 to choose planes");
+                    _ = c.ncplane_putstr_yx(stdplane, 1, 0, "t to bring selected plane to the top");
+                    _ = c.ncplane_putstr_yx(stdplane, 2, 0, "b to bring selected plane to the bottom");
+                    _ = c.ncplane_putstr_yx(stdplane, 3, 0, "h/j/k/l to move selected plane");
+                    _ = c.ncplane_putstr_yx(stdplane, 4, 0, selected_text.ptr);
+
+                    if (c.notcurses_render(nc_ctx) < 0) {
+                        return error.RenderFailed;
+                    }
+
+                    var input = std.mem.zeroes(c.ncinput);
+                    const key = c.notcurses_get_blocking(nc_ctx, &input);
+
+                    ctrlOpts.command = switch (key) {
+                        '1' => blk: {
+                            ctrlOpts.focus = 0;
+                            break :blk null;
+                        },
+                        '2' => blk: {
+                            ctrlOpts.focus = 1;
+                            break :blk null;
+                        },
+                        '3' => blk: {
+                            ctrlOpts.focus = 2;
+                            break :blk null;
+                        },
+                        't' => .BringToTop,
+                        'b' => .BringToBot,
+                        'j' => .MoveDown,
+                        'k' => .MoveUp,
+                        'h' => .MoveLeft,
+                        'l' => .MoveRight,
+                        'q' => break,
+                        else => null,
+                    };
+
+                    if (ctrlOpts.command) |command| {
+                        planes[ctrlOpts.focus].processCommand(command);
+                    }
+                }
+            },
         }
     }
 };
@@ -465,6 +671,10 @@ fn movingBoxOnPlane(
             else => {},
         }
     }
+}
+
+fn rgb(r: u8, g: u8, b: u8) c_uint {
+    return (@as(c_uint, r) << 16) | (@as(c_uint, g) << 8) | (@as(c_uint, b));
 }
 
 pub fn main(init: std.process.Init) !void {
