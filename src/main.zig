@@ -140,6 +140,7 @@ const Program = enum {
     KeyInspect,
     Planes,
     PlaneScrolling,
+    Cell,
 
     const Self = @This();
 
@@ -175,6 +176,8 @@ const Program = enum {
             return .Planes;
         } else if (std.mem.eql(u8, conv_buf, "planescrolling")) {
             return .PlaneScrolling;
+        } else if (std.mem.eql(u8, conv_buf, "cell")) {
+            return .Cell;
         }
 
         return null;
@@ -228,6 +231,7 @@ const Program = enum {
                     if (id == 'q' or id == c.NCKEY_ESC) break;
                 }
             },
+
             .KeyReading => {
                 const Coord = struct {
                     y: c_int,
@@ -302,6 +306,7 @@ const Program = enum {
                         len += 1;
                 }
             },
+
             // move the border with j, k, h, l
             // resize it with shft + j, k, j, l
             .Borders => {
@@ -374,6 +379,7 @@ const Program = enum {
                     }
                 }
             },
+
             .Multilayer => {
                 // This is more or less identical to moving what you draw around
                 // except this case it's moving the entire plane
@@ -399,6 +405,7 @@ const Program = enum {
                 _ = c.ncplane_putstr_yx(box, 3, 0, "+----------------------------+");
                 try movingBoxOnPlane(nc_ctx, stdplane, box);
             },
+
             .Colors => {
                 // This is more or less identical to moving what you draw around
                 // except this case it's moving the entire plane
@@ -429,6 +436,7 @@ const Program = enum {
 
                 try movingBoxOnPlane(nc_ctx, stdplane, box);
             },
+
             .Resize => {
                 // resize and adjust
                 // don't want to compilcate it too much for now though
@@ -459,6 +467,7 @@ const Program = enum {
                     }
                 }
             },
+
             .RealBorders => {
                 var cur_height: c_uint = 0;
                 var cur_width: c_uint = 0;
@@ -489,6 +498,7 @@ const Program = enum {
                     }
                 }
             },
+
             .DirectMode => {
                 _ = c.notcurses_stop(nc_ctx);
                 needs_deinit = false;
@@ -507,6 +517,7 @@ const Program = enum {
                 _ = c.ncdirect_set_fg_default(ncd);
                 _ = c.ncdirect_putstr(ncd, 0, "back to default\n");
             },
+
             .KeyInspect => {
                 while (true) {
                     c.ncplane_erase(stdplane);
@@ -556,6 +567,7 @@ const Program = enum {
                     _ = c.notcurses_get_blocking(nc_ctx, null);
                 }
             },
+
             .Planes => {
                 var plane_one = try Plane.init(
                     stdplane,
@@ -637,6 +649,7 @@ const Program = enum {
                     }
                 }
             },
+
             .PlaneScrolling => {
                 var origin_y: c_int = 3;
                 var origin_x: c_int = 3;
@@ -721,6 +734,39 @@ const Program = enum {
 
                     _ = c.ncplane_putstr(log, line.ptr);
                     counter += 1;
+                }
+            },
+
+            .Cell => {
+                var cell = std.mem.zeroes(c.nccell);
+                c.nccell_init(&cell);
+
+                if (c.nccell_load(stdplane, &cell, "@") < 0) {
+                    return error.CellLoadFailed;
+                }
+                defer c.nccell_release(stdplane, &cell);
+
+                if (c.nccell_set_fg_rgb(&cell, 0xffcc00) != 0) {
+                    return error.SetColorFailed;
+                }
+                if (c.nccell_set_bg_rgb(&cell, 0x101040) != 0) {
+                    return error.SetColorFailed;
+                }
+
+                while (true) {
+                    c.ncplane_erase(stdplane);
+                    _ = c.ncplane_putc_yx(stdplane, 5, 10, &cell);
+
+                    if (c.notcurses_render(nc_ctx) < 0) {
+                        return error.RenderFailed;
+                    }
+
+                    var input = std.mem.zeroes(c.ncinput);
+                    const key = c.notcurses_get_blocking(nc_ctx, &input);
+
+                    if (key == 'q') {
+                        break;
+                    }
                 }
             },
         }
