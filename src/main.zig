@@ -139,6 +139,7 @@ const Program = enum {
     DirectMode,
     KeyInspect,
     Planes,
+    PlaneScrolling,
 
     const Self = @This();
 
@@ -172,6 +173,8 @@ const Program = enum {
             return .KeyInspect;
         } else if (std.mem.eql(u8, conv_buf, "planes")) {
             return .Planes;
+        } else if (std.mem.eql(u8, conv_buf, "planescrolling")) {
+            return .PlaneScrolling;
         }
 
         return null;
@@ -632,6 +635,92 @@ const Program = enum {
                     if (ctrlOpts.command) |command| {
                         planes[ctrlOpts.focus].processCommand(command);
                     }
+                }
+            },
+            .PlaneScrolling => {
+                var origin_y: c_int = 3;
+                var origin_x: c_int = 3;
+
+                var border_opts = std.mem.zeroes(c.ncplane_options);
+                border_opts.y = origin_y;
+                border_opts.x = origin_x;
+                border_opts.rows = 12;
+                border_opts.cols = 52;
+
+                const border = c.ncplane_create(stdplane, &border_opts) orelse {
+                    return error.CreatePlaneFailed;
+                };
+                defer _ = c.ncplane_destroy(border);
+
+                if (c.ncplane_rounded_box_sized(
+                    border,
+                    0,
+                    0,
+                    border_opts.rows,
+                    border_opts.cols,
+                    0,
+                ) < 0) {
+                    return error.BoxFailed;
+                }
+
+                var log_opts = std.mem.zeroes(c.ncplane_options);
+                log_opts.y = 1;
+                log_opts.x = 1;
+                log_opts.rows = 10;
+                log_opts.cols = 50;
+
+                const log = c.ncplane_create(border, &log_opts) orelse {
+                    return error.CreatePlaneFailed;
+                };
+                defer _ = c.ncplane_destroy(log);
+
+                _ = c.ncplane_set_scrolling(log, @intFromBool(true));
+
+                var counter: usize = 0;
+
+                while (true) {
+                    c.ncplane_erase(stdplane);
+                    _ = c.ncplane_putstr_yx(stdplane, 1, 2, "press any key to append; q quits");
+
+                    if (c.notcurses_render(nc_ctx) < 0) return error.RenderFailed;
+
+                    var input = std.mem.zeroes(c.ncinput);
+                    const key = c.notcurses_get_blocking(nc_ctx, &input);
+
+                    switch (key) {
+                        'h' => {
+                            if (origin_x > 0) {
+                                origin_x -= 1;
+                                _ = c.ncplane_move_yx(border, origin_y, origin_x);
+                            }
+                        },
+                        'j' => {
+                            origin_y += 1;
+                            _ = c.ncplane_move_yx(border, origin_y, origin_x);
+                        },
+                        'k' => {
+                            if (origin_y > 0) {
+                                origin_y -= 1;
+                                _ = c.ncplane_move_yx(border, origin_y, origin_x);
+                            }
+                        },
+                        'l' => {
+                            origin_x += 1;
+                            _ = c.ncplane_move_yx(border, origin_y, origin_x);
+                        },
+                        'q' => break,
+                        else => {},
+                    }
+
+                    var buf: [128]u8 = undefined;
+                    const line = try std.fmt.bufPrintZ(
+                        &buf,
+                        "event {}:  key={} utf8={s}\n",
+                        .{ counter, key, std.mem.sliceTo(&input.utf8, 0) },
+                    );
+
+                    _ = c.ncplane_putstr(log, line.ptr);
+                    counter += 1;
                 }
             },
         }
