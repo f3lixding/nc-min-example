@@ -128,6 +128,130 @@ const Plane = struct {
     }
 };
 
+// For now we'll just do this on the same thread and the rendering
+// A better setup here is to have this logic on another thread
+const InputParser = struct {
+    const Mode = enum {
+        Normal,
+        Leader,
+    };
+
+    pub const Action = union(enum) {
+        PrintableConclusion: [:0]const u8,
+        Quit,
+
+        pub fn deinit(self: @This(), alloc: std.mem.Allocator) void {
+            switch (self) {
+                .PrintableConclusion => |text| {
+                    alloc.free(text);
+                },
+                else => {},
+            }
+        }
+    };
+
+    const Self = @This();
+
+    const cache_size: usize = 10;
+    const leader_timeout: i64 = 500; // ms
+
+    mode: Mode = .Normal,
+
+    // Because we are polling this lazily we will not need a buffer for now (as opposed to polling this eagerly in our own thread)
+    // input_cache: [cache_size]Action = undefined,
+    // cache_start: usize = 0,
+    // cache_end: usize = 0,
+
+    pub fn waitForActionableInput(self: *Self, alloc: std.mem.Allocator, nc_ctx: *c.notcurses) !Action {
+        var input = std.mem.zeroes(c.ncinput);
+        var leader_deadline: c.timespec = undefined;
+
+        while (true) {
+            const deadline: ?*const c.timespec = switch (self.mode) {
+                .Normal => null,
+                .Leader => &leader_deadline,
+            };
+
+            const key = c.notcurses_get(nc_ctx, deadline, &input);
+
+            if (key == 0) {
+                // Only leader mode uses a deadline, so 0 means the leader key timed out.
+                self.mode = .Normal;
+                continue;
+            }
+
+            if (key == std.math.maxInt(u32)) {
+                return error.InputFailed;
+            }
+
+            switch (self.mode) {
+                .Normal => switch (key) {
+                    ' ' => {
+                        // Space is our leader key. Enter leader mode and wait briefly
+                        // for the next key using notcurses_get() with a deadline.
+                        self.mode = .Leader;
+                        leader_deadline = makeDeadlineMs(leader_timeout);
+                        continue;
+                    },
+                    'q' => return .Quit,
+                    else => {
+                        const output = try std.fmt.allocPrintSentinel(
+                            alloc,
+                            "normal key: {d} utf8={s}",
+                            .{ key, std.mem.sliceTo(&input.utf8, 0) },
+                            0,
+                        );
+                        return .{ .PrintableConclusion = output };
+                    },
+                },
+                .Leader => {
+                    // A leader sequence consumes exactly one key after the leader.
+                    self.mode = .Normal;
+
+                    switch (key) {
+                        'f' => {
+                            const output = try std.fmt.allocPrintSentinel(alloc, "leader command: f", .{}, 0);
+                            return .{ .PrintableConclusion = output };
+                        },
+                        'g' => {
+                            const output = try std.fmt.allocPrintSentinel(alloc, "leader command: g", .{}, 0);
+                            return .{ .PrintableConclusion = output };
+                        },
+                        c.NCKEY_ESC => {
+                            const output = try std.fmt.allocPrintSentinel(alloc, "leader cancelled", .{}, 0);
+                            return .{ .PrintableConclusion = output };
+                        },
+                        else => {
+                            const output = try std.fmt.allocPrintSentinel(
+                                alloc,
+                                "unknown leader key: {d} utf8={s}",
+                                .{ key, std.mem.sliceTo(&input.utf8, 0) },
+                                0,
+                            );
+                            return .{ .PrintableConclusion = output };
+                        },
+                    }
+                },
+            }
+        }
+    }
+
+    fn makeDeadlineMs(ms: i64) c.timespec {
+        var ts: c.timespec = undefined;
+        _ = c.clock_gettime(c.CLOCK_MONOTONIC, &ts);
+
+        ts.tv_sec += @divTrunc(ms, 1000);
+        ts.tv_nsec += @mod(ms, 1000) * 1_000_000;
+
+        if (ts.tv_nsec >= 1_000_000_000) {
+            ts.tv_sec += 1;
+            ts.tv_nsec -= 1_000_000_000;
+        }
+
+        return ts;
+    }
+};
+
 const Program = enum {
     SimplePrint,
     KeyReading,
@@ -141,6 +265,7 @@ const Program = enum {
     Planes,
     PlaneScrolling,
     Cell,
+    MultiModal,
 
     const Self = @This();
 
@@ -178,6 +303,8 @@ const Program = enum {
             return .PlaneScrolling;
         } else if (std.mem.eql(u8, conv_buf, "cell")) {
             return .Cell;
+        } else if (std.mem.eql(u8, conv_buf, "multimodal")) {
+            return .MultiModal;
         }
 
         return null;
@@ -766,6 +893,30 @@ const Program = enum {
 
                     if (key == 'q') {
                         break;
+                    }
+                }
+            },
+
+            .MultiModal => {
+                var input_parser: InputParser = .{};
+                const alloc = std.heap.page_allocator;
+
+                while (true) {
+                    const action = try input_parser.waitForActionableInput(alloc, nc_ctx);
+                    defer action.deinit(alloc);
+
+                    c.ncplane_erase(stdplane);
+                    _ = c.ncplane_putstr_yx(stdplane, 1, 2, "space is leader; space+f / space+g; q quits");
+
+                    if (action == .PrintableConclusion) {
+                        const text = action.PrintableConclusion;
+                        _ = c.ncplane_putstr_yx(stdplane, 2, 2, text);
+                    } else if (action == .Quit) {
+                        break;
+                    }
+
+                    if (c.notcurses_render(nc_ctx) < 0) {
+                        return error.RenderFailed;
                     }
                 }
             },
